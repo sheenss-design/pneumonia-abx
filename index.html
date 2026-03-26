@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta name="theme-color" content="#1a56db">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="항균제 가이드">
+<title>폐렴 항균제 선택 가이드</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{min-height:100%;background:#f3f4f6;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:15px;color:#111827}
+.app{max-width:540px;margin:0 auto;min-height:100%;display:flex;flex-direction:column}
+.topbar{background:#1a56db;color:#fff;padding:12px 16px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:100}
+.topbar-icon{width:28px;height:28px;background:rgba(255,255,255,.2);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0}
+.topbar h1{font-size:15px;font-weight:700;flex:1}
+.topbar-sub{font-size:10px;opacity:.8}
+.warn{background:#fef2f2;border-left:3px solid #ef4444;padding:10px 14px;margin:10px 12px 4px;border-radius:0 8px 8px 0;font-size:12px;color:#991b1b;line-height:1.5;font-weight:500}
+.src{font-size:10px;color:#9ca3af;margin:0 12px 10px;padding:5px 10px;background:#f9fafb;border-radius:6px;border:1px solid #e5e7eb}
+.steps{display:flex;background:#fff;border-bottom:2px solid #e5e7eb;position:sticky;top:52px;z-index:99}
+.step{flex:1;padding:10px 4px;text-align:center;font-size:11px;font-weight:600;color:#6b7280;border-bottom:2.5px solid transparent;cursor:pointer;margin-bottom:-2px}
+.step.on{color:#1a56db;border-bottom-color:#1a56db}
+.panel{display:none;padding:12px;flex:1}.panel.on{display:block}
+.sb-bar{background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:7px 12px;margin-bottom:10px;font-size:11px;color:#1e40af;display:none;line-height:1.7}
+.sb-bar.on{display:block}
+.lbl{font-size:11px;font-weight:700;color:#6b7280;margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em}
+.mrow{display:flex;gap:0;margin-bottom:14px;border:2px solid #d1d5db;border-radius:8px;overflow:hidden}
+.mbtn{flex:1;padding:9px;border:none;background:#fff;font-size:13px;font-weight:600;color:#6b7280;cursor:pointer;font-family:inherit;transition:all .15s}
+.mbtn:not(:last-child){border-right:1px solid #d1d5db}
+.mbtn.on{background:#1a56db;color:#fff}
+.sel-count{display:none;font-size:12px;font-weight:700;color:#1e40af;background:#eff6ff;border:1px solid #bfdbfe;border-radius:20px;padding:4px 12px;margin-bottom:10px}
+.sel-count.on{display:inline-flex;align-items:center;gap:5px}
+.grp-hdr{font-size:10px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.08em;padding:10px 0 5px;grid-column:1/-1;border-top:1px solid #f3f4f6;margin-top:4px}
+.grp-hdr:first-child{border-top:none;margin-top:0;padding-top:0}
+.og{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.oc{border:2px solid #e5e7eb;border-radius:8px;padding:10px;cursor:pointer;background:#fff;text-align:left;width:100%;position:relative;transition:all .12s;user-select:none}
+.oc:active{transform:scale(.96)}
+.oc.on{border:2.5px solid #1a56db;background:#eff6ff;box-shadow:0 0 0 3px rgba(26,86,219,.13)}
+.oc .chk{display:none;position:absolute;top:5px;right:6px;width:16px;height:16px;background:#1a56db;border-radius:50%;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:700}
+.oc.on .chk{display:flex}
+.oc .ol{font-size:12px;font-weight:700;display:block;margin-bottom:2px;color:#111827;font-style:italic}
+.oc.on .ol{color:#1a56db}
+.oc .oh{font-size:10px;color:#9ca3af;line-height:1.3}
+.oc.on .oh{color:#1a56db;opacity:.8}
+.ib{background:#fff;border:2px solid #e5e7eb;border-radius:10px;margin-bottom:10px;overflow:hidden}
+.ih{display:flex;align-items:center;justify-content:space-between;padding:9px 12px;background:#f9fafb;border-bottom:1px solid #e5e7eb}
+.in{font-size:13px;font-weight:700;font-style:italic}
+.rb{font-size:11px;padding:3px 10px;border:2px solid #fca5a5;border-radius:6px;background:none;color:#ef4444;cursor:pointer;font-weight:600}
+.ibody{padding:11px 12px}
+.gg{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:6px}
+.gb{border:2px solid #e5e7eb;border-radius:8px;padding:8px 10px;cursor:pointer;text-align:left;background:#fff;width:100%;position:relative;transition:all .12s;user-select:none}
+.gb:active{transform:scale(.96)}
+.gb.on{border:2.5px solid #1a56db;background:#eff6ff;box-shadow:0 0 0 2px rgba(26,86,219,.1)}
+.gb .gck{display:none;position:absolute;top:4px;right:5px;width:14px;height:14px;background:#1a56db;border-radius:50%;align-items:center;justify-content:center;font-size:8px;color:#fff;font-weight:700}
+.gb.on .gck{display:flex}
+.gb .gn{font-size:11px;font-weight:700;font-family:monospace;display:block;color:#111827;margin-bottom:1px}
+.gb.on .gn{color:#1a56db}
+.gb .gd{font-size:10px;color:#9ca3af;line-height:1.3}
+.gb.on .gd{color:#1a56db;opacity:.8}
+.ng{font-size:12px;color:#6b7280;padding:8px 10px;background:#f9fafb;border-radius:6px}
+.neg{font-size:11px;color:#065f46;padding:7px 10px;background:#f0fdf4;border:1px solid #6ee7b7;border-radius:6px;margin-top:5px;line-height:1.5}
+.cw{font-size:11px;color:#92400e;padding:7px 10px;background:#fffbeb;border:1px solid #fcd34d;border-radius:6px;margin-top:5px;line-height:1.5}
+/* 중증도: 글씨만, 강조 명확 */
+.sev-wrap{margin-bottom:14px}
+.sr{display:flex;gap:8px}
+.sb{flex:1;padding:12px 4px;border:2px solid #e5e7eb;border-radius:8px;background:#fff;cursor:pointer;font-size:13px;font-weight:700;color:#6b7280;text-align:center;transition:all .15s;font-family:inherit;user-select:none}
+.sb:active{transform:scale(.96)}
+.sb.sv{border:2.5px solid #ef4444;background:#ef4444;color:#fff;box-shadow:0 0 0 3px rgba(239,68,68,.2)}
+.sb.mo{border:2.5px solid #f59e0b;background:#f59e0b;color:#fff;box-shadow:0 0 0 3px rgba(245,158,11,.2)}
+.sb.mi{border:2.5px solid #10b981;background:#10b981;color:#fff;box-shadow:0 0 0 3px rgba(16,185,129,.2)}
+.sev-msg{margin-top:8px;font-size:12px;padding:7px 12px;border-radius:8px;font-weight:600;display:none;line-height:1.4}
+.sev-msg.sv{display:block;background:#fef2f2;color:#9b1c1c;border:1px solid #fca5a5}
+.sev-msg.mo{display:block;background:#fffbeb;color:#92400e;border:1px solid #fcd34d}
+.sev-msg.mi{display:block;background:#f0fdf4;color:#065f46;border:1px solid #6ee7b7}
+.nav{display:flex;justify-content:space-between;align-items:center;padding:12px 0 2px;margin-top:8px;border-top:1px solid #e5e7eb}
+.nbtn{padding:10px 20px;border:2px solid #d1d5db;border-radius:8px;background:#fff;font-size:13px;font-weight:700;color:#374151;cursor:pointer;font-family:inherit;transition:all .15s}
+.nbtn:active{transform:scale(.96)}
+.nbtn.p{background:#1a56db;color:#fff;border-color:#1a56db}
+.nbtn:disabled{opacity:.35;pointer-events:none}
+.ko-legend{font-size:11px;color:#856404;background:#fff3cd;border:1px solid #ffc107;border-radius:8px;padding:7px 12px;margin-bottom:10px;line-height:1.5}
+.roh{font-size:12px;font-weight:700;color:#374151;padding:7px 12px;background:#f3f4f6;border-radius:8px;margin:14px 0 7px;border-left:3px solid #1a56db}
+.dc{border-radius:8px;padding:10px 13px;margin-bottom:6px;background:#fff;border:1px solid #e5e7eb}
+.dc.d1{border-left:3px solid #10b981}
+.dc.d2{border-left:3px solid #f59e0b}
+.dc.d3{border-left:3px solid #ef4444}
+.dc.da{border-left:3px solid #ef4444;background:#fef2f2}
+.dc.dm{border-left:3px solid #1a56db;background:#eff6ff}
+.dh{display:flex;align-items:flex-start;gap:7px;margin-bottom:2px;flex-wrap:wrap}
+.dn{font-weight:700;font-size:13px;flex:1}
+.db2{font-size:11px;color:#6b7280;width:100%;margin-top:1px}
+.dc.da .dn,.dc.da .db2{color:#9b1c1c}
+.dc.dm .dn,.dc.dm .db2{color:#1e40af}
+.bdg{font-size:10px;padding:2px 8px;border-radius:20px;font-weight:700;white-space:nowrap;flex-shrink:0}
+.b1{background:#d1fae5;color:#065f46}.b2{background:#fef3c7;color:#92400e}
+.b3{background:#fee2e2;color:#9b1c1c}.ba{background:#fee2e2;color:#9b1c1c}.bm{background:#dbeafe;color:#1e40af}
+.dn2{font-size:11px;color:#6b7280;line-height:1.5;margin-top:2px}
+.dc.da .dn2{color:#9b1c1c}.dc.dm .dn2{color:#1e40af}
+.ko-badge{display:inline-block;font-size:10px;padding:1px 5px;background:#fff3cd;color:#856404;border:1px solid #ffc107;border-radius:10px;font-weight:700;margin-left:4px;vertical-align:middle}
+.dosing-box{background:#f5f3ff;border:1px solid #c4b5fd;border-radius:8px;padding:9px 12px;margin-top:5px}
+.dosing-title{font-size:11px;font-weight:700;color:#5b21b6;margin-bottom:3px}
+.dosing-content{font-size:11px;color:#4c1d95;line-height:1.6}
+.pb{border-radius:8px;padding:9px 13px;margin-bottom:8px;border:1px solid}
+.ph{font-size:12px;font-weight:700;margin-bottom:3px}
+.pp{font-size:11px;line-height:1.5}
+.cbox{border:1px solid #bfdbfe;border-radius:10px;padding:11px 14px;margin-bottom:9px;background:#eff6ff}
+.ct{font-size:13px;font-weight:700;color:#1e40af;margin-bottom:5px}
+.cn{font-size:12px;color:#1e40af;line-height:1.7}
+.dbox{border:1px solid #fca5a5;border-radius:10px;padding:11px 14px;margin-bottom:9px;background:#fef2f2}
+.dt{font-size:13px;font-weight:700;color:#9b1c1c;margin-bottom:3px}
+.dn3{font-size:12px;color:#9b1c1c;line-height:1.6}
+.nbox{background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:9px 12px;margin-top:5px}
+.nbox p{font-size:11px;color:#6b7280;line-height:1.7}
+.sl{font-size:10px;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:.07em;margin:8px 0 5px}
+.dv{border:none;border-top:1px solid #e5e7eb;margin:12px 0}
+.rst{font-size:12px;color:#6b7280;background:none;border:none;cursor:pointer;text-decoration:underline;padding:0;font-family:inherit}
+</style>
+</head>
+<body>
+<div class="app">
+<div class="topbar">
+  <div class="topbar-icon">Rx</div>
+  <div><h1>폐렴 항균제 선택 가이드</h1><div class="topbar-sub">IDSA 2024 AMR Guidance 기반 · v3.0</div></div>
+</div>
+<div class="warn">⚠ PCR 결과는 보조 지표입니다. 최종 항균제 선택은 반드시 표현형 배양 감수성(MIC)을 확인하십시오.</div>
+<div class="src">근거: IDSA 2024 AMR Guidance · ATS/IDSA 2019 CAP · ATS/IDSA 2016 HAP/VAP · IDSA MRSA Guidelines</div>
+<div class="steps">
+  <div class="step on" id="t0" onclick="go(0)">① 균주</div>
+  <div class="step" id="t1" onclick="go(1)">② 유전자/중증도</div>
+  <div class="step" id="t2" onclick="go(2)">③ 항균제 추천</div>
+</div>
+
+<div id="p0" class="panel on">
+  <div class="lbl">검사 모드</div>
+  <div class="mrow">
+    <button class="mbtn on" id="ms" onclick="setM('s')">단일 균주</button>
+    <button class="mbtn" id="mm" onclick="setM('m')">다중균주</button>
+  </div>
+  <div class="sel-count" id="sel-count"></div>
+  <div class="og" id="og"></div>
+  <div class="nav"><span></span><button class="nbtn p" id="bn0" onclick="go(1)" disabled>다음 →</button></div>
+</div>
+
+<div id="p1" class="panel">
+  <div class="sb-bar" id="sb-bar"></div>
+  <div id="il"></div>
+  <div class="dv"></div>
+  <div class="sev-wrap">
+    <div class="lbl">임상 중증도</div>
+    <div class="sr">
+      <button class="sb" id="s0" onclick="setSev('severe')">중증/ICU</button>
+      <button class="sb" id="s1" onclick="setSev('moderate')">중등도</button>
+      <button class="sb" id="s2" onclick="setSev('mild')">경증</button>
+    </div>
+    <div class="sev-msg" id="sev-msg"></div>
+  </div>
+  <div class="nav">
+    <button class="nbtn" onclick="go(0)">← 이전</button>
+    <button class="nbtn p" onclick="buildR()">결과 보기 →</button>
+  </div>
+</div>
+
+<div id="p2" class="panel">
+  <div class="ko-legend">★ = 한국 미출시 — Cefiderocol · Meropenem-vaborbactam · Imipenem-relebactam · Sulbactam-durlobactam · Aztreonam-avibactam</div>
+  <div id="ra"></div>
+  <div class="nav">
+    <button class="rst" onclick="rst()">처음부터 다시</button>
+    <button class="nbtn" onclick="go(1)">← 조건 수정</button>
+  </div>
+</div>
+</div>
+
+<script>
+var S={mode:'s',orgs:[],genes:{},sev:null};
+var OR={
+  kp_group:{l:'K. pneumoniae group',h:'KPC / NDM / OXA-48 / CTX-M',g:['KPC','NDM','OXA48','CTXM'],grp:'GN'},
+  ecoli:{l:'Escherichia coli',h:'KPC / NDM / OXA-48 / CTX-M',g:['KPC','NDM','OXA48','CTXM'],grp:'GN'},
+  k_aerogenes:{l:'Klebsiella aerogenes',h:'AmpC 내재 / CTX-M / KPC',g:['KPC','CTXM'],grp:'GN'},
+  k_oxytoca:{l:'Klebsiella oxytoca',h:'CTX-M / KPC',g:['KPC','CTXM'],grp:'GN'},
+  enterobacter:{l:'Enterobacter cloacae complex',h:'AmpC 내재 / KPC / CTX-M',g:['KPC','CTXM'],grp:'GN'},
+  serratia:{l:'Serratia marcescens',h:'AmpC 내재 / IMP / CTX-M',g:['IMP','CTXM'],grp:'GN'},
+  proteus:{l:'Proteus spp.',h:'CTX-M / AmpC 내재',g:['CTXM'],grp:'GN'},
+  pseudomonas:{l:'P. aeruginosa',h:'VIM / IMP',g:['VIM','IMP'],grp:'GN'},
+  acb:{l:'Acb complex',h:'OXA-48-like / NDM · CRAB',g:['OXA48','NDM'],grp:'GN'},
+  h_influenzae:{l:'H. influenzae',h:'β-lactamase / ampicillin 내성',g:[],grp:'GN'},
+  moraxella:{l:'Moraxella catarrhalis',h:'β-lactamase 생산균',g:[],grp:'GN'},
+  s_aureus:{l:'Staphylococcus aureus',h:'mecA/C (MRSA) 여부 확인',g:['mecA'],grp:'GP'},
+  s_pneumo:{l:'Streptococcus pneumoniae',h:'폐렴구균, β-lactam 감수성 대부분 유지',g:[],grp:'GP'},
+  s_agalac:{l:'Streptococcus agalactiae',h:'Group B Strep, β-lactam 감수성',g:[],grp:'GP'},
+  s_pyogenes:{l:'Streptococcus pyogenes',h:'Group A Strep, β-lactam 감수성',g:[],grp:'GP'},
+  chlamydia:{l:'Chlamydia pneumoniae',h:'세포내 기생균, macrolide/FQ',g:[],grp:'ATY'},
+  legionella:{l:'Legionella pneumophila',h:'세포내 기생균, FQ/macrolide',g:[],grp:'ATY'},
+  mycoplasma:{l:'Mycoplasma pneumoniae',h:'세포벽 없음, macrolide/FQ/doxy',g:[],grp:'ATY'},
+};
+var GM={KPC:{n:'KPC',d:'KPC-2/3 (Serine carbapenemase)'},NDM:{n:'NDM',d:'NDM-1/5 (MBL Class B)'},OXA48:{n:'OXA-48-like',d:'Serine carbapenemase, Class D'},CTXM:{n:'CTX-M',d:'CTX-M group (ESBL)'},IMP:{n:'IMP',d:'IMP-type (MBL, integron 매개)'},VIM:{n:'VIM',d:'VIM-2 등 (MBL, integron 매개)'},mecA:{n:'mecA/C (MRSA)',d:'MRSA 내성 유전자'}};
+var KO={Cefiderocol:1,Fetroja:1,'Meropenem-vaborbactam':1,Vabomere:1,'Imipenem-relebactam':1,Recarbrio:1,'Sulbactam-durlobactam':1,Xacduro:1,'Aztreonam-avibactam':1,Emblaveo:1};
+var DOSE={'Cefepime 고용량 연장주입':{t:'Cefepime 고용량 연장주입',c:'용량: 2g IV q8h (또는 q6h)\n투여: 각 용량을 4시간에 걸쳐 연장주입\n근거: Time-dependent 살균 — %T>MIC 극대화'},'Meropenem 고용량 연장주입':{t:'Meropenem 고용량 연장주입',c:'용량: 2g IV q8h\n투여: 각 용량을 3시간에 걸쳐 연장주입'},'Pip-tazo 연장주입':{t:'Piperacillin-tazobactam 연장주입',c:'용량: 4.5g IV q6h\n투여: 각 용량을 4시간에 걸쳐 연장주입'},'Vancomycin AUC 기반':{t:'Vancomycin AUC/MIC 기반 TDM (ASHP/IDSA 2020)',c:'목표: AUC/MIC = 400–600 mg·h/L\n초기 부하 용량: 25–30 mg/kg IV (중증 시)\n주의: trough 단독 모니터링 비권장 (신독성 위험)'},'Ampicillin-sulbactam 고용량':{t:'Ampicillin-sulbactam 고용량 (IDSA 2024 CRAB)',c:'용량: Ampicillin 18g + Sulbactam 9g = 총 27g/day\n투여: q4–6h, 각 용량 3–4시간 연장주입\n주의: Sulbactam MIC ≥8 μg/mL 시 전환 고려'}};
+
+function go(n){for(var i=0;i<3;i++){document.getElementById('p'+i).className='panel'+(i===n?' on':'');document.getElementById('t'+i).className='step'+(i===n?' on':'');}if(n===1){rendIL();rendSB();}window.scrollTo(0,0);}
+function rendSB(){var b=document.getElementById('sb-bar');if(!S.orgs.length){b.className='sb-bar';return;}var gs=[];S.orgs.forEach(function(k){(S.genes[k]||[]).forEach(function(g){if(GM[g]&&gs.indexOf(GM[g].n)<0)gs.push(GM[g].n);});});var sl={severe:'중증/ICU ⚠',moderate:'중등도',mild:'경증'};var parts=['<strong>균주:</strong> '+S.orgs.map(function(k){return OR[k].l;}).join(', ')];if(gs.length)parts.push('<strong>유전자:</strong> '+gs.join(', '));if(S.sev)parts.push('<strong>중증도:</strong> '+sl[S.sev]);b.innerHTML=parts.join('&nbsp;|&nbsp;');b.className='sb-bar on';}
+function setM(m){S.mode=m;S.orgs=[];S.genes={};document.getElementById('ms').className='mbtn'+(m==='s'?' on':'');document.getElementById('mm').className='mbtn'+(m==='m'?' on':'');document.getElementById('bn0').disabled=true;rendSC();rendOG();}
+function rendSC(){var sc=document.getElementById('sel-count');if(S.mode==='m'&&S.orgs.length>0){sc.className='sel-count on';sc.innerHTML='✓ '+S.orgs.length+'개 선택됨 — '+S.orgs.map(function(k){return'<em>'+OR[k].l+'</em>';}).join(', ');}else sc.className='sel-count';}
+function rendOG(){var h='';[{k:'GN',l:'그람음성균'},{k:'GP',l:'그람양성균'},{k:'ATY',l:'비정형균'}].forEach(function(grp){var keys=Object.keys(OR).filter(function(k){return OR[k].grp===grp.k;});if(!keys.length)return;h+='<div class="grp-hdr">'+grp.l+'</div>';keys.forEach(function(k){var o=OR[k];var sel=S.orgs.indexOf(k)>=0;h+='<button class="oc'+(sel?' on':'')+'" onclick="togO(\''+k+'\')">'+'<span class="chk">✓</span><span class="ol">'+o.l+'</span><span class="oh">'+o.h+'</span></button>';});});document.getElementById('og').innerHTML=h;}
+function togO(k){if(S.mode==='s'){S.orgs=[k];S.genes={};S.genes[k]=[];rendOG();rendSC();document.getElementById('bn0').disabled=false;return;}var i=S.orgs.indexOf(k);if(i>=0){S.orgs.splice(i,1);delete S.genes[k];}else{S.orgs.push(k);S.genes[k]=[];}rendOG();rendSC();document.getElementById('bn0').disabled=(S.orgs.length===0);}
+function rendIL(){var h='';S.orgs.forEach(function(k){var o=OR[k];if(!S.genes[k])S.genes[k]=[];var gh='';if(o.g.length===0){gh='<div class="ng">이 균주의 내성 유전자는 현재 PCR 패널에 포함되어 있지 않습니다. 균주 동정 결과만으로 항균제 선택이 이루어집니다.</div>';}else{gh='<div class="gg">';o.g.forEach(function(g){var m=GM[g];var gs=S.genes[k].indexOf(g)>=0;gh+='<button class="gb'+(gs?' on':'')+'" onclick="togG(\''+k+'\',\''+g+'\')">'+'<span class="gck">✓</span><span class="gn">'+m.n+'</span><span class="gd">'+m.d+'</span></button>';});gh+='</div>';var noG=S.genes[k].length===0;if(noG&&(k==='enterobacter'||k==='serratia'||k==='k_aerogenes'))gh+='<div class="neg">내성 유전자 미검출 — AmpC 염색체 내재로 Ceftazidime·Pip-tazo 중증 비권장. Cefepime MIC 확인 권장.</div>';if(noG&&(k==='kp_group'||k==='ecoli'||k==='k_oxytoca'||k==='proteus'))gh+='<div class="neg">내성 유전자 미검출 — Carbapenem 또는 Cefepime 우선. Pip-tazo: ESBL 위음성 가능성으로 비뇨기외 비권장.</div>';}h+='<div class="ib"><div class="ih"><span class="in">'+o.l+'</span>'+(S.orgs.length>1?'<button class="rb" onclick="remO(\''+k+'\')">제거</button>':'')+'</div><div class="ibody">'+gh+'</div></div>';});document.getElementById('il').innerHTML=h;}
+function togG(org,g){if(!S.genes[org])S.genes[org]=[];var i=S.genes[org].indexOf(g);if(i>=0)S.genes[org].splice(i,1);else S.genes[org].push(g);rendIL();rendSB();}
+function remO(k){var i=S.orgs.indexOf(k);if(i>=0){S.orgs.splice(i,1);delete S.genes[k];}rendOG();rendSC();rendIL();document.getElementById('bn0').disabled=(S.orgs.length===0);}
+function setSev(s){S.sev=s;var cls={severe:'sv',moderate:'mo',mild:'mi'};var ks=['severe','moderate','mild'];for(var i=0;i<3;i++)document.getElementById('s'+i).className='sb'+(ks[i]===s?' '+cls[ks[i]]:'');var msgs={severe:'중증/ICU — 카바페넴 우선·광범위 커버 로직 적용',moderate:'중등도 — 감수성 결과에 따라 step-down 고려',mild:'경증 — 경구 전환 및 협범위 약제 우선 고려'};var el=document.getElementById('sev-msg');el.textContent=msgs[s];el.className='sev-msg '+cls[s];rendSB();}
+function getRec(org,genes,sev){var g=genes||[];var noG=g.length===0;var hKPC=g.indexOf('KPC')>=0,hNDM=g.indexOf('NDM')>=0,hOXA=g.indexOf('OXA48')>=0,hCTXM=g.indexOf('CTXM')>=0,hIMP=g.indexOf('IMP')>=0,hVIM=g.indexOf('VIM')>=0,hmecA=g.indexOf('mecA')>=0,sv=sev==='severe',mil=sev==='mild';
+if(org==='h_influenzae')return{pl:'high',pcr:'H. influenzae — β-lactamase 생산 여부에 따라 선택.',f:[{n:'Amoxicillin-clavulanate',b:'',nt:'β-lactamase 포함 커버'},{n:'Ceftriaxone',b:'1–2g IV q24h',nt:'입원 환자 표준'}],s:[{n:'Levofloxacin',b:'750mg q24h',nt:'감수성 확인 후'},{n:'Azithromycin',b:'',nt:'비정형균 동반 시'}],t:[],av:[],ns:['ATS/IDSA 2019 CAP: β-lactam + macrolide 또는 FQ 단독']};
+if(org==='moraxella')return{pl:'high',pcr:'M. catarrhalis — 거의 모두 β-lactamase 생산.',f:[{n:'Amoxicillin-clavulanate',b:'',nt:'경증~중등도 1차'},{n:'Ceftriaxone',b:'',nt:'입원 환자'}],s:[{n:'Azithromycin',b:'',nt:'비정형균 동반 시'},{n:'Levofloxacin/Moxifloxacin',b:'',nt:'FQ 단독'}],t:[],av:[{n:'Ampicillin 단독',nt:'β-lactamase 생산으로 비활성'}],ns:[]};
+if(org==='s_pneumo')return{pl:'high',pcr:'S. pneumoniae — 대부분 β-lactam 감수성 유지.',f:[{n:'Ceftriaxone',b:'1–2g IV q24h',nt:'입원 환자 1차 + macrolide 병합'},{n:'Ampicillin-sulbactam',b:'1.5–3g IV q6h',nt:'대안'}],s:[{n:'Azithromycin',b:'500mg IV/PO q24h',nt:'비정형균 커버 — ceftriaxone과 병합'},{n:'Levofloxacin',b:'750mg q24h',nt:'FQ 단독 (β-lactam 금기 시)'}],t:[],av:[],ns:['ATS/IDSA 2019 CAP 입원: β-lactam + macrolide 또는 FQ 단독 (strong evidence)',sv?'중증 CAP: β-lactam + macrolide 또는 β-lactam + FQ 병합':''].filter(Boolean)};
+if(org==='chlamydia'||org==='mycoplasma')return{pl:'high',pcr:'세포내 기생균 — β-lactam 단독 치료 불충분.',f:[{n:'Azithromycin',b:'500mg IV/PO q24h',nt:'1차 macrolide'},{n:'Doxycycline',b:'100mg IV/PO q12h',nt:'macrolide 대안'}],s:[{n:'Levofloxacin',b:'750mg q24h',nt:'FQ 단독'},{n:'Moxifloxacin',b:'400mg q24h',nt:'FQ 대안'}],t:[],av:[{n:'β-lactam 단독',nt:'세포내 기생균에 비활성 — macrolide/FQ 추가 필수'}],ns:['Mycoplasma: 한국 macrolide 내성률 높음 → FQ 또는 doxycycline 우선 고려']};
+if(org==='legionella')return{pl:'high',pcr:'Legionella — 세포내 기생균. FQ 우선.',f:[{n:'Levofloxacin',b:'750mg IV/PO q24h (5–7일)',nt:'1차 (IDSA/ATS 권고)'},{n:'Moxifloxacin',b:'400mg q24h',nt:'FQ 대안'}],s:[{n:'Azithromycin',b:'500mg IV/PO q24h',nt:'FQ 금기 시'}],t:[],av:[{n:'β-lactam 단독',nt:'Legionella에 비활성'}],ns:['중증 Legionella: FQ + Azithromycin 병합 고려']};
+if(org==='s_agalac'||org==='s_pyogenes')return{pl:'high',pcr:'Streptococcus spp. — β-lactam 감수성 일관적.',f:[{n:'Penicillin G',b:'2–4 MU IV q4–6h',nt:'1차 표준'},{n:'Ceftriaxone',b:'',nt:'입원 CAP 병합 시'}],s:[{n:'Clindamycin',b:'',nt:'독소 생성 억제 (GAS toxic shock 시 병합)'}],t:[],av:[{n:'Vancomycin',nt:'β-lactam 감수성 — 불필요한 사용 피할 것'}],ns:['GAS: 괴사성 근막염·TSS 시 clindamycin 병합 권장','GBS: Penicillin 또는 ampicillin 충분']};
+if(org==='s_aureus'){if(hmecA)return{pl:'high',pcr:'mecA/C 검출 = MRSA. β-lactam 전반 비활성.',f:[{n:'Linezolid',b:'600mg IV/PO q12h',nt:'MRSA 폐렴 1차 선호 (ATS/IDSA 2016 HAP/VAP)'},{n:'Vancomycin',b:'AUC 기반 TDM',nt:'MRSA 표준; AUC/MIC 400–600 mg·h/L 목표',dose:'Vancomycin AUC 기반'}],s:[],t:[],av:[{n:'β-lactam 전반',nt:'mecA 양성 — 모두 비활성'},{n:'Daptomycin',nt:'폐렴 비권장 (폐 계면활성제에 의해 불활성화)'}],ns:['Vancomycin: ASHP/IDSA 2020 AUC/MIC 기반 TDM — trough 단독 모니터링 비권장']};return{pl:'high',pcr:'mecA/C 음성 = MSSA. β-lactam으로 충분.',f:[{n:'Oxacillin/Nafcillin',b:'2g IV q4h',nt:'MSSA 폐렴 1차'},{n:'Cefazolin',b:'2g IV q8h',nt:'Oxacillin 대안'}],s:[{n:'Ampicillin-sulbactam',b:'3g IV q6h',nt:'경증 대안'}],t:[],av:[{n:'Vancomycin',nt:'MSSA에서 β-lactam 대비 열등'}],ns:['MSSA 폐렴: Oxacillin/cefazolin이 vancomycin보다 임상 성적 우수']};}
+if(org==='acb'){if(hNDM)return{pl:'low',pcr:'NDM+OXA 복합: CAZ-AVI·IMI-REL·MER-VAB 모두 비활성.',f:[{n:'Cefiderocol',b:'Fetroja',nt:'복합 carbapenemase에도 활성 — 병합 필수'}],s:[{n:'Sulbactam-durlobactam + Carbapenem',b:'Xacduro + Meropenem/Imipenem',nt:'NDM 단독 시 일부 활성'}],t:[{n:'Colistin',b:'',nt:'신독성, 최후 수단'}],av:[{n:'CAZ-AVI/IMI-REL/MER-VAB',nt:'MBL+OXA 동시 비활성'}],ns:['표현형 없이 치료 선택 매우 위험']};if(noG)return{pl:'low',pcr:'내성 유전자 미검출 — Pip-tazo·Ceftazidime intrinsic resistance로 비활성.',f:[{n:'Sulbactam-durlobactam + Carbapenem',b:'Xacduro + Meropenem/Imipenem-cilastatin',nt:'IDSA 2024 CRAB 1차 선호 — 병합 필수'},{n:'Ampicillin-sulbactam 고용량 + 병합',b:'Sulbactam 9g/day (총 27g/day)',nt:'Xacduro 불가 시 대안',dose:'Ampicillin-sulbactam 고용량'}],s:[{n:'Carbapenem',b:'',nt:'감수성 확인 후'},{n:'Cefiderocol',b:'Fetroja',nt:'병합 고려'}],t:[],av:[{n:'Piperacillin-tazobactam',nt:'intrinsic resistance'},{n:'Ceftazidime',nt:'intrinsic resistance'}],ns:['OXA-23 추가 검사 권장']};return{pl:hOXA?'moderate':'low',pcr:hOXA?'OXA-48 검출: CRAB 주요 기전.':'OXA-51만: 단독 내성 예측력 낮음.',f:[{n:'Sulbactam-durlobactam + Carbapenem',b:'Xacduro + Meropenem/Imipenem-cilastatin',nt:'IDSA 2024 CRAB 1차 — 병합 필수'}],s:[{n:'Ampicillin-sulbactam 고용량 + 병합',b:'Sulbactam 9g/day, q4h 연장주입',nt:'Xacduro 불가 시 대안',dose:'Ampicillin-sulbactam 고용량'},{n:'Cefiderocol',b:'Fetroja',nt:'병합 구성 약제'}],t:[{n:'Colistin + Carbapenem',b:'',nt:'최후 수단'}],av:[],ns:['Amp-sulbactam 총용량: Ampicillin 18g + Sulbactam 9g = 27g/day']};}
+if(org==='pseudomonas'){var mbl=hVIM||hIMP;if(mbl)return{pl:'low',pcr:'VIM/IMP: integron 매개. Ceftolozane-tazobactam 불가 예측만 신뢰.',f:[{n:'Aztreonam + Ceftazidime-avibactam',b:'ATM + Zavicefta',nt:'MBL 78~93% 감수성 회복'}],s:[{n:'Cefiderocol',b:'Fetroja',nt:'MIC 확인'}],t:[{n:'Colistin',b:'',nt:'최후 수단'}],av:[{n:'Ceftolozane-tazobactam (Zerbaxa)',nt:'MBL 보유균 비활성'},{n:'IMI-REL/MER-VAB',nt:'MBL 비활성'}],ns:['모든 약제 표현형 MIC 필수']};if(noG)return{pl:'moderate',pcr:'획득 내성 유전자 미검출 — 표현형 감수성 확인 후 선택.',f:[{n:'Piperacillin-tazobactam',b:'4.5g IV q6h 연장주입',nt:'감수성 확인 후',dose:'Pip-tazo 연장주입'},{n:'Cefepime 고용량 연장주입',b:'2g IV q8h, 4시간',nt:'감수성 확인 후',dose:'Cefepime 고용량 연장주입'},{n:'Ceftazidime',b:'2g IV q8h',nt:'감수성 확인 후 (비중증)'}],s:[{n:'Carbapenem',b:sv?'Meropenem 2g q8h 연장주입':'Meropenem 1g q8h',nt:sv?'중증 우선':'',dose:sv?'Meropenem 고용량 연장주입':''},{n:'Ceftolozane-tazobactam',b:'Zerbaxa',nt:'carbapenemase 음성 MDR 시'}],t:[],av:[],ns:['모든 약제 감수성 결과 확인 필수']};return{pl:'low',pcr:'Efflux pump 유전자 정상균에도 존재 → 표현형 필수.',f:[{n:'Ceftolozane-tazobactam',b:'Zerbaxa',nt:'carbapenem 내성, carbapenemase 음성 MDR'}],s:[{n:'Ceftazidime-avibactam',b:'Zavicefta',nt:'MIC 확인'},{n:'Cefiderocol',b:'Fetroja',nt:'MIC 확인'}],t:[{n:'Colistin',b:'',nt:'최후 수단'}],av:[],ns:['전통 β-lactam 감수성 있으면 먼저 사용']};}
+if(org==='enterobacter'||org==='serratia'||org==='k_aerogenes'){if(hKPC)return{pl:'high',pcr:'KPC: 구성적 발현. PCR 예측력 높음.',f:[{n:'Ceftazidime-avibactam',b:'Zavicefta'},{n:'Meropenem-vaborbactam',b:'Vabomere'},{n:'Imipenem-relebactam',b:'Recarbrio'}],s:[{n:'Cefiderocol',b:'Fetroja'}],t:[],av:[],ns:['KPC-3 변이체: CAZ-AVI 내성 가능 → MIC 확인']};if(hIMP)return{pl:'low',pcr:'IMP(MBL): IMI-REL/MER-VAB 비활성 예측만 신뢰.',f:[{n:'Aztreonam + Ceftazidime-avibactam',b:'ATM + Zavicefta',nt:'MBL 78~93% 회복'}],s:[{n:'Cefiderocol',b:'Fetroja'}],t:[{n:'Colistin',b:'',nt:'최후'}],av:[{n:'IMI-REL/MER-VAB',nt:'MBL 비활성'}],ns:[]};var rc={pl:'low',pcr:(noG?'획득 내성 유전자 미검출 — ':'')+'AmpC 염색체 내재: 과발현 예측 불가. Cefepime MIC 직접 확인 필수.',s:[],t:[],av:[{n:'Piperacillin-tazobactam',nt:'AmpC 과발현 위험 (IDSA 2024)'},{n:'Ceftazidime',nt:'AmpC 과발현 시 가수분해 위험'}],ns:['치료 중 de-repression 내성 출현 모니터링']};if(sv)rc.f=[{n:'Carbapenem',b:'Meropenem 2g q8h 연장주입',nt:'중증',dose:'Meropenem 고용량 연장주입'}];else rc.f=[{n:'Cefepime 고용량 연장주입',b:'2g IV q8h, 4시간',nt:'비중증, MIC ≤2 조건',dose:'Cefepime 고용량 연장주입'},{n:'Carbapenem',b:'',nt:'중증 또는 MIC ≥4'}];return rc;}
+if(org==='kp_group'||org==='ecoli'||org==='k_oxytoca'||org==='proteus'){if(noG)return{pl:'moderate',pcr:'내성 유전자 미검출 — ESBL PCR 위음성 가능성 존재.',f:[{n:'Carbapenem',b:'Meropenem/Imipenem/Ertapenem',nt:sv?'중증·폐렴 우선':mil?'경증: 감수성 확인 후 FQ/TMP-SMX 고려':'표준'},{n:'Cefepime',b:'',nt:'표현형 ESBL 배제 후 (비중증)'}],s:[{n:'Fluoroquinolone/TMP-SMX',b:'',nt:'감수성 확인 후 step-down'}],t:[],av:[{n:'Piperacillin-tazobactam',nt:'ESBL 위음성 가능 + MIC 재현성 문제로 비뇨기외 비권장 (IDSA 2024)'}],ns:['PCR 음성 = ESBL 부재 보장 아님 — 표현형 확인 권장']};if(hCTXM&&!hKPC&&!hNDM&&!hOXA)return{pl:'moderate',pcr:'ESBL(CTX-M): Carbapenem 감수성 예측력 높음.',f:[{n:'Carbapenem',b:'Meropenem/Imipenem/Ertapenem',nt:sv?'중증·폐렴 우선':'중증 우선; 경증 step-down 가능'}],s:[{n:'Fluoroquinolone/TMP-SMX',b:'',nt:'표현형 감수성 확인 시 step-down'}],t:[],av:[{n:'Piperacillin-tazobactam',nt:'비뇨기외 ESBL-E 비권장 (IDSA 2024)'},{n:'Cefepime',nt:'비뇨기외 ESBL-E 비권장 (IDSA 2024)'}],ns:['FQ/TMP-SMX step-down: 표현형 필수']};if(hKPC&&hNDM)return{pl:'low',pcr:'KPC+NDM 복합: 치료 옵션 극히 제한.',f:[{n:'Aztreonam + Ceftazidime-avibactam',b:'ATM + Zavicefta',nt:'KPC+MBL 최선'}],s:[{n:'Aztreonam-avibactam',b:'Emblaveo',nt:'FDA 2023'},{n:'Cefiderocol',b:'Fetroja',nt:'MIC 확인'}],t:[{n:'Colistin',b:'',nt:'최후'}],av:[{n:'IMI-REL/MER-VAB',nt:'MBL 비활성'}],ns:['표현형 없이 치료 선택 매우 위험']};if(hKPC)return{pl:'high',pcr:'KPC: 구성적 발현.',f:[{n:'Ceftazidime-avibactam',b:'Zavicefta'},{n:'Meropenem-vaborbactam',b:'Vabomere'},{n:'Imipenem-relebactam',b:'Recarbrio'}],s:[{n:'Cefiderocol',b:'Fetroja'}],t:[],av:[],ns:['KPC-3 변이체: MIC 확인 필수']};if(hNDM)return{pl:'high',pcr:'NDM(MBL): 구성적 발현.',f:[{n:'Aztreonam + Ceftazidime-avibactam',b:'ATM + Zavicefta',nt:'MBL 78~93% 회복'}],s:[{n:'Cefiderocol',b:'Fetroja'},{n:'Aztreonam-avibactam',b:'Emblaveo',nt:'FDA 2023'}],t:[{n:'Colistin',b:'',nt:'최후'}],av:[{n:'IMI-REL/MER-VAB',nt:'MBL 비활성'}],ns:[]};if(hOXA)return{pl:'moderate',pcr:'OXA-48: carbapenem 가수분해 활성 약함.',f:[{n:'Ceftazidime-avibactam',b:'Zavicefta',nt:'OXA-48 우수'}],s:[{n:'Cefiderocol',b:'Fetroja'}],t:[],av:[{n:'IMI-REL',nt:'OXA-48 제한적'}],ns:['ESBL 동반 시 MIC 상승 가능']};}
+return{pl:'moderate',pcr:'추가 정보 필요.',f:[{n:'Carbapenem',b:'Meropenem/Imipenem'}],s:[],t:[],av:[],ns:['유전자 선택 시 더 정확한 추천 가능']};}
+
+function cross(recs){var av={};recs.forEach(function(r){(r.av||[]).forEach(function(d){av[d.n]=d;});});var do2={};recs.forEach(function(r,i){var all=[].concat(r.f||[],r.s||[],r.t||[]);all.forEach(function(d){var dn=d.n;if(!do2[dn])do2[dn]={orgs:[],mr:3};if(do2[dn].orgs.indexOf(i)<0)do2[dn].orgs.push(i);var rk=(r.f||[]).some(function(x){return x.n===dn;})?1:(r.s||[]).some(function(x){return x.n===dn;})?2:3;if(rk<do2[dn].mr)do2[dn].mr=rk;});});var full=[],part=[];Object.keys(do2).forEach(function(dn){if(av[dn])return;var info=do2[dn];if(info.orgs.length===recs.length)full.push({n:dn,rank:info.mr});else part.push({n:dn,orgs:info.orgs});});full.sort(function(a,b){return a.rank-b.rank;});return{full:full,part:part,av:av};}
+function ps(pl){if(pl==='high')return{bg:'#f0fdf4',bd:'#6ee7b7',tx:'#065f46',lb:'PCR 예측력 높음'};if(pl==='moderate')return{bg:'#fffbeb',bd:'#fcd34d',tx:'#92400e',lb:'PCR 예측력 중간 — 표현형 보완 필요'};return{bg:'#fef2f2',bd:'#fca5a5',tx:'#9b1c1c',lb:'PCR 예측력 낮음 — 표현형 필수'};}
+function koTag(n){return KO[n]?'<span class="ko-badge">★미출시</span>':'';}
+function doBox(key){if(!key||!DOSE[key])return'';var d=DOSE[key];return'<div class="dosing-box"><div class="dosing-title">특수용법 — '+d.t+'</div><div class="dosing-content">'+d.c.replace(/\n/g,'<br>')+'</div></div>';}
+function dch(d,cl,badge,bcl){var ko=koTag(d.n)||(d.b?koTag(d.b):'');return'<div class="dc '+cl+'"><div class="dh"><span class="dn">'+d.n+ko+'</span><span class="bdg '+bcl+'">'+badge+'</span></div>'+(d.b?'<div class="db2">'+d.b+'</div>':'')+(d.nt?'<div class="dn2">'+d.nt+'</div>':'')+(d.dose?doBox(d.dose):'')+' </div>';}
+function buildR(){go(2);var recs=S.orgs.map(function(k){return getRec(k,S.genes[k]||[],S.sev);});var h='';if(S.orgs.length>=2){var ca=cross(recs);var anyL=recs.some(function(r){return r.pl==='low';});h+='<div class="dbox"><div class="dt">다중균주 동시 검출 — 통합 분석</div><div class="dn3">검출 균주: '+S.orgs.map(function(k){return OR[k].l;}).join(', ')+'<br>'+(anyL?'PCR 예측력 낮은 균주 포함 — 모든 균주 표현형 MIC 확인 필수.':'항균 범위와 독성을 함께 고려하십시오.')+'</div></div>';if(ca.full.length>0){h+='<div class="cbox"><div class="ct">전 균주 커버 약제 (교집합)</div><div class="cn">';ca.full.forEach(function(d){h+='▪ '+d.n+(KO[d.n]?'<span class="ko-badge">★미출시</span>':'')+'— 전 균주 활성 ('+(d.rank===1?'1차':d.rank===2?'1~2차':'2~3차')+')<br>';});h+='</div></div>';}else h+='<div class="dbox"><div class="dt">전 균주 동시 커버 약제 없음</div><div class="dn3">병합요법 / 감염내과 협진 필요.</div></div>';if(Object.keys(ca.av).length>0){h+='<div style="font-size:10px;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:.07em;margin:8px 0 4px">공통 금기 약제</div>';Object.keys(ca.av).forEach(function(dn){h+=dch(ca.av[dn],'da','금기','ba');});}h+='<div class="dv"></div>';}
+S.orgs.forEach(function(k,idx){var r=recs[idx];var o=OR[k];var p=ps(r.pl);var gl=(S.genes[k]||[]).length?' — '+(S.genes[k]||[]).map(function(g){return GM[g]?GM[g].n:g;}).join(', '):'';var sc=S.sev?(' <span style="font-size:10px;padding:1px 7px;border-radius:10px;font-weight:700;background:'+(S.sev==='severe'?'#ef4444;color:#fff':S.sev==='moderate'?'#f59e0b;color:#fff':'#10b981;color:#fff')+';">'+(S.sev==='severe'?'중증/ICU':S.sev==='moderate'?'중등도':'경증')+'</span>'):'';h+='<div class="roh"><em>'+o.l+'</em>'+gl+sc+'</div>';h+='<div class="pb" style="background:'+p.bg+';border-color:'+p.bd+'"><div class="ph" style="color:'+p.tx+'">'+p.lb+'</div><div class="pp" style="color:'+p.tx+'">'+r.pcr+'</div></div>';if(r.av&&r.av.length){h+='<div style="font-size:10px;font-weight:700;color:#9ca3af;text-transform:uppercase;margin:8px 0 4px">사용 금기</div>';r.av.forEach(function(d){h+=dch(d,'da','금기','ba');});}if(r.f&&r.f.length){h+='<div style="font-size:10px;font-weight:700;color:#9ca3af;text-transform:uppercase;margin:8px 0 4px">우선 항균제</div>';r.f.forEach(function(d){h+=dch(d,'d1','1차','b1');});}if(r.s&&r.s.length)r.s.forEach(function(d){h+=dch(d,'d2','2차','b2');});if(r.t&&r.t.length)r.t.forEach(function(d){h+=dch(d,'d3','3차','b3');});if(r.ns&&r.ns.length)h+='<div class="nbox"><p>'+r.ns.map(function(n){return'▪ '+n;}).join('<br>')+'</p></div>';});document.getElementById('ra').innerHTML=h;}
+function rst(){S={mode:'s',orgs:[],genes:{},sev:null};document.getElementById('ms').className='mbtn on';document.getElementById('mm').className='mbtn';document.getElementById('bn0').disabled=true;for(var i=0;i<3;i++)document.getElementById('s'+i).className='sb';document.getElementById('sev-msg').className='sev-msg';document.getElementById('sb-bar').className='sb-bar';document.getElementById('sel-count').className='sel-count';rendOG();go(0);}
+rendOG();
+if('serviceWorker' in navigator)window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});
+</script>
+</body>
+</html>
