@@ -161,7 +161,7 @@ html,body{min-height:100%;background:#f3f4f6;font-family:-apple-system,BlinkMacS
   <div class="nav"><button class="nbtn" onclick="go(0)">← 이전</button><button class="nbtn p" onclick="buildR()">결과 보기 →</button></div>
 </div>
 <div id="p2" class="panel">
-  <div class="ko-legend">★ = 한국 미출시 — Cefiderocol · Meropenem-vaborbactam · Imipenem-relebactam · Sulbactam-durlobactam · Aztreonam-avibactam</div>
+  <div class="ko-legend">★ = 한국 미출시 — Cefiderocol · Meropenem-vaborbactam · Imipenem-relebactam · Sulbactam-durlobactam · Aztreonam-avibactam · Oxacillin</div>
   <div class="idsa-legend">⚠ IDSA 미언급 = IDSA 2024 가이드라인에서 직접 언급되지 않은 약제 (in vitro 근거 또는 국내 임상 경험 기반)</div>
   <div id="ra"></div>
   <div class="nav"><button class="rst" onclick="rst()">처음부터 다시</button><button class="nbtn" onclick="go(1)">← 조건 수정</button></div>
@@ -191,7 +191,7 @@ var OR={
   mycoplasma:{l:'Mycoplasma pneumoniae',h:'세포벽 없음, macrolide/FQ/doxy',g:[],grp:'ATY'},
 };
 var GM={KPC:{n:'KPC',d:'KPC-2/3 (Serine carbapenemase)'},NDM:{n:'NDM',d:'NDM-1/5 (MBL Class B)'},OXA48:{n:'OXA-48-like',d:'Serine carbapenemase, Class D'},CTXM:{n:'CTX-M',d:'CTX-M group (ESBL)'},IMP:{n:'IMP',d:'IMP-type (MBL, integron 매개)'},VIM:{n:'VIM',d:'VIM-2 등 (MBL, integron 매개)'},mecA:{n:'mecA/C (MRSA)',d:'MRSA 내성 유전자'}};
-var KO_KW=['Cefiderocol','Fetroja','Meropenem-vaborbactam','Vabomere','Imipenem-relebactam','Recarbrio','Sulbactam-durlobactam','Xacduro','Aztreonam-avibactam','Emblaveo'];
+var KO_KW=['Cefiderocol','Fetroja','Meropenem-vaborbactam','Vabomere','Imipenem-relebactam','Recarbrio','Sulbactam-durlobactam','Xacduro','Aztreonam-avibactam','Emblaveo','Oxacillin'];
 function isKO(n){for(var i=0;i<KO_KW.length;i++)if(n.indexOf(KO_KW[i])>=0)return true;return false;}
 // IDSA 미언급 약제
 var IDSA_NM=['Piperacillin-sulbactam'];
@@ -301,10 +301,10 @@ function getRec(org,genes,sev){
       s:[],t:[],av:[{n:'β-lactam 전반',nt:'mecA 양성 — 모두 비활성'},{n:'Daptomycin',nt:'폐렴 비권장 (폐 계면활성제에 의해 불활성화)'}],
       ns:['Vancomycin: ASHP/IDSA 2020 AUC/MIC 기반 TDM — trough 단독 모니터링 비권장']};
     return{pl:'high',pcr:'mecA/C 음성 = MSSA. β-lactam으로 충분.',
-      f:[{n:'Oxacillin/Nafcillin',b:'2g IV q4h',nt:'MSSA 폐렴 1차 (국내: Oxacillin)'},{n:'Cefazolin',b:'2g IV q8h',nt:'Oxacillin 대안'}],
+      f:[{n:'Nafcillin',b:'2g IV q4h',nt:'MSSA 폐렴 1차 — antistaphylococcal penicillin (ATS/IDSA 2016)'},{n:'Oxacillin',b:'2g IV q4h',nt:'Nafcillin 동급 1차'},{n:'Cefazolin',b:'2g IV q8h',nt:'동등한 1차 — 투여 빈도 적고(q8h) 부작용 프로파일 우수 (신독성·간독성 낮음)'}],
       s:[{n:'Ampicillin-sulbactam',b:'3g IV q6h',nt:'경증 대안'}],t:[],
       av:[{n:'Vancomycin',nt:'MSSA에서 β-lactam 대비 열등 — 불필요한 사용 피할 것'}],
-      ns:['MSSA 폐렴: Oxacillin/cefazolin이 vancomycin보다 임상 성적 우수']};}
+      ns:['MSSA 폐렴: Nafcillin/Oxacillin/Cefazolin 모두 동등한 1차 — vancomycin보다 임상 성적 우수','Cefazolin: meta-analysis에서 사망률(OR 0.69)·신독성(OR 0.36)·간독성(OR 0.12) 모두 antistaphylococcal penicillin 대비 유리','Oxacillin: 국내 미출시 — Nafcillin 또는 Cefazolin으로 대체 사용']};}
 
   // ── ACB (CRAB) ─────────────────────────────────────────────────
   if(org==='acb'){
