@@ -63,7 +63,6 @@ html,body{min-height:100%;background:#f3f4f6;font-family:-apple-system,BlinkMacS
 .gb.on .gd{color:#1a56db;opacity:.8}
 .ng{font-size:12px;color:#6b7280;padding:8px 10px;background:#f9fafb;border-radius:6px}
 .neg{font-size:11px;color:#065f46;padding:7px 10px;background:#f0fdf4;border:1px solid #6ee7b7;border-radius:6px;margin-top:5px;line-height:1.5}
-.cw{font-size:11px;color:#92400e;padding:7px 10px;background:#fffbeb;border:1px solid #fcd34d;border-radius:6px;margin-top:5px;line-height:1.5}
 .sev-wrap{margin-bottom:14px}
 .sr{display:flex;gap:8px}
 .sb{flex:1;padding:12px 4px;border:2px solid #e5e7eb;border-radius:8px;background:#fff;cursor:pointer;font-size:13px;font-weight:700;color:#6b7280;text-align:center;transition:all .15s;font-family:inherit;user-select:none}
@@ -80,25 +79,25 @@ html,body{min-height:100%;background:#f3f4f6;font-family:-apple-system,BlinkMacS
 .nbtn:active{transform:scale(.96)}
 .nbtn.p{background:#1a56db;color:#fff;border-color:#1a56db}
 .nbtn:disabled{opacity:.35;pointer-events:none}
-.ko-legend{font-size:11px;color:#856404;background:#fff3cd;border:1px solid #ffc107;border-radius:8px;padding:7px 12px;margin-bottom:10px;line-height:1.5}
+.ko-legend{font-size:11px;color:#856404;background:#fff3cd;border:1px solid #ffc107;border-radius:8px;padding:7px 12px;margin-bottom:6px;line-height:1.6}
+.idsa-legend{font-size:11px;color:#7c3aed;background:#f5f3ff;border:1px solid #c4b5fd;border-radius:8px;padding:6px 12px;margin-bottom:10px;line-height:1.5}
 .roh{font-size:12px;font-weight:700;color:#374151;padding:7px 12px;background:#f3f4f6;border-radius:8px;margin:14px 0 7px;border-left:3px solid #1a56db}
 .dc{border-radius:8px;padding:10px 13px;margin-bottom:6px;background:#fff;border:1px solid #e5e7eb}
 .dc.d1{border-left:3px solid #10b981}
 .dc.d2{border-left:3px solid #f59e0b}
 .dc.d3{border-left:3px solid #ef4444}
 .dc.da{border-left:3px solid #ef4444;background:#fef2f2}
-.dc.dm{border-left:3px solid #1a56db;background:#eff6ff}
 .dh{display:flex;align-items:flex-start;gap:7px;margin-bottom:2px;flex-wrap:wrap}
 .dn{font-weight:700;font-size:13px;flex:1}
 .db2{font-size:11px;color:#6b7280;width:100%;margin-top:1px}
 .dc.da .dn,.dc.da .db2{color:#9b1c1c}
-.dc.dm .dn,.dc.dm .db2{color:#1e40af}
 .bdg{font-size:10px;padding:2px 8px;border-radius:20px;font-weight:700;white-space:nowrap;flex-shrink:0}
 .b1{background:#d1fae5;color:#065f46}.b2{background:#fef3c7;color:#92400e}
-.b3{background:#fee2e2;color:#9b1c1c}.ba{background:#fee2e2;color:#9b1c1c}.bm{background:#dbeafe;color:#1e40af}
+.b3{background:#fee2e2;color:#9b1c1c}.ba{background:#fee2e2;color:#9b1c1c}
 .dn2{font-size:11px;color:#6b7280;line-height:1.5;margin-top:2px}
-.dc.da .dn2{color:#9b1c1c}.dc.dm .dn2{color:#1e40af}
+.dc.da .dn2{color:#9b1c1c}
 .ko-badge{display:inline-block;font-size:10px;padding:1px 5px;background:#fff3cd;color:#856404;border:1px solid #ffc107;border-radius:10px;font-weight:700;margin-left:4px;vertical-align:middle;white-space:nowrap}
+.idsa-badge{display:inline-block;font-size:10px;padding:1px 5px;background:#f5f3ff;color:#6d28d9;border:1px solid #c4b5fd;border-radius:10px;font-weight:700;margin-left:4px;vertical-align:middle;white-space:nowrap}
 .combo-box{background:#fdf4ff;border:1.5px solid #e9d5ff;border-radius:8px;padding:9px 12px;margin-top:6px}
 .combo-title{font-size:11px;font-weight:700;color:#6b21a8;margin-bottom:6px}
 .combo-item{display:flex;align-items:flex-start;gap:7px;margin-bottom:5px;font-size:11px;line-height:1.4}
@@ -130,7 +129,7 @@ html,body{min-height:100%;background:#f3f4f6;font-family:-apple-system,BlinkMacS
 <div class="app">
 <div class="topbar">
   <div class="topbar-icon">Rx</div>
-  <div><h1>폐렴 항균제 선택 가이드</h1><div class="topbar-sub">IDSA 2024 AMR Guidance 기반 · v4.0</div></div>
+  <div><h1>폐렴 항균제 선택 가이드</h1><div class="topbar-sub">IDSA 2024 AMR Guidance 기반 · v5.0</div></div>
 </div>
 <div class="warn">⚠ PCR 결과는 보조 지표입니다. 최종 항균제 선택은 반드시 표현형 배양 감수성(MIC)을 확인하십시오.</div>
 <div class="src">근거: IDSA 2024 AMR Guidance · ATS/IDSA 2019 CAP · ATS/IDSA 2016 HAP/VAP · IDSA MRSA Guidelines</div>
@@ -163,6 +162,7 @@ html,body{min-height:100%;background:#f3f4f6;font-family:-apple-system,BlinkMacS
 </div>
 <div id="p2" class="panel">
   <div class="ko-legend">★ = 한국 미출시 — Cefiderocol · Meropenem-vaborbactam · Imipenem-relebactam · Sulbactam-durlobactam · Aztreonam-avibactam</div>
+  <div class="idsa-legend">⚠ IDSA 미언급 = IDSA 2024 가이드라인에서 직접 언급되지 않은 약제 (in vitro 근거 또는 국내 임상 경험 기반)</div>
   <div id="ra"></div>
   <div class="nav"><button class="rst" onclick="rst()">처음부터 다시</button><button class="nbtn" onclick="go(1)">← 조건 수정</button></div>
 </div>
@@ -179,6 +179,7 @@ var OR={
   proteus:{l:'Proteus spp.',h:'CTX-M / AmpC 내재',g:['CTXM'],grp:'GN'},
   pseudomonas:{l:'P. aeruginosa',h:'VIM / IMP',g:['VIM','IMP'],grp:'GN'},
   acb:{l:'Acb complex',h:'OXA-48-like / NDM · CRAB',g:['OXA48','NDM'],grp:'GN'},
+  steno:{l:'S. maltophilia',h:'Carbapenem 내재성 내성 · TMP-SMX/FQ/Minocycline',g:[],grp:'GN'},
   h_influenzae:{l:'H. influenzae',h:'β-lactamase / ampicillin 내성',g:[],grp:'GN'},
   moraxella:{l:'Moraxella catarrhalis',h:'β-lactamase 생산균',g:[],grp:'GN'},
   s_aureus:{l:'Staphylococcus aureus',h:'mecA/C (MRSA) 여부 확인',g:['mecA'],grp:'GP'},
@@ -192,9 +193,30 @@ var OR={
 var GM={KPC:{n:'KPC',d:'KPC-2/3 (Serine carbapenemase)'},NDM:{n:'NDM',d:'NDM-1/5 (MBL Class B)'},OXA48:{n:'OXA-48-like',d:'Serine carbapenemase, Class D'},CTXM:{n:'CTX-M',d:'CTX-M group (ESBL)'},IMP:{n:'IMP',d:'IMP-type (MBL, integron 매개)'},VIM:{n:'VIM',d:'VIM-2 등 (MBL, integron 매개)'},mecA:{n:'mecA/C (MRSA)',d:'MRSA 내성 유전자'}};
 var KO_KW=['Cefiderocol','Fetroja','Meropenem-vaborbactam','Vabomere','Imipenem-relebactam','Recarbrio','Sulbactam-durlobactam','Xacduro','Aztreonam-avibactam','Emblaveo'];
 function isKO(n){for(var i=0;i<KO_KW.length;i++)if(n.indexOf(KO_KW[i])>=0)return true;return false;}
-var DOSE={'Cefepime 고용량 연장주입':{t:'Cefepime 고용량 연장주입',c:'용량: 2g IV q8h (또는 q6h)\n투여: 각 용량을 4시간에 걸쳐 연장주입\n근거: Time-dependent 살균 — %T>MIC 극대화\n주의: MIC ≥8 μg/mL 시 목표 달성 어려움'},'Meropenem 고용량 연장주입':{t:'Meropenem 고용량 연장주입',c:'용량: 2g IV q8h\n투여: 각 용량을 3시간에 걸쳐 연장주입\n근거: Time-dependent 살균 — PK/PD 최적화'},'Pip-tazo 연장주입':{t:'Piperacillin-tazobactam 연장주입',c:'용량: 4.5g IV q6h\n투여: 각 용량을 4시간에 걸쳐 연장주입'},'Vancomycin AUC 기반':{t:'Vancomycin AUC/MIC 기반 TDM (ASHP/IDSA 2020)',c:'목표: AUC/MIC = 400–600 mg·h/L\n초기 부하 용량: 25–30 mg/kg IV (중증 시)\n주의: trough 단독 모니터링 비권장 (신독성 위험)'},'Ampicillin-sulbactam 고용량':{t:'Ampicillin-sulbactam 고용량 (IDSA 2024 CRAB)',c:'용량: Ampicillin 18g + Sulbactam 9g = 총 27g/day\n투여: q4–6h, 각 용량 3–4시간 연장주입 (또는 24시간 지속주입)\n주의: Sulbactam MIC ≥8 μg/mL 시 전환 고려\n신기능 저하 시 용량 감량 필수'}};
-var CRAB_COMBO=[{name:'Polymyxin B',note:'신독성 주의; 요로감염은 Colistin 선호 (Polymyxin B 요로 배설 적음)',ko:false},{name:'Minocycline',note:'Tigecycline보다 선호 (CLSI breakpoint 존재, 임상 경험 축적)',ko:false},{name:'Cefiderocol',note:'다른 옵션 없을 때 또는 불내성 시 한정 사용',ko:true}];
-function comboBox(title,agents){var h='<div class="combo-box"><div class="combo-title">'+title+'</div>';for(var i=0;i<agents.length;i++){var a=agents[i];var koT=a.ko?'<span class="ko-badge">★미출시</span>':'';h+='<div class="combo-item"><span class="combo-num">'+(i+1)+'</span><span><span class="combo-name">'+a.name+koT+'</span>'+(a.note?'<span class="combo-note"> — '+a.note+'</span>':'')+'</span></div>';if(i<agents.length-1)h+='<div class="combo-sep">또는</div>';}return h+'</div>';}
+// IDSA 미언급 약제
+var IDSA_NM=['Piperacillin-sulbactam'];
+function isIDSAnm(n){for(var i=0;i<IDSA_NM.length;i++)if(n.indexOf(IDSA_NM[i])>=0)return true;return false;}
+
+var DOSE={
+  'Cefepime 고용량 연장주입':{t:'Cefepime 고용량 연장주입',c:'용량: 2g IV q8h (또는 q6h)\n투여: 각 용량을 4시간에 걸쳐 연장주입\n근거: Time-dependent 살균 — %T>MIC 극대화\n주의: MIC ≥8 μg/mL 시 목표 달성 어려움'},
+  'Meropenem 고용량 연장주입':{t:'Meropenem 고용량 연장주입',c:'용량: 2g IV q8h\n투여: 각 용량을 3시간에 걸쳐 연장주입\n근거: Time-dependent 살균 — PK/PD 최적화'},
+  'Pip-tazo 연장주입':{t:'Piperacillin-tazobactam 연장주입',c:'용량: 4.5g IV q6h\n투여: 각 용량을 4시간에 걸쳐 연장주입'},
+  'Pip-sulbactam 용법':{t:'Piperacillin-sulbactam 용법 (⚠ IDSA 미언급)',c:'국내 제품: 피페라실린 2g + 설박탐 1g 복합제 (일반 용량 기준)\n용량: 4.5g (Piperacillin 3g + Sulbactam 1.5g) IV q6–8h\n투여: 30분~1시간 주입, 또는 연장주입 가능\n근거: In vitro 연구 및 소규모 임상 연구 (RCT 제한적)\n주의: IDSA 2024 AMR 가이드라인에 언급되지 않음\n⇒ 감수성 확인 후 사용, 표준 1차 치료로 사용 전 감염내과 협진 권장'},
+  'Vancomycin AUC 기반':{t:'Vancomycin AUC/MIC 기반 TDM (ASHP/IDSA 2020)',c:'목표: AUC/MIC = 400–600 mg·h/L\n초기 부하 용량: 25–30 mg/kg IV (중증 시)\n주의: trough 단독 모니터링 비권장 (신독성 위험)'},
+  'Ampicillin-sulbactam 고용량':{t:'Ampicillin-sulbactam 고용량 (IDSA 2024 CRAB)',c:'용량: Ampicillin 18g + Sulbactam 9g = 총 27g/day\n투여: q4–6h, 각 용량 3–4시간 연장주입 (또는 24시간 지속주입)\n주의: Sulbactam MIC ≥8 μg/mL 시 전환 고려\n신기능 저하 시 용량 감량 필수'},
+};
+var CRAB_COMBO=[
+  {name:'Polymyxin B',note:'신독성 주의; 요로감염은 Colistin 선호 (Polymyxin B 요로 배설 적음)',ko:false},
+  {name:'Minocycline',note:'Tigecycline보다 선호 (CLSI breakpoint 존재, 임상 경험 축적)',ko:false},
+  {name:'Cefiderocol',note:'다른 옵션 없을 때 또는 불내성 시 한정 사용',ko:true},
+];
+function comboBox(title,agents){
+  var h='<div class="combo-box"><div class="combo-title">'+title+'</div>';
+  for(var i=0;i<agents.length;i++){var a=agents[i];var koT=a.ko?'<span class="ko-badge">★미출시</span>':'';
+    h+='<div class="combo-item"><span class="combo-num">'+(i+1)+'</span><span><span class="combo-name">'+a.name+koT+'</span>'+(a.note?'<span class="combo-note"> — '+a.note+'</span>':'')+'</span></div>';
+    if(i<agents.length-1)h+='<div class="combo-sep">또는</div>';}
+  return h+'</div>';}
+
 function go(n){for(var i=0;i<3;i++){document.getElementById('p'+i).className='panel'+(i===n?' on':'');document.getElementById('t'+i).className='step'+(i===n?' on':'');}if(n===1){rendIL();rendSB();}window.scrollTo(0,0);}
 function rendSB(){var b=document.getElementById('sb-bar');if(!S.orgs.length){b.className='sb-bar';return;}var gs=[];S.orgs.forEach(function(k){(S.genes[k]||[]).forEach(function(g){if(GM[g]&&gs.indexOf(GM[g].n)<0)gs.push(GM[g].n);});});var sl={severe:'중증/ICU ⚠',moderate:'중등도',mild:'경증'};var parts=['<strong>균주:</strong> '+S.orgs.map(function(k){return OR[k].l;}).join(', ')];if(gs.length)parts.push('<strong>유전자:</strong> '+gs.join(', '));if(S.sev)parts.push('<strong>중증도:</strong> '+sl[S.sev]);b.innerHTML=parts.join('&nbsp;|&nbsp;');b.className='sb-bar on';}
 function setM(m){S.mode=m;S.orgs=[];S.genes={};document.getElementById('ms').className='mbtn'+(m==='s'?' on':'');document.getElementById('mm').className='mbtn'+(m==='m'?' on':'');document.getElementById('bn0').disabled=true;rendSC();rendOG();}
@@ -205,59 +227,208 @@ function rendIL(){var h='';S.orgs.forEach(function(k){var o=OR[k];if(!S.genes[k]
 function togG(org,g){if(!S.genes[org])S.genes[org]=[];var i=S.genes[org].indexOf(g);if(i>=0)S.genes[org].splice(i,1);else S.genes[org].push(g);rendIL();rendSB();}
 function remO(k){var i=S.orgs.indexOf(k);if(i>=0){S.orgs.splice(i,1);delete S.genes[k];}rendOG();rendSC();rendIL();document.getElementById('bn0').disabled=(S.orgs.length===0);}
 function setSev(s){S.sev=s;var cls={severe:'sv',moderate:'mo',mild:'mi'};var ks=['severe','moderate','mild'];for(var i=0;i<3;i++)document.getElementById('s'+i).className='sb'+(ks[i]===s?' '+cls[ks[i]]:'');var msgs={severe:'중증/ICU — 카바페넴 우선·광범위 커버 로직 적용',moderate:'중등도 — 감수성 결과에 따라 step-down 고려',mild:'경증 — 경구 전환 및 협범위 약제 우선 고려'};var el=document.getElementById('sev-msg');el.textContent=msgs[s];el.className='sev-msg '+cls[s];rendSB();}
+
 function getRec(org,genes,sev){
   var g=genes||[];var noG=g.length===0;
   var hKPC=g.indexOf('KPC')>=0,hNDM=g.indexOf('NDM')>=0,hOXA=g.indexOf('OXA48')>=0,hCTXM=g.indexOf('CTXM')>=0,hIMP=g.indexOf('IMP')>=0,hVIM=g.indexOf('VIM')>=0,hmecA=g.indexOf('mecA')>=0,sv=sev==='severe',mil=sev==='mild';
   var CC=comboBox('병합 구성약제 — 아래 중 1제 이상 선택 (IDSA 2024)',CRAB_COMBO);
-  if(org==='h_influenzae')return{pl:'high',pcr:'H. influenzae — β-lactamase 생산 여부에 따라 선택.',f:[{n:'Amoxicillin-clavulanate',b:'',nt:'β-lactamase 포함 커버'},{n:'Ceftriaxone',b:'1–2g IV q24h',nt:'입원 환자 표준'}],s:[{n:'Levofloxacin',b:'750mg q24h',nt:'감수성 확인 후'},{n:'Azithromycin',b:'',nt:'비정형균 동반 시'}],t:[],av:[],ns:['ATS/IDSA 2019 CAP: β-lactam + macrolide 또는 FQ 단독']};
-  if(org==='moraxella')return{pl:'high',pcr:'M. catarrhalis — 거의 모두 β-lactamase 생산.',f:[{n:'Amoxicillin-clavulanate',b:'',nt:'경증~중등도 1차'},{n:'Ceftriaxone',b:'',nt:'입원 환자'}],s:[{n:'Azithromycin',b:'',nt:'비정형균 동반 시'},{n:'Levofloxacin/Moxifloxacin',b:'',nt:'FQ 단독'}],t:[],av:[{n:'Ampicillin 단독',nt:'β-lactamase 생산으로 비활성'}],ns:[]};
-  if(org==='s_pneumo')return{pl:'high',pcr:'S. pneumoniae — 대부분 β-lactam 감수성 유지.',f:[{n:'Ceftriaxone',b:'1–2g IV q24h',nt:'입원 환자 1차 + macrolide 병합'},{n:'Ampicillin-sulbactam',b:'1.5–3g IV q6h',nt:'대안'}],s:[{n:'Azithromycin',b:'500mg IV/PO q24h',nt:'비정형균 커버 — ceftriaxone과 병합'},{n:'Levofloxacin',b:'750mg q24h',nt:'FQ 단독 (β-lactam 금기 시)'}],t:[],av:[],ns:['ATS/IDSA 2019 CAP 입원: β-lactam + macrolide 또는 FQ 단독 (strong evidence)',sv?'중증 CAP: β-lactam + macrolide 또는 β-lactam + FQ 병합':''].filter(Boolean)};
-  if(org==='chlamydia'||org==='mycoplasma')return{pl:'high',pcr:'세포내 기생균 — β-lactam 단독 치료 불충분.',f:[{n:'Azithromycin',b:'500mg IV/PO q24h',nt:'1차 macrolide'},{n:'Doxycycline',b:'100mg IV/PO q12h',nt:'macrolide 대안'}],s:[{n:'Levofloxacin',b:'750mg q24h',nt:'FQ 단독'},{n:'Moxifloxacin',b:'400mg q24h',nt:'FQ 대안'}],t:[],av:[{n:'β-lactam 단독',nt:'세포내 기생균에 비활성 — macrolide/FQ 추가 필수'}],ns:['Mycoplasma: 한국 macrolide 내성률 높음 → FQ 또는 doxycycline 우선 고려']};
-  if(org==='legionella')return{pl:'high',pcr:'Legionella — 세포내 기생균. FQ 우선.',f:[{n:'Levofloxacin',b:'750mg IV/PO q24h (5–7일)',nt:'1차 (IDSA/ATS 권고)'},{n:'Moxifloxacin',b:'400mg q24h',nt:'FQ 대안'}],s:[{n:'Azithromycin',b:'500mg IV/PO q24h',nt:'FQ 금기 시'}],t:[],av:[{n:'β-lactam 단독',nt:'Legionella에 비활성'}],ns:['중증 Legionella: FQ + Azithromycin 병합 고려']};
-  if(org==='s_agalac'||org==='s_pyogenes')return{pl:'high',pcr:'Streptococcus spp. — β-lactam 감수성 일관적.',f:[{n:'Penicillin G',b:'2–4 MU IV q4–6h',nt:'1차 표준'},{n:'Ceftriaxone',b:'',nt:'입원 CAP 병합 시'}],s:[{n:'Clindamycin',b:'',nt:'독소 생성 억제 목적 병합 (GAS toxic shock 시)'}],t:[],av:[{n:'Vancomycin',nt:'β-lactam 감수성 보존 — 불필요한 사용 피할 것'}],ns:['GAS: 괴사성 근막염·TSS 시 clindamycin 병합 권장','GBS: Penicillin 또는 ampicillin 충분']};
-  if(org==='s_aureus'){if(hmecA)return{pl:'high',pcr:'mecA/C 검출 = MRSA. β-lactam 전반 비활성.',f:[{n:'Linezolid',b:'600mg IV/PO q12h',nt:'MRSA 폐렴 1차 선호 (ATS/IDSA 2016 HAP/VAP)'},{n:'Vancomycin',b:'AUC 기반 TDM',nt:'MRSA 표준; AUC/MIC 400–600 mg·h/L 목표',dose:'Vancomycin AUC 기반'}],s:[],t:[],av:[{n:'β-lactam 전반',nt:'mecA 양성 — 모두 비활성'},{n:'Daptomycin',nt:'폐렴 비권장 (폐 계면활성제에 의해 불활성화)'}],ns:['Vancomycin: ASHP/IDSA 2020 AUC/MIC 기반 TDM — trough 단독 모니터링 비권장']};
-    return{pl:'high',pcr:'mecA/C 음성 = MSSA. β-lactam으로 충분.',f:[{n:'Oxacillin/Nafcillin',b:'2g IV q4h',nt:'MSSA 폐렴 1차 (국내: Oxacillin)'},{n:'Cefazolin',b:'2g IV q8h',nt:'Oxacillin 대안'}],s:[{n:'Ampicillin-sulbactam',b:'3g IV q6h',nt:'경증 대안'}],t:[],av:[{n:'Vancomycin',nt:'MSSA에서 β-lactam 대비 열등 — 불필요한 사용 피할 것'}],ns:['MSSA 폐렴: Oxacillin/cefazolin이 vancomycin보다 임상 성적 우수']};}
+
+  // ── S. maltophilia ─────────────────────────────────────────────
+  if(org==='steno')return{pl:'high',
+    pcr:'S. maltophilia — L1(MBL)/L2(ESBL) 내재성 β-lactamase로 Carbapenem·Cephalosporin·Pip-tazo 모두 비활성. 반드시 표현형 감수성 확인 필요.',
+    f:[
+      {n:'TMP-SMX + Minocycline',b:'',nt:'중증 시 선호 병합 (IDSA 2024 — 임상근거 가장 충분)'},
+      {n:'Ceftazidime-avibactam + Aztreonam',b:'Zavicefta + ATM',nt:'병합 고정 요법 (MBL·ESBL 동시 커버)'},
+    ],
+    s:[
+      {n:'Minocycline',b:'고용량 100mg IV/PO q12h',nt:'단독 또는 병합 — TMP-SMX 불내성/내성 시'},
+      {n:'TMP-SMX',b:'15mg/kg/day (TMP성분) 분할투여',nt:'단독 또는 병합 — 감수성 확인 필수'},
+      {n:'Levofloxacin',b:'750mg IV/PO q24h',nt:'병합 파트너로 사용 — 단독 내성 출현 위험'},
+      {n:'Cefiderocol',b:'Fetroja',nt:'병합 파트너로 사용 — 중증 시 다른 옵션 없을 때 한정'},
+    ],
+    t:[],
+    av:[
+      {n:'Carbapenem (단독)',nt:'L1 MBL에 의해 가수분해 — 내재성 내성'},
+      {n:'Ceftazidime',nt:'IDSA 2024: L1/L2 β-lactamase에 의해 비활성 — CLSI 2024 breakpoint 삭제'},
+      {n:'Piperacillin-tazobactam',nt:'내재성 내성'},
+      {n:'Aminoglycoside',nt:'내재성 내성'},
+    ],
+    ns:[
+      'S. maltophilia: 진정한 감염 vs 집락화 구분이 임상적으로 매우 중요 — 불필요한 항생제 사용 자제',
+      'IDSA 2024: 모든 요법을 병합으로 사용 (최소 2제). 단독 요법은 경증에만 제한적 허용',
+      'TMP-SMX + Minocycline: 중증에서 임상성적 개선 가장 근거 있음 (Levofloxacin + Minocycline도 유효)',
+      'IDSA 2024 선호도 순서: ① Cefiderocol + 2제, ② CAZ-AVI + ATM, ③ Minocycline + 2제, ④ TMP-SMX + 2제, ⑤ Levofloxacin + 2제',
+      'Tigecycline: IDSA 2024에서 병합 치료 구성약제에서 제거됨',
+    ]};
+
+  // ── H. influenzae ──────────────────────────────────────────────
+  if(org==='h_influenzae')return{pl:'high',pcr:'H. influenzae — β-lactamase 생산 여부에 따라 선택.',
+    f:[{n:'Amoxicillin-clavulanate',b:'',nt:'β-lactamase 포함 커버'},{n:'Ceftriaxone',b:'1–2g IV q24h',nt:'입원 환자 표준'}],
+    s:[{n:'Levofloxacin',b:'750mg q24h',nt:'감수성 확인 후'},{n:'Azithromycin',b:'',nt:'비정형균 동반 시'}],t:[],av:[],
+    ns:['ATS/IDSA 2019 CAP: β-lactam + macrolide 또는 FQ 단독']};
+
+  if(org==='moraxella')return{pl:'high',pcr:'M. catarrhalis — 거의 모두 β-lactamase 생산.',
+    f:[{n:'Amoxicillin-clavulanate',b:'',nt:'경증~중등도 1차'},{n:'Ceftriaxone',b:'',nt:'입원 환자'}],
+    s:[{n:'Azithromycin',b:'',nt:'비정형균 동반 시'},{n:'Levofloxacin/Moxifloxacin',b:'',nt:'FQ 단독'}],t:[],
+    av:[{n:'Ampicillin 단독',nt:'β-lactamase 생산으로 비활성'}],ns:[]};
+
+  if(org==='s_pneumo')return{pl:'high',pcr:'S. pneumoniae — 대부분 β-lactam 감수성 유지.',
+    f:[{n:'Ceftriaxone',b:'1–2g IV q24h',nt:'입원 환자 1차 + macrolide 병합'},{n:'Ampicillin-sulbactam',b:'1.5–3g IV q6h',nt:'대안'}],
+    s:[{n:'Azithromycin',b:'500mg IV/PO q24h',nt:'비정형균 커버 — ceftriaxone과 병합'},{n:'Levofloxacin',b:'750mg q24h',nt:'FQ 단독 (β-lactam 금기 시)'}],t:[],av:[],
+    ns:['ATS/IDSA 2019 CAP 입원: β-lactam + macrolide 또는 FQ 단독 (strong evidence)',sv?'중증 CAP: β-lactam + macrolide 또는 β-lactam + FQ 병합':''].filter(Boolean)};
+
+  if(org==='chlamydia'||org==='mycoplasma')return{pl:'high',pcr:'세포내 기생균 — β-lactam 단독 치료 불충분.',
+    f:[{n:'Azithromycin',b:'500mg IV/PO q24h',nt:'1차 macrolide'},{n:'Doxycycline',b:'100mg IV/PO q12h',nt:'macrolide 대안'}],
+    s:[{n:'Levofloxacin',b:'750mg q24h',nt:'FQ 단독'},{n:'Moxifloxacin',b:'400mg q24h',nt:'FQ 대안'}],t:[],
+    av:[{n:'β-lactam 단독',nt:'세포내 기생균에 비활성 — macrolide/FQ 추가 필수'}],
+    ns:['Mycoplasma: 한국 macrolide 내성률 높음 → FQ 또는 doxycycline 우선 고려']};
+
+  if(org==='legionella')return{pl:'high',pcr:'Legionella — 세포내 기생균. FQ 우선.',
+    f:[{n:'Levofloxacin',b:'750mg IV/PO q24h (5–7일)',nt:'1차 (IDSA/ATS 권고)'},{n:'Moxifloxacin',b:'400mg q24h',nt:'FQ 대안'}],
+    s:[{n:'Azithromycin',b:'500mg IV/PO q24h',nt:'FQ 금기 시'}],t:[],
+    av:[{n:'β-lactam 단독',nt:'Legionella에 비활성'}],
+    ns:['중증 Legionella: FQ + Azithromycin 병합 고려']};
+
+  if(org==='s_agalac'||org==='s_pyogenes')return{pl:'high',pcr:'Streptococcus spp. — β-lactam 감수성 일관적.',
+    f:[{n:'Penicillin G',b:'2–4 MU IV q4–6h',nt:'1차 표준'},{n:'Ceftriaxone',b:'',nt:'입원 CAP 병합 시'}],
+    s:[{n:'Clindamycin',b:'',nt:'독소 생성 억제 목적 병합 (GAS toxic shock 시)'}],t:[],
+    av:[{n:'Vancomycin',nt:'β-lactam 감수성 보존 — 불필요한 사용 피할 것'}],
+    ns:['GAS: 괴사성 근막염·TSS 시 clindamycin 병합 권장','GBS: Penicillin 또는 ampicillin 충분']};
+
+  if(org==='s_aureus'){
+    if(hmecA)return{pl:'high',pcr:'mecA/C 검출 = MRSA. β-lactam 전반 비활성.',
+      f:[{n:'Linezolid',b:'600mg IV/PO q12h',nt:'MRSA 폐렴 1차 선호 (ATS/IDSA 2016 HAP/VAP)'},{n:'Vancomycin',b:'AUC 기반 TDM',nt:'MRSA 표준; AUC/MIC 400–600 mg·h/L 목표',dose:'Vancomycin AUC 기반'}],
+      s:[],t:[],av:[{n:'β-lactam 전반',nt:'mecA 양성 — 모두 비활성'},{n:'Daptomycin',nt:'폐렴 비권장 (폐 계면활성제에 의해 불활성화)'}],
+      ns:['Vancomycin: ASHP/IDSA 2020 AUC/MIC 기반 TDM — trough 단독 모니터링 비권장']};
+    return{pl:'high',pcr:'mecA/C 음성 = MSSA. β-lactam으로 충분.',
+      f:[{n:'Oxacillin/Nafcillin',b:'2g IV q4h',nt:'MSSA 폐렴 1차 (국내: Oxacillin)'},{n:'Cefazolin',b:'2g IV q8h',nt:'Oxacillin 대안'}],
+      s:[{n:'Ampicillin-sulbactam',b:'3g IV q6h',nt:'경증 대안'}],t:[],
+      av:[{n:'Vancomycin',nt:'MSSA에서 β-lactam 대비 열등 — 불필요한 사용 피할 것'}],
+      ns:['MSSA 폐렴: Oxacillin/cefazolin이 vancomycin보다 임상 성적 우수']};}
+
+  // ── ACB (CRAB) ─────────────────────────────────────────────────
   if(org==='acb'){
-    if(hNDM)return{pl:'low',pcr:'NDM+OXA 복합: CAZ-AVI·IMI-REL·MER-VAB 모두 비활성. 표현형 없이 선택 극히 위험.',f:[{n:'Cefiderocol',b:'Fetroja',nt:'복합 carbapenemase에도 활성 — 병합 필수',combo:CC}],s:[{n:'Sulbactam-durlobactam + Meropenem/Imipenem',b:'Xacduro + Carbapenem',nt:'NDM 단독 시 일부 활성 (미출시)'}],t:[{n:'Colistin',b:'',nt:'신독성, 최후 수단'}],av:[{n:'CAZ-AVI/IMI-REL/MER-VAB',nt:'MBL+OXA 동시 비활성'}],ns:['표현형 없이 치료 선택 매우 위험']};
+    if(hNDM)return{pl:'low',pcr:'NDM+OXA 복합: CAZ-AVI·IMI-REL·MER-VAB 모두 비활성.',
+      f:[{n:'Cefiderocol',b:'Fetroja',nt:'복합 carbapenemase에도 활성 — 병합 필수',combo:CC}],
+      s:[{n:'Sulbactam-durlobactam + Meropenem/Imipenem',b:'Xacduro + Carbapenem',nt:'NDM 단독 시 일부 활성 (미출시)'},
+         {n:'Piperacillin-sulbactam',b:'',nt:'Sulbactam의 Acinetobacter 고유 활성 활용 — 감수성 확인 필수',dose:'Pip-sulbactam 용법'}],
+      t:[{n:'Colistin',b:'',nt:'신독성, 최후 수단'}],
+      av:[{n:'CAZ-AVI/IMI-REL/MER-VAB',nt:'MBL+OXA 동시 비활성'}],
+      ns:['표현형 없이 치료 선택 매우 위험','Piperacillin-sulbactam: IDSA 미언급, in vitro 근거 기반 — 감수성 확인 필수']};
+
     if(noG)return{pl:'low',pcr:'내성 유전자 미검출 — A. baumannii intrinsic resistance로 Pip-tazo·Ceftazidime 비활성.',
-      f:[{n:'Sulbactam-durlobactam + Meropenem/Imipenem',b:'Xacduro + Carbapenem',nt:'IDSA 2024 CRAB 1차 선호 (한국 미출시)'},{n:'Ampicillin-sulbactam 고용량',b:'Sulbactam 9g/day (총 27g/day), q4–6h 연장주입',nt:'국내에서 사용 가능한 현실적 핵심 요법',dose:'Ampicillin-sulbactam 고용량',combo:CC}],
-      s:[{n:'Carbapenem',b:'Meropenem/Imipenem',nt:'감수성 확인 후'},{n:'Cefiderocol',b:'Fetroja',nt:'병합 구성 약제 (미출시)',combo:CC}],
-      t:[{n:'Colistin',b:'',nt:'신독성, 최후 수단'}],av:[{n:'Piperacillin-tazobactam',nt:'intrinsic resistance'},{n:'Ceftazidime',nt:'intrinsic resistance'}],
-      ns:['★ Sulbactam-durlobactam · Cefiderocol 국내 미출시 — 감염내과 협진 통해 긴급 도입 검토','OXA-23 추가 검사 권장','Amp-sulbactam: Sulbactam MIC ≥8 시 전환 고려']};
+      f:[{n:'Sulbactam-durlobactam + Meropenem/Imipenem',b:'Xacduro + Carbapenem',nt:'IDSA 2024 CRAB 1차 선호 (한국 미출시)'},
+         {n:'Ampicillin-sulbactam 고용량',b:'Sulbactam 9g/day (총 27g/day), q4–6h 연장주입',nt:'국내에서 사용 가능한 현실적 핵심 요법',dose:'Ampicillin-sulbactam 고용량',combo:CC}],
+      s:[{n:'Carbapenem',b:'Meropenem/Imipenem',nt:'감수성 확인 후'},
+         {n:'Piperacillin-sulbactam',b:'',nt:'Sulbactam 성분의 Acinetobacter 고유 활성 — 감수성 확인 필수',dose:'Pip-sulbactam 용법'},
+         {n:'Cefiderocol',b:'Fetroja',nt:'병합 구성 약제 (미출시)',combo:CC}],
+      t:[{n:'Colistin',b:'',nt:'신독성, 최후 수단'}],
+      av:[{n:'Piperacillin-tazobactam',nt:'intrinsic resistance (tazobactam은 Acinetobacter 활성 없음)'},{n:'Ceftazidime',nt:'intrinsic resistance'}],
+      ns:['★ Sulbactam-durlobactam · Cefiderocol 국내 미출시 — 감염내과 협진 통해 긴급 도입 검토','OXA-23 추가 검사 권장',
+          'Piperacillin-sulbactam: IDSA 미언급 약제 — sulbactam의 Acinetobacter PBP2 결합 고유 활성 기반','Amp-sulbactam: Sulbactam MIC ≥8 시 전환 고려']};
+
     return{pl:hOXA?'moderate':'low',pcr:hOXA?'OXA-48 검출: CRAB 주요 기전. 표현형 MIC 필수.':'OXA-51만 검출: 단독 내성 예측력 낮음.',
       f:[{n:'Sulbactam-durlobactam + Meropenem/Imipenem',b:'Xacduro + Carbapenem',nt:'IDSA 2024 CRAB 1차 선호 (한국 미출시)'}],
-      s:[{n:'Ampicillin-sulbactam 고용량',b:'Sulbactam 9g/day, q4h 연장주입',nt:'국내에서 사용 가능한 현실적 핵심 요법',dose:'Ampicillin-sulbactam 고용량',combo:CC},{n:'Cefiderocol',b:'Fetroja',nt:'병합 구성 약제 — 다른 옵션 없을 때 한정 (미출시)',combo:CC}],
+      s:[{n:'Ampicillin-sulbactam 고용량',b:'Sulbactam 9g/day, q4h 연장주입',nt:'국내에서 사용 가능한 현실적 핵심 요법',dose:'Ampicillin-sulbactam 고용량',combo:CC},
+         {n:'Piperacillin-sulbactam',b:'',nt:'Sulbactam 성분의 Acinetobacter 고유 활성 — 감수성 확인 필수',dose:'Pip-sulbactam 용법'},
+         {n:'Cefiderocol',b:'Fetroja',nt:'병합 구성 약제 — 다른 옵션 없을 때 한정 (미출시)',combo:CC}],
       t:[{n:'Colistin + Carbapenem 병합',b:'',nt:'다른 옵션 없을 때만. Colistin 단독 비권장'}],av:[],
-      ns:['★ Sulbactam-durlobactam · Cefiderocol 국내 미출시 → Amp-sulbactam 고용량이 현실적 핵심 옵션','Amp-sulbactam 총용량: Ampicillin 18g + Sulbactam 9g = 27g/day (IDSA 2024)','Polymyxin B vs Colistin: IDSA 2024는 폐렴에서 Polymyxin B 선호 (요로감염은 Colistin)','Acb complex: A. pittii, A. nosocomialis도 동일 CRAB 기준 적용']};}
+      ns:['★ Sulbactam-durlobactam · Cefiderocol 국내 미출시 → Amp-sulbactam 고용량이 현실적 핵심 옵션',
+          'Amp-sulbactam 총용량: Ampicillin 18g + Sulbactam 9g = 27g/day (IDSA 2024)',
+          'Piperacillin-sulbactam: IDSA 미언급 — sulbactam 고유 활성 기반, 표현형 감수성 확인 필수',
+          'Polymyxin B vs Colistin: IDSA 2024는 폐렴에서 Polymyxin B 선호 (요로감염은 Colistin)',
+          'Acb complex: A. pittii, A. nosocomialis도 동일 CRAB 기준 적용']};}
+
+  // ── P. aeruginosa ──────────────────────────────────────────────
   if(org==='pseudomonas'){var mbl=hVIM||hIMP;
-    if(mbl)return{pl:'low',pcr:'VIM/IMP: integron 매개. Ceftolozane-tazobactam 불가 예측만 신뢰.',f:[{n:'Aztreonam + Ceftazidime-avibactam',b:'ATM + Zavicefta',nt:'MBL 78~93% 감수성 회복'}],s:[{n:'Cefiderocol',b:'Fetroja',nt:'MIC 확인 (미출시)'}],t:[{n:'Colistin',b:'',nt:'최후 수단'}],av:[{n:'Ceftolozane-tazobactam (Zerbaxa)',nt:'MBL 보유균 비활성'},{n:'IMI-REL/MER-VAB',nt:'MBL 비활성'}],ns:['모든 약제 표현형 MIC 필수']};
-    if(noG)return{pl:'moderate',pcr:'획득 내성 유전자 미검출 — 표현형 감수성 확인 후 선택.',f:[{n:'Piperacillin-tazobactam',b:'4.5g IV q6h 연장주입',nt:'감수성 확인 후',dose:'Pip-tazo 연장주입'},{n:'Cefepime 고용량 연장주입',b:'2g IV q8h, 4시간',nt:'감수성 확인 후',dose:'Cefepime 고용량 연장주입'},{n:'Ceftazidime',b:'2g IV q8h',nt:'감수성 확인 후 (비중증)'}],s:[{n:'Carbapenem',b:sv?'Meropenem 2g q8h 연장주입':'Meropenem 1g q8h',nt:sv?'중증 우선':'',dose:sv?'Meropenem 고용량 연장주입':''},{n:'Ceftolozane-tazobactam',b:'Zerbaxa',nt:'carbapenemase 음성 MDR 시'}],t:[],av:[],ns:['모든 약제 감수성 결과 확인 필수']};
-    return{pl:'low',pcr:'Efflux pump 유전자 정상균에도 존재 → 표현형 필수.',f:[{n:'Ceftolozane-tazobactam',b:'Zerbaxa',nt:'carbapenem 내성, carbapenemase 음성 MDR'}],s:[{n:'Ceftazidime-avibactam',b:'Zavicefta',nt:'MIC 확인'},{n:'Cefiderocol',b:'Fetroja',nt:'MIC 확인 (미출시)'}],t:[{n:'Colistin',b:'',nt:'최후 수단'}],av:[],ns:['전통 β-lactam 감수성 있으면 먼저 사용']};}
+    if(mbl)return{pl:'low',pcr:'VIM/IMP: integron 매개. Ceftolozane-tazobactam 불가 예측만 신뢰.',
+      f:[{n:'Aztreonam + Ceftazidime-avibactam',b:'ATM + Zavicefta',nt:'MBL 78~93% 감수성 회복'}],
+      s:[{n:'Cefiderocol',b:'Fetroja',nt:'MIC 확인 (미출시)'},
+         {n:'Piperacillin-sulbactam',b:'',nt:'MBL 보유균에 sulbactam 효과 제한적 — 감수성 확인 필수',dose:'Pip-sulbactam 용법'}],
+      t:[{n:'Colistin',b:'',nt:'최후 수단'}],
+      av:[{n:'Ceftolozane-tazobactam (Zerbaxa)',nt:'MBL 보유균 비활성'},{n:'IMI-REL/MER-VAB',nt:'MBL 비활성'}],
+      ns:['모든 약제 표현형 MIC 필수','Piperacillin-sulbactam: IDSA 미언급 — MBL 보유균에서 활성 불확실']};
+    if(noG)return{pl:'moderate',pcr:'획득 내성 유전자 미검출 — 표현형 감수성 확인 후 선택.',
+      f:[{n:'Piperacillin-tazobactam',b:'4.5g IV q6h 연장주입',nt:'감수성 확인 후',dose:'Pip-tazo 연장주입'},
+         {n:'Piperacillin-sulbactam',b:'',nt:'Pip-tazo 대안 — 감수성 확인 필수 (IDSA 미언급)',dose:'Pip-sulbactam 용법'},
+         {n:'Cefepime 고용량 연장주입',b:'2g IV q8h, 4시간',nt:'감수성 확인 후',dose:'Cefepime 고용량 연장주입'},
+         {n:'Ceftazidime',b:'2g IV q8h',nt:'감수성 확인 후 (비중증)'}],
+      s:[{n:'Carbapenem',b:sv?'Meropenem 2g q8h 연장주입':'Meropenem 1g q8h',nt:sv?'중증 우선':'',dose:sv?'Meropenem 고용량 연장주입':''},
+         {n:'Ceftolozane-tazobactam',b:'Zerbaxa',nt:'carbapenemase 음성 MDR 시'}],
+      t:[],av:[],ns:['모든 약제 감수성 결과 확인 필수','Piperacillin-sulbactam: IDSA 미언급 — Pip-tazo와 항균 스펙트럼 유사하나 in vitro 일부 우세']};
+    return{pl:'low',pcr:'Efflux pump 유전자 정상균에도 존재 → 표현형 필수.',
+      f:[{n:'Ceftolozane-tazobactam',b:'Zerbaxa',nt:'carbapenem 내성, carbapenemase 음성 MDR'}],
+      s:[{n:'Ceftazidime-avibactam',b:'Zavicefta',nt:'MIC 확인'},{n:'Cefiderocol',b:'Fetroja',nt:'MIC 확인 (미출시)'}],
+      t:[{n:'Colistin',b:'',nt:'최후 수단'}],av:[],
+      ns:['전통 β-lactam 감수성 있으면 먼저 사용']};}
+
+  // ── Enterobacter / Serratia / K. aerogenes ─────────────────────
   if(org==='enterobacter'||org==='serratia'||org==='k_aerogenes'){
-    if(hKPC)return{pl:'high',pcr:'KPC: 구성적 발현. PCR 예측력 높음.',f:[{n:'Ceftazidime-avibactam',b:'Zavicefta'},{n:'Meropenem-vaborbactam',b:'Vabomere'},{n:'Imipenem-relebactam',b:'Recarbrio'}],s:[{n:'Cefiderocol',b:'Fetroja'}],t:[],av:[],ns:['KPC-3 변이체: CAZ-AVI 내성 가능 → MIC 확인']};
-    if(hIMP)return{pl:'low',pcr:'IMP(MBL): IMI-REL/MER-VAB 비활성 예측만 신뢰.',f:[{n:'Aztreonam + Ceftazidime-avibactam',b:'ATM + Zavicefta',nt:'MBL 78~93% 회복'}],s:[{n:'Cefiderocol',b:'Fetroja'}],t:[{n:'Colistin',b:'',nt:'최후'}],av:[{n:'IMI-REL/MER-VAB',nt:'MBL 비활성'}],ns:[]};
-    var rc={pl:'low',pcr:(noG?'획득 내성 유전자 미검출 — ':'')+'AmpC 염색체 내재: 과발현 예측 불가. Cefepime MIC 직접 확인 필수.',s:[],t:[],av:[{n:'Piperacillin-tazobactam',nt:'AmpC 과발현 위험 (IDSA 2024)'},{n:'Ceftazidime',nt:'AmpC 과발현 시 가수분해 위험'}],ns:['치료 중 de-repression 내성 출현 모니터링']};
+    if(hKPC)return{pl:'high',pcr:'KPC: 구성적 발현. PCR 예측력 높음.',
+      f:[{n:'Ceftazidime-avibactam',b:'Zavicefta'},{n:'Meropenem-vaborbactam',b:'Vabomere'},{n:'Imipenem-relebactam',b:'Recarbrio'}],
+      s:[{n:'Cefiderocol',b:'Fetroja'}],t:[],av:[],ns:['KPC-3 변이체: CAZ-AVI 내성 가능 → MIC 확인']};
+    if(hIMP)return{pl:'low',pcr:'IMP(MBL): IMI-REL/MER-VAB 비활성 예측만 신뢰.',
+      f:[{n:'Aztreonam + Ceftazidime-avibactam',b:'ATM + Zavicefta',nt:'MBL 78~93% 회복'}],
+      s:[{n:'Cefiderocol',b:'Fetroja'}],t:[{n:'Colistin',b:'',nt:'최후'}],
+      av:[{n:'IMI-REL/MER-VAB',nt:'MBL 비활성'}],ns:[]};
+    var rc={pl:'low',pcr:(noG?'획득 내성 유전자 미검출 — ':'')+'AmpC 염색체 내재: 과발현 예측 불가. Cefepime MIC 직접 확인 필수.',s:[],t:[],
+      av:[{n:'Piperacillin-tazobactam',nt:'AmpC 과발현 위험 (IDSA 2024)'},{n:'Ceftazidime',nt:'AmpC 과발현 시 가수분해 위험'}],
+      ns:['치료 중 de-repression 내성 출현 모니터링']};
     if(sv)rc.f=[{n:'Carbapenem',b:'Meropenem 2g q8h 연장주입',nt:'중증',dose:'Meropenem 고용량 연장주입'}];
     else rc.f=[{n:'Cefepime 고용량 연장주입',b:'2g IV q8h, 4시간',nt:'비중증, MIC ≤2 조건',dose:'Cefepime 고용량 연장주입'},{n:'Carbapenem',b:'',nt:'중증 또는 MIC ≥4'}];
     return rc;}
+
+  // ── K. pneumoniae / E. coli / K. oxytoca / Proteus ─────────────
   if(org==='kp_group'||org==='ecoli'||org==='k_oxytoca'||org==='proteus'){
-    if(noG)return{pl:'moderate',pcr:'내성 유전자 미검출 — Carbapenem 감수성 예측력 높음. ESBL PCR 위음성 가능성 존재.',f:[{n:'Carbapenem',b:'Meropenem/Imipenem/Ertapenem',nt:sv?'중증·폐렴 우선':mil?'경증: 감수성 확인 후 FQ/TMP-SMX 고려':'표준'},{n:'Cefepime',b:'',nt:'표현형 ESBL 배제 후 (비중증)'}],s:[{n:'Fluoroquinolone/TMP-SMX',b:'',nt:'감수성 확인 후 step-down'}],t:[],av:[{n:'Piperacillin-tazobactam',nt:'ESBL 위음성 가능 + MIC 재현성 문제로 비뇨기외 비권장 (IDSA 2024)'}],ns:['PCR 음성 = ESBL 부재 보장 아님 — 표현형 확인 권장']};
-    if(hCTXM&&!hKPC&&!hNDM&&!hOXA)return{pl:'moderate',pcr:'ESBL(CTX-M): Carbapenem 감수성 예측력 높음.',f:[{n:'Carbapenem',b:'Meropenem/Imipenem/Ertapenem',nt:sv?'중증·폐렴 우선':'중증 우선; 경증 step-down 가능'}],s:[{n:'Fluoroquinolone/TMP-SMX',b:'',nt:'표현형 감수성 확인 시 step-down'}],t:[],av:[{n:'Piperacillin-tazobactam',nt:'비뇨기외 ESBL-E 비권장 (IDSA 2024)'},{n:'Cefepime',nt:'비뇨기외 ESBL-E 비권장 (IDSA 2024)'}],ns:['FQ/TMP-SMX step-down: 표현형 필수']};
-    if(hKPC&&hNDM)return{pl:'low',pcr:'KPC+NDM 복합: 치료 옵션 극히 제한.',f:[{n:'Aztreonam + Ceftazidime-avibactam',b:'ATM + Zavicefta',nt:'KPC+MBL 복합 최선'}],s:[{n:'Aztreonam-avibactam',b:'Emblaveo',nt:'FDA 2023'},{n:'Cefiderocol',b:'Fetroja',nt:'MIC 확인'}],t:[{n:'Colistin',b:'',nt:'최후'}],av:[{n:'IMI-REL/MER-VAB',nt:'MBL 비활성'}],ns:['표현형 없이 치료 선택 매우 위험']};
-    if(hKPC)return{pl:'high',pcr:'KPC: 구성적 발현.',f:[{n:'Ceftazidime-avibactam',b:'Zavicefta'},{n:'Meropenem-vaborbactam',b:'Vabomere'},{n:'Imipenem-relebactam',b:'Recarbrio'}],s:[{n:'Cefiderocol',b:'Fetroja'}],t:[],av:[],ns:['KPC-3 변이체: MIC 확인 필수']};
-    if(hNDM)return{pl:'high',pcr:'NDM(MBL): 구성적 발현.',f:[{n:'Aztreonam + Ceftazidime-avibactam',b:'ATM + Zavicefta',nt:'MBL 78~93% 회복'}],s:[{n:'Cefiderocol',b:'Fetroja'},{n:'Aztreonam-avibactam',b:'Emblaveo',nt:'FDA 2023'}],t:[{n:'Colistin',b:'',nt:'최후'}],av:[{n:'IMI-REL/MER-VAB',nt:'MBL 비활성'}],ns:[]};
-    if(hOXA)return{pl:'moderate',pcr:'OXA-48: carbapenem 가수분해 활성 약함.',f:[{n:'Ceftazidime-avibactam',b:'Zavicefta',nt:'OXA-48 우수'}],s:[{n:'Cefiderocol',b:'Fetroja'}],t:[],av:[{n:'IMI-REL',nt:'OXA-48 제한적'}],ns:['ESBL 동반 시 MIC 상승 가능']};}
+    if(noG)return{pl:'moderate',pcr:'내성 유전자 미검출 — Carbapenem 감수성 예측력 높음. ESBL PCR 위음성 가능성 존재.',
+      f:[{n:'Carbapenem',b:'Meropenem/Imipenem/Ertapenem',nt:sv?'중증·폐렴 우선':mil?'경증: 감수성 확인 후 FQ/TMP-SMX 고려':'표준'},{n:'Cefepime',b:'',nt:'표현형 ESBL 배제 후 (비중증)'}],
+      s:[{n:'Fluoroquinolone/TMP-SMX',b:'',nt:'감수성 확인 후 step-down'}],t:[],
+      av:[{n:'Piperacillin-tazobactam',nt:'ESBL 위음성 가능 + MIC 재현성 문제로 비뇨기외 비권장 (IDSA 2024)'}],
+      ns:['PCR 음성 = ESBL 부재 보장 아님 — 표현형 확인 권장']};
+    if(hCTXM&&!hKPC&&!hNDM&&!hOXA)return{pl:'moderate',pcr:'ESBL(CTX-M): Carbapenem 감수성 예측력 높음.',
+      f:[{n:'Carbapenem',b:'Meropenem/Imipenem/Ertapenem',nt:sv?'중증·폐렴 우선':'중증 우선; 경증 step-down 가능'}],
+      s:[{n:'Fluoroquinolone/TMP-SMX',b:'',nt:'표현형 감수성 확인 시 step-down'}],t:[],
+      av:[{n:'Piperacillin-tazobactam',nt:'비뇨기외 ESBL-E 비권장 (IDSA 2024)'},{n:'Cefepime',nt:'비뇨기외 ESBL-E 비권장 (IDSA 2024)'}],
+      ns:['FQ/TMP-SMX step-down: 표현형 필수']};
+    if(hKPC&&hNDM)return{pl:'low',pcr:'KPC+NDM 복합: 치료 옵션 극히 제한.',
+      f:[{n:'Aztreonam + Ceftazidime-avibactam',b:'ATM + Zavicefta',nt:'KPC+MBL 복합 최선'}],
+      s:[{n:'Aztreonam-avibactam',b:'Emblaveo',nt:'FDA 2023'},{n:'Cefiderocol',b:'Fetroja',nt:'MIC 확인'}],
+      t:[{n:'Colistin',b:'',nt:'최후'}],av:[{n:'IMI-REL/MER-VAB',nt:'MBL 비활성'}],
+      ns:['표현형 없이 치료 선택 매우 위험']};
+    if(hKPC)return{pl:'high',pcr:'KPC: 구성적 발현.',
+      f:[{n:'Ceftazidime-avibactam',b:'Zavicefta'},{n:'Meropenem-vaborbactam',b:'Vabomere'},{n:'Imipenem-relebactam',b:'Recarbrio'}],
+      s:[{n:'Cefiderocol',b:'Fetroja'}],t:[],av:[],ns:['KPC-3 변이체: MIC 확인 필수']};
+    if(hNDM)return{pl:'high',pcr:'NDM(MBL): 구성적 발현.',
+      f:[{n:'Aztreonam + Ceftazidime-avibactam',b:'ATM + Zavicefta',nt:'MBL 78~93% 회복'}],
+      s:[{n:'Cefiderocol',b:'Fetroja'},{n:'Aztreonam-avibactam',b:'Emblaveo',nt:'FDA 2023'}],
+      t:[{n:'Colistin',b:'',nt:'최후'}],av:[{n:'IMI-REL/MER-VAB',nt:'MBL 비활성'}],ns:[]};
+    if(hOXA)return{pl:'moderate',pcr:'OXA-48: carbapenem 가수분해 활성 약함.',
+      f:[{n:'Ceftazidime-avibactam',b:'Zavicefta',nt:'OXA-48 우수'}],
+      s:[{n:'Cefiderocol',b:'Fetroja'}],t:[],av:[{n:'IMI-REL',nt:'OXA-48 제한적'}],
+      ns:['ESBL 동반 시 MIC 상승 가능']};}
+
   return{pl:'moderate',pcr:'추가 정보 필요.',f:[{n:'Carbapenem',b:'Meropenem/Imipenem'}],s:[],t:[],av:[],ns:['유전자 선택 시 더 정확한 추천 가능']};}
+
 function cross(recs){var av={};recs.forEach(function(r){(r.av||[]).forEach(function(d){av[d.n]=d;});});var do2={};recs.forEach(function(r,i){var all=[].concat(r.f||[],r.s||[],r.t||[]);all.forEach(function(d){var dn=d.n;if(!do2[dn])do2[dn]={orgs:[],mr:3};if(do2[dn].orgs.indexOf(i)<0)do2[dn].orgs.push(i);var rk=(r.f||[]).some(function(x){return x.n===dn;})?1:(r.s||[]).some(function(x){return x.n===dn;})?2:3;if(rk<do2[dn].mr)do2[dn].mr=rk;});});var full=[],part=[];Object.keys(do2).forEach(function(dn){if(av[dn])return;var info=do2[dn];if(info.orgs.length===recs.length)full.push({n:dn,rank:info.mr});else part.push({n:dn,orgs:info.orgs});});full.sort(function(a,b){return a.rank-b.rank;});return{full:full,part:part,av:av};}
 function ps(pl){if(pl==='high')return{bg:'#f0fdf4',bd:'#6ee7b7',tx:'#065f46',lb:'PCR 예측력 높음'};if(pl==='moderate')return{bg:'#fffbeb',bd:'#fcd34d',tx:'#92400e',lb:'PCR 예측력 중간 — 표현형 보완 필요'};return{bg:'#fef2f2',bd:'#fca5a5',tx:'#9b1c1c',lb:'PCR 예측력 낮음 — 표현형 필수'};}
 function koTag(n){return isKO(n)?'<span class="ko-badge">★미출시</span>':'';}
+function idsaNmTag(n){return isIDSAnm(n)?'<span class="idsa-badge">⚠ IDSA 미언급</span>':'';}
 function doBox(key){if(!key||!DOSE[key])return'';var d=DOSE[key];return'<div class="dosing-box"><div class="dosing-title">특수용법 — '+d.t+'</div><div class="dosing-content">'+d.c.replace(/\n/g,'<br>')+'</div></div>';}
-function dch(d,cl,badge,bcl){var ko=koTag(d.n)||(d.b?koTag(d.b):'');return'<div class="dc '+cl+'"><div class="dh"><span class="dn">'+d.n+ko+'</span><span class="bdg '+bcl+'">'+badge+'</span></div>'+(d.b?'<div class="db2">'+d.b+'</div>':'')+(d.nt?'<div class="dn2">'+d.nt+'</div>':'')+(d.dose?doBox(d.dose):'')+(d.combo||'')+'</div>';}
+function dch(d,cl,badge,bcl){
+  var ko=koTag(d.n)||(d.b?koTag(d.b):'');
+  var idnm=idsaNmTag(d.n);
+  return'<div class="dc '+cl+'"><div class="dh"><span class="dn">'+d.n+ko+idnm+'</span>'
+    +'<span class="bdg '+bcl+'">'+badge+'</span></div>'
+    +(d.b?'<div class="db2">'+d.b+'</div>':'')
+    +(d.nt?'<div class="dn2">'+d.nt+'</div>':'')
+    +(d.dose?doBox(d.dose):'')
+    +(d.combo||'')+'</div>';}
+
 function buildR(){
   go(2);var recs=S.orgs.map(function(k){return getRec(k,S.genes[k]||[],S.sev);});var h='';
   if(S.orgs.length>=2){var ca=cross(recs);var anyL=recs.some(function(r){return r.pl==='low';});
     h+='<div class="dbox"><div class="dt">다중균주 동시 검출 — 통합 분석</div><div class="dn3">검출 균주: '+S.orgs.map(function(k){return OR[k].l;}).join(', ')+'<br>'+(anyL?'PCR 예측력 낮은 균주 포함 — 모든 균주 표현형 MIC 확인 필수.':'항균 범위와 독성을 함께 고려하십시오.')+'</div></div>';
-    if(ca.full.length>0){h+='<div class="cbox"><div class="ct">전 균주 커버 약제 (교집합)</div><div class="cn">';ca.full.forEach(function(d){h+='▪ '+d.n+(isKO(d.n)?'<span class="ko-badge">★미출시</span>':'')+'— '+(d.rank===1?'1차':d.rank===2?'1~2차':'2~3차')+'<br>';});h+='</div></div>';}
+    if(ca.full.length>0){h+='<div class="cbox"><div class="ct">전 균주 커버 약제 (교집합)</div><div class="cn">';ca.full.forEach(function(d){h+='▪ '+d.n+(isKO(d.n)?'<span class="ko-badge">★미출시</span>':'')+(isIDSAnm(d.n)?'<span class="idsa-badge">⚠IDSA미언급</span>':'')+'— '+(d.rank===1?'1차':d.rank===2?'1~2차':'2~3차')+'<br>';});h+='</div></div>';}
     else h+='<div class="dbox"><div class="dt">전 균주 동시 커버 약제 없음</div><div class="dn3">병합요법 / 감염내과 협진 필요.</div></div>';
     if(Object.keys(ca.av).length>0){h+='<div style="font-size:10px;font-weight:700;color:#9ca3af;text-transform:uppercase;margin:8px 0 4px">공통 금기 약제</div>';Object.keys(ca.av).forEach(function(dn){h+=dch(ca.av[dn],'da','금기','ba');});}
     h+='<div class="dv"></div>';}
