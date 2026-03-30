@@ -198,10 +198,12 @@ var IDSA_NM=['Piperacillin-sulbactam'];
 function isIDSAnm(n){for(var i=0;i<IDSA_NM.length;i++)if(n.indexOf(IDSA_NM[i])>=0)return true;return false;}
 
 var DOSE={
-  'Cefepime 고용량 연장주입':{t:'Cefepime 고용량 연장주입',c:'용량: 2g IV q8h (또는 q6h)\n투여: 각 용량을 4시간에 걸쳐 연장주입\n근거: Time-dependent 살균 — %T>MIC 극대화\n주의: MIC ≥8 μg/mL 시 목표 달성 어려움'},
-  'Meropenem 고용량 연장주입':{t:'Meropenem 고용량 연장주입',c:'용량: 2g IV q8h\n투여: 각 용량을 3시간에 걸쳐 연장주입\n근거: Time-dependent 살균 — PK/PD 최적화'},
-  'Pip-tazo 연장주입':{t:'Piperacillin-tazobactam 연장주입',c:'용량: 4.5g IV q6h\n투여: 각 용량을 4시간에 걸쳐 연장주입'},
+  'Cefepime 고용량 연장주입':{t:'Cefepime 고용량 연장주입',c:'용량: 2g IV q8h (또는 q6h)\n투여: 각 용량을 4시간에 걸쳐 연장주입\n근거: Time-dependent 살균 — %T>MIC 극대화 (fT>MIC ≥60–70% 목표)\n주의: MIC ≥8 μg/mL 시 목표 달성 어려움\n안정성: 4시간 연장주입 시 실온에서 약물 안정성 확인 필요'},
+  'Meropenem 고용량 연장주입':{t:'Meropenem 고용량 연장주입',c:'용량: 2g IV q8h\n투여: 각 용량을 3시간에 걸쳐 연장주입\n근거: Time-dependent 살균 — PK/PD 최적화 (fT>MIC ≥40% 목표)\n표준 용량: 1g IV q8h (감수성 균주, 비중증)\n안정성: Meropenem은 실온에서 3–4시간 이내 안정'},
+  'Pip-tazo 연장주입':{t:'Piperacillin-tazobactam 연장주입',c:'용량: 4.5g IV q6h\n투여: 각 용량을 4시간에 걸쳐 연장주입\n근거: Time-dependent 살균 — fT>MIC 극대화\n주의: MIC ≤16 μg/mL 균주에서 목표 달성률 우수\n안정성: 4시간 연장주입 시 전용 라인 또는 Y-site 확인'},
   'Pip-sulbactam 용법':{t:'Piperacillin-sulbactam 용법 (⚠ IDSA 미언급)',c:'국내 제품: 피페라실린 2g + 설박탐 1g 복합제 (일반 용량 기준)\n용량: 4.5g (Piperacillin 3g + Sulbactam 1.5g) IV q6–8h\n투여: 30분~1시간 주입, 또는 연장주입 가능\n근거: In vitro 연구 및 소규모 임상 연구 (RCT 제한적)\n주의: IDSA 2024 AMR 가이드라인에 언급되지 않음\n⇒ 감수성 확인 후 사용, 표준 1차 치료로 사용 전 감염내과 협진 권장'},
+  'CAZ-AVI 용법':{t:'Ceftazidime-avibactam (Zavicefta) 용법',c:'용량: Ceftazidime 2g + Avibactam 0.5g = 2.5g IV q8h\n투여: 각 용량을 3시간에 걸쳐 연장주입 (IDSA 2024 Table 1)\n근거: Time-dependent 살균 — 연장주입으로 PK/PD 최적화\n신기능 저하 시: CrCl에 따라 용량 감량 필수 (첨부문서 참조)\n안정성: 3시간 연장주입 시 약물 안정성 유지'},
+  'CAZ-AVI + ATM 용법':{t:'Ceftazidime-avibactam + Aztreonam 병합 투여법 (IDSA 2024)',c:'[MBL 생성균 대상 — NDM/VIM/IMP 양성]\nCAZ-AVI: 2.5g IV q8h, 3시간 연장주입\nAztreonam: 2g IV q8h, 3시간 연장주입\n투여 방법: 두 약제를 동시에 Y-site로 병행 투여 (IDSA 2024 권고)\n⇒ CAZ-AVI가 MBL을 억제 → Aztreonam이 살균\n주의: 두 약제 모두 신기능에 따라 용량 조정 필요\n안정성: Y-site 병행 투여 시 약제 상호 안정성 확인됨'},
   'Vancomycin AUC 기반':{t:'Vancomycin AUC/MIC 기반 TDM (ASHP/IDSA 2020)',c:'목표: AUC/MIC = 400–600 mg·h/L\n초기 부하 용량: 25–30 mg/kg IV (중증 시)\n주의: trough 단독 모니터링 비권장 (신독성 위험)'},
   'Ampicillin-sulbactam 고용량':{t:'Ampicillin-sulbactam 고용량 (IDSA 2024 CRAB)',c:'용량: Ampicillin 18g + Sulbactam 9g = 총 27g/day\n투여: q4–6h, 각 용량 3–4시간 연장주입 (또는 24시간 지속주입)\n주의: Sulbactam MIC ≥8 μg/mL 시 전환 고려\n신기능 저하 시 용량 감량 필수'},
 };
@@ -238,7 +240,7 @@ function getRec(org,genes,sev){
     pcr:'S. maltophilia — L1(MBL)/L2(ESBL) 내재성 β-lactamase로 Carbapenem·Cephalosporin·Pip-tazo 모두 비활성. 반드시 표현형 감수성 확인 필요.',
     f:[
       {n:'TMP-SMX + Minocycline',b:'',nt:'중증 시 선호 병합 (IDSA 2024 — 임상근거 가장 충분)'},
-      {n:'Ceftazidime-avibactam + Aztreonam',b:'Zavicefta + ATM',nt:'병합 고정 요법 (MBL·ESBL 동시 커버)'},
+      {n:'Ceftazidime-avibactam + Aztreonam',b:'Zavicefta + ATM',nt:'병합 고정 요법 (MBL·ESBL 동시 커버)',dose:'CAZ-AVI + ATM 용법'},
     ],
     s:[
       {n:'Minocycline',b:'고용량 100mg IV/PO q12h',nt:'단독 또는 병합 — TMP-SMX 불내성/내성 시'},
@@ -342,7 +344,7 @@ function getRec(org,genes,sev){
   // ── P. aeruginosa ──────────────────────────────────────────────
   if(org==='pseudomonas'){var mbl=hVIM||hIMP;
     if(mbl)return{pl:'low',pcr:'VIM/IMP: integron 매개. Ceftolozane-tazobactam 불가 예측만 신뢰.',
-      f:[{n:'Aztreonam + Ceftazidime-avibactam',b:'ATM + Zavicefta',nt:'MBL 78~93% 감수성 회복'}],
+      f:[{n:'Aztreonam + Ceftazidime-avibactam',b:'ATM + Zavicefta',nt:'MBL 78~93% 감수성 회복',dose:'CAZ-AVI + ATM 용법'}],
       s:[{n:'Cefiderocol',b:'Fetroja',nt:'MIC 확인 (미출시)'},
          {n:'Piperacillin-sulbactam',b:'',nt:'MBL 보유균에 sulbactam 효과 제한적 — 감수성 확인 필수',dose:'Pip-sulbactam 용법'}],
       t:[{n:'Colistin',b:'',nt:'최후 수단'}],
@@ -358,17 +360,17 @@ function getRec(org,genes,sev){
       t:[],av:[],ns:['모든 약제 감수성 결과 확인 필수','Piperacillin-sulbactam: IDSA 미언급 — Pip-tazo와 항균 스펙트럼 유사하나 in vitro 일부 우세']};
     return{pl:'low',pcr:'Efflux pump 유전자 정상균에도 존재 → 표현형 필수.',
       f:[{n:'Ceftolozane-tazobactam',b:'Zerbaxa',nt:'carbapenem 내성, carbapenemase 음성 MDR'}],
-      s:[{n:'Ceftazidime-avibactam',b:'Zavicefta',nt:'MIC 확인'},{n:'Cefiderocol',b:'Fetroja',nt:'MIC 확인 (미출시)'}],
+      s:[{n:'Ceftazidime-avibactam',b:'Zavicefta',nt:'MIC 확인',dose:'CAZ-AVI 용법'},{n:'Cefiderocol',b:'Fetroja',nt:'MIC 확인 (미출시)'}],
       t:[{n:'Colistin',b:'',nt:'최후 수단'}],av:[],
       ns:['전통 β-lactam 감수성 있으면 먼저 사용']};}
 
   // ── Enterobacter / Serratia / K. aerogenes ─────────────────────
   if(org==='enterobacter'||org==='serratia'||org==='k_aerogenes'){
     if(hKPC)return{pl:'high',pcr:'KPC: 구성적 발현. PCR 예측력 높음.',
-      f:[{n:'Ceftazidime-avibactam',b:'Zavicefta'},{n:'Meropenem-vaborbactam',b:'Vabomere'},{n:'Imipenem-relebactam',b:'Recarbrio'}],
+      f:[{n:'Ceftazidime-avibactam',b:'Zavicefta',dose:'CAZ-AVI 용법'},{n:'Meropenem-vaborbactam',b:'Vabomere'},{n:'Imipenem-relebactam',b:'Recarbrio'}],
       s:[{n:'Cefiderocol',b:'Fetroja'}],t:[],av:[],ns:['KPC-3 변이체: CAZ-AVI 내성 가능 → MIC 확인']};
     if(hIMP)return{pl:'low',pcr:'IMP(MBL): IMI-REL/MER-VAB 비활성 예측만 신뢰.',
-      f:[{n:'Aztreonam + Ceftazidime-avibactam',b:'ATM + Zavicefta',nt:'MBL 78~93% 회복'}],
+      f:[{n:'Aztreonam + Ceftazidime-avibactam',b:'ATM + Zavicefta',nt:'MBL 78~93% 회복',dose:'CAZ-AVI + ATM 용법'}],
       s:[{n:'Cefiderocol',b:'Fetroja'}],t:[{n:'Colistin',b:'',nt:'최후'}],
       av:[{n:'IMI-REL/MER-VAB',nt:'MBL 비활성'}],ns:[]};
     var rc={pl:'low',pcr:(noG?'획득 내성 유전자 미검출 — ':'')+'AmpC 염색체 내재: 과발현 예측 불가. Cefepime MIC 직접 확인 필수.',s:[],t:[],
@@ -391,19 +393,19 @@ function getRec(org,genes,sev){
       av:[{n:'Piperacillin-tazobactam',nt:'비뇨기외 ESBL-E 비권장 (IDSA 2024)'},{n:'Cefepime',nt:'비뇨기외 ESBL-E 비권장 (IDSA 2024)'}],
       ns:['FQ/TMP-SMX step-down: 표현형 필수']};
     if(hKPC&&hNDM)return{pl:'low',pcr:'KPC+NDM 복합: 치료 옵션 극히 제한.',
-      f:[{n:'Aztreonam + Ceftazidime-avibactam',b:'ATM + Zavicefta',nt:'KPC+MBL 복합 최선'}],
+      f:[{n:'Aztreonam + Ceftazidime-avibactam',b:'ATM + Zavicefta',nt:'KPC+MBL 복합 최선',dose:'CAZ-AVI + ATM 용법'}],
       s:[{n:'Aztreonam-avibactam',b:'Emblaveo',nt:'FDA 2023'},{n:'Cefiderocol',b:'Fetroja',nt:'MIC 확인'}],
       t:[{n:'Colistin',b:'',nt:'최후'}],av:[{n:'IMI-REL/MER-VAB',nt:'MBL 비활성'}],
       ns:['표현형 없이 치료 선택 매우 위험']};
     if(hKPC)return{pl:'high',pcr:'KPC: 구성적 발현.',
-      f:[{n:'Ceftazidime-avibactam',b:'Zavicefta'},{n:'Meropenem-vaborbactam',b:'Vabomere'},{n:'Imipenem-relebactam',b:'Recarbrio'}],
+      f:[{n:'Ceftazidime-avibactam',b:'Zavicefta',dose:'CAZ-AVI 용법'},{n:'Meropenem-vaborbactam',b:'Vabomere'},{n:'Imipenem-relebactam',b:'Recarbrio'}],
       s:[{n:'Cefiderocol',b:'Fetroja'}],t:[],av:[],ns:['KPC-3 변이체: MIC 확인 필수']};
     if(hNDM)return{pl:'high',pcr:'NDM(MBL): 구성적 발현.',
-      f:[{n:'Aztreonam + Ceftazidime-avibactam',b:'ATM + Zavicefta',nt:'MBL 78~93% 회복'}],
+      f:[{n:'Aztreonam + Ceftazidime-avibactam',b:'ATM + Zavicefta',nt:'MBL 78~93% 회복',dose:'CAZ-AVI + ATM 용법'}],
       s:[{n:'Cefiderocol',b:'Fetroja'},{n:'Aztreonam-avibactam',b:'Emblaveo',nt:'FDA 2023'}],
       t:[{n:'Colistin',b:'',nt:'최후'}],av:[{n:'IMI-REL/MER-VAB',nt:'MBL 비활성'}],ns:[]};
     if(hOXA)return{pl:'moderate',pcr:'OXA-48: carbapenem 가수분해 활성 약함.',
-      f:[{n:'Ceftazidime-avibactam',b:'Zavicefta',nt:'OXA-48 우수'}],
+      f:[{n:'Ceftazidime-avibactam',b:'Zavicefta',nt:'OXA-48 우수',dose:'CAZ-AVI 용법'}],
       s:[{n:'Cefiderocol',b:'Fetroja'}],t:[],av:[{n:'IMI-REL',nt:'OXA-48 제한적'}],
       ns:['ESBL 동반 시 MIC 상승 가능']};}
 
