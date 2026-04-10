@@ -170,15 +170,15 @@ html,body{min-height:100%;background:#f3f4f6;font-family:-apple-system,BlinkMacS
 <script>
 var S={mode:'s',orgs:[],genes:{},sev:null};
 var OR={
-  kp_group:{l:'K. pneumoniae group',h:'KPC / NDM / OXA-48 / CTX-M',g:['KPC','NDM','OXA48','CTXM'],grp:'GN'},
-  ecoli:{l:'Escherichia coli',h:'KPC / NDM / OXA-48 / CTX-M',g:['KPC','NDM','OXA48','CTXM'],grp:'GN'},
-  k_aerogenes:{l:'Klebsiella aerogenes',h:'AmpC 내재 / CTX-M / KPC',g:['KPC','CTXM'],grp:'GN'},
-  k_oxytoca:{l:'Klebsiella oxytoca',h:'CTX-M / KPC',g:['KPC','CTXM'],grp:'GN'},
-  enterobacter:{l:'Enterobacter cloacae complex',h:'AmpC 내재 / KPC / CTX-M',g:['KPC','CTXM'],grp:'GN'},
+  kp_group:{l:'K. pneumoniae group',h:'KPC / NDM / OXA-48 / CTX-M / IMP',g:['KPC','NDM','OXA48','CTXM','IMP'],grp:'GN'},
+  ecoli:{l:'Escherichia coli',h:'KPC / NDM / OXA-48 / CTX-M / IMP',g:['KPC','NDM','OXA48','CTXM','IMP'],grp:'GN'},
+  k_aerogenes:{l:'Klebsiella aerogenes',h:'AmpC 내재 / CTX-M / KPC / IMP',g:['KPC','CTXM','IMP'],grp:'GN'},
+  k_oxytoca:{l:'Klebsiella oxytoca',h:'CTX-M / KPC / IMP',g:['KPC','CTXM','IMP'],grp:'GN'},
+  enterobacter:{l:'Enterobacter cloacae complex',h:'AmpC 내재 / KPC / CTX-M / IMP',g:['KPC','CTXM','IMP'],grp:'GN'},
   serratia:{l:'Serratia marcescens',h:'AmpC 내재 / IMP / CTX-M',g:['IMP','CTXM'],grp:'GN'},
   proteus:{l:'Proteus spp.',h:'CTX-M / AmpC 내재',g:['CTXM'],grp:'GN'},
   pseudomonas:{l:'P. aeruginosa',h:'VIM / IMP',g:['VIM','IMP'],grp:'GN'},
-  acb:{l:'Acb complex',h:'OXA-48-like / NDM · CRAB',g:['OXA48','NDM'],grp:'GN'},
+  acb:{l:'Acb complex',h:'OXA-48-like / NDM / IMP · CRAB',g:['OXA48','NDM','IMP'],grp:'GN'},
   steno:{l:'S. maltophilia',h:'Carbapenem 내재성 내성 · TMP-SMX/FQ/Minocycline',g:[],grp:'GN'},
   h_influenzae:{l:'H. influenzae',h:'β-lactamase / ampicillin 내성',g:[],grp:'GN'},
   moraxella:{l:'Moraxella catarrhalis',h:'β-lactamase 생산균',g:[],grp:'GN'},
@@ -310,6 +310,14 @@ function getRec(org,genes,sev){
 
   // ── ACB (CRAB) ─────────────────────────────────────────────────
   if(org==='acb'){
+    if(hIMP&&!hNDM)return{pl:'low',pcr:'IMP(MBL) 검출: IMI-REL·MER-VAB 비활성. Acinetobacter에서 IMP는 드물지만 보고됨 — 표현형 MIC 필수.',
+      f:[{n:'Aztreonam + Ceftazidime-avibactam',b:'ATM + Zavicefta',nt:'MBL 78~93% 감수성 회복',dose:'CAZ-AVI + ATM 용법'}],
+      s:[{n:'Sulbactam-durlobactam + Meropenem/Imipenem',b:'Xacduro + Carbapenem',nt:'IDSA 2024 CRAB 1차 선호 (미출시)'},
+         {n:'Ampicillin-sulbactam 고용량',b:'Sulbactam 9g/day',nt:'국내 사용 가능 대안',dose:'Ampicillin-sulbactam 고용량',combo:CC},
+         {n:'Cefiderocol',b:'Fetroja',nt:'병합 고려 (미출시)',combo:CC}],
+      t:[{n:'Colistin',b:'',nt:'최후 수단'}],
+      av:[{n:'IMI-REL/MER-VAB',nt:'MBL 비활성'}],
+      ns:['IMP + Acb: 드문 조합 — 반드시 표현형 MIC 확인 후 치료 결정','감염내과 협진 강력 권고']};
     if(hNDM)return{pl:'low',pcr:'NDM+OXA 복합: CAZ-AVI·IMI-REL·MER-VAB 모두 비활성.',
       f:[{n:'Cefiderocol',b:'Fetroja',nt:'복합 carbapenemase에도 활성 — 병합 필수',combo:CC}],
       s:[{n:'Sulbactam-durlobactam + Meropenem/Imipenem',b:'Xacduro + Carbapenem',nt:'NDM 단독 시 일부 활성 (미출시)'},
@@ -382,6 +390,12 @@ function getRec(org,genes,sev){
 
   // ── K. pneumoniae / E. coli / K. oxytoca / Proteus ─────────────
   if(org==='kp_group'||org==='ecoli'||org==='k_oxytoca'||org==='proteus'){
+    if(hIMP)return{pl:'high',pcr:'IMP(MBL): 구성적 발현. IMI-REL/MER-VAB 비활성 예측력 높음.',
+      f:[{n:'Aztreonam + Ceftazidime-avibactam',b:'ATM + Zavicefta',nt:'MBL 78~93% 감수성 회복',dose:'CAZ-AVI + ATM 용법'}],
+      s:[{n:'Cefiderocol',b:'Fetroja',nt:'MIC 확인'},{n:'Aztreonam-avibactam',b:'Emblaveo',nt:'FDA 2023'}],
+      t:[{n:'Colistin',b:'',nt:'최후 수단'}],
+      av:[{n:'IMI-REL/MER-VAB',nt:'MBL 비활성'},{n:'Carbapenem 단독',nt:'MBL에 의해 가수분해'}],
+      ns:['IMP: integron 매개 MBL — 획득성. 표현형 MIC 필수','KPC 동반 여부 반드시 확인']};
     if(noG)return{pl:'moderate',pcr:'내성 유전자 미검출 — Carbapenem 감수성 예측력 높음. ESBL PCR 위음성 가능성 존재.',
       f:[{n:'Carbapenem',b:'Meropenem/Imipenem/Ertapenem',nt:sv?'중증·폐렴 우선':mil?'경증: 감수성 확인 후 FQ/TMP-SMX 고려':'표준'},{n:'Cefepime',b:'',nt:'표현형 ESBL 배제 후 (비중증)'}],
       s:[{n:'Fluoroquinolone/TMP-SMX',b:'',nt:'감수성 확인 후 step-down'}],t:[],
