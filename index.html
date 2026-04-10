@@ -161,6 +161,12 @@ html,body{min-height:100%;background:#f3f4f6;font-family:-apple-system,BlinkMacS
   <div class="nav"><button class="nbtn" onclick="go(0)">← 이전</button><button class="nbtn p" onclick="buildR()">결과 보기 →</button></div>
 </div>
 <div id="p2" class="panel">
+  <div style="font-size:11px;color:#374151;background:#f3f4f6;border-radius:8px;padding:7px 12px;margin-bottom:6px;line-height:1.7">
+    <strong>PCR 예측력 등급 안내</strong><br>
+    🟢 <strong>높음</strong> — PCR 결과만으로 치료 선택 가능성 높음<br>
+    🟡 <strong>중간</strong> — PCR 보조적 활용, 표현형 감수성 보완 필요<br>
+    🔴 <strong>낮음</strong> — PCR은 특정 약제 비활성 예측에만 활용, 표현형 필수 <span style="font-size:10px;color:#6b7280">(낮음 = 치료 옵션 선택 불확실, 내성 표현형 예측과는 구분)</span>
+  </div>
   <div class="ko-legend">★ = 한국 미출시 — Cefiderocol · Meropenem-vaborbactam · Imipenem-relebactam · Sulbactam-durlobactam · Aztreonam-avibactam · Oxacillin</div>
   <div class="idsa-legend">⚠ IDSA 미언급 = IDSA 2024 가이드라인에서 직접 언급되지 않은 약제 (in vitro 근거 또는 국내 임상 경험 기반)</div>
   <div id="ra"></div>
@@ -310,7 +316,7 @@ function getRec(org,genes,sev){
 
   // ── ACB (CRAB) ─────────────────────────────────────────────────
   if(org==='acb'){
-    if(hIMP&&!hNDM)return{pl:'low',pcr:'IMP(MBL) 검출: IMI-REL·MER-VAB 비활성. Acinetobacter에서 IMP는 드물지만 보고됨 — 표현형 MIC 필수.',
+    if(hIMP&&!hNDM)return{pl:'low',pcr:'IMP(MBL) 검출: Acinetobacter에서 IMP 검출은 드문 사례 — 내성 표현형과의 일치율 불확실. OXA-type이 주된 내성 기전이므로 IMP 단독으로 치료 결정 위험. 표현형 MIC 필수.',
       f:[{n:'Aztreonam + Ceftazidime-avibactam',b:'ATM + Zavicefta',nt:'MBL 78~93% 감수성 회복',dose:'CAZ-AVI + ATM 용법'}],
       s:[{n:'Sulbactam-durlobactam + Meropenem/Imipenem',b:'Xacduro + Carbapenem',nt:'IDSA 2024 CRAB 1차 선호 (미출시)'},
          {n:'Ampicillin-sulbactam 고용량',b:'Sulbactam 9g/day',nt:'국내 사용 가능 대안',dose:'Ampicillin-sulbactam 고용량',combo:CC},
@@ -351,7 +357,7 @@ function getRec(org,genes,sev){
 
   // ── P. aeruginosa ──────────────────────────────────────────────
   if(org==='pseudomonas'){var mbl=hVIM||hIMP;
-    if(mbl)return{pl:'low',pcr:'VIM/IMP: integron 매개. Ceftolozane-tazobactam 불가 예측만 신뢰.',
+    if(mbl)return{pl:'low',pcr:'VIM/IMP: MBL — 내성 표현형 예측력은 높음. 단 치료 옵션이 극히 제한되어 항균제 선택 불확실성이 높음 (PCR 예측력 낮음 = 치료 선택 불확실). Ceftolozane-tazobactam 비활성 예측은 신뢰 가능.',
       f:[{n:'Aztreonam + Ceftazidime-avibactam',b:'ATM + Zavicefta',nt:'MBL 78~93% 감수성 회복',dose:'CAZ-AVI + ATM 용법'}],
       s:[{n:'Cefiderocol',b:'Fetroja',nt:'MIC 확인 (미출시)'},
          {n:'Piperacillin-sulbactam',b:'',nt:'MBL 보유균에 sulbactam 효과 제한적 — 감수성 확인 필수',dose:'Pip-sulbactam 용법'}],
@@ -377,7 +383,7 @@ function getRec(org,genes,sev){
     if(hKPC)return{pl:'high',pcr:'KPC: 구성적 발현. PCR 예측력 높음.',
       f:[{n:'Ceftazidime-avibactam',b:'Zavicefta',dose:'CAZ-AVI 용법'},{n:'Meropenem-vaborbactam',b:'Vabomere'},{n:'Imipenem-relebactam',b:'Recarbrio'}],
       s:[{n:'Cefiderocol',b:'Fetroja'}],t:[],av:[],ns:['KPC-3 변이체: CAZ-AVI 내성 가능 → MIC 확인']};
-    if(hIMP)return{pl:'low',pcr:'IMP(MBL): IMI-REL/MER-VAB 비활성 예측만 신뢰.',
+    if(hIMP)return{pl:'high',pcr:'IMP(MBL): 구성적 발현. Serratia에서 내성 표현형 예측력 높음. IMI-REL/MER-VAB 비활성.',
       f:[{n:'Aztreonam + Ceftazidime-avibactam',b:'ATM + Zavicefta',nt:'MBL 78~93% 회복',dose:'CAZ-AVI + ATM 용법'}],
       s:[{n:'Cefiderocol',b:'Fetroja'}],t:[{n:'Colistin',b:'',nt:'최후'}],
       av:[{n:'IMI-REL/MER-VAB',nt:'MBL 비활성'}],ns:[]};
@@ -390,7 +396,7 @@ function getRec(org,genes,sev){
 
   // ── K. pneumoniae / E. coli / K. oxytoca / Proteus ─────────────
   if(org==='kp_group'||org==='ecoli'||org==='k_oxytoca'||org==='proteus'){
-    if(hIMP)return{pl:'high',pcr:'IMP(MBL): 구성적 발현. IMI-REL/MER-VAB 비활성 예측력 높음.',
+    if(hIMP)return{pl:'high',pcr:'IMP(MBL): 구성적 발현. Carbapenem 내성 및 IMI-REL/MER-VAB 비활성 예측력 높음. ATM+CAZ-AVI 치료 전 표현형 MIC 확인 필수.',
       f:[{n:'Aztreonam + Ceftazidime-avibactam',b:'ATM + Zavicefta',nt:'MBL 78~93% 감수성 회복',dose:'CAZ-AVI + ATM 용법'}],
       s:[{n:'Cefiderocol',b:'Fetroja',nt:'MIC 확인'},{n:'Aztreonam-avibactam',b:'Emblaveo',nt:'FDA 2023'}],
       t:[{n:'Colistin',b:'',nt:'최후 수단'}],
@@ -401,11 +407,13 @@ function getRec(org,genes,sev){
       s:[{n:'Fluoroquinolone/TMP-SMX',b:'',nt:'감수성 확인 후 step-down'}],t:[],
       av:[{n:'Piperacillin-tazobactam',nt:'ESBL 위음성 가능 + MIC 재현성 문제로 비뇨기외 비권장 (IDSA 2024)'}],
       ns:['PCR 음성 = ESBL 부재 보장 아님 — 표현형 확인 권장']};
-    if(hCTXM&&!hKPC&&!hNDM&&!hOXA)return{pl:'moderate',pcr:'ESBL(CTX-M): Carbapenem 감수성 예측력 높음.',
+    if(hCTXM&&!hKPC&&!hNDM&&!hOXA&&!hIMP)return{pl:'high',pcr:'ESBL(CTX-M): Carbapenem 내성 유전자 없음 — Carbapenem 감수성 예측력 높음. 단 CTX-M 변이체에 따라 위음성 가능성 있어 표현형 확인 권장.',
       f:[{n:'Carbapenem',b:'Meropenem/Imipenem/Ertapenem',nt:sv?'중증·폐렴 우선':'중증 우선; 경증 step-down 가능'}],
       s:[{n:'Fluoroquinolone/TMP-SMX',b:'',nt:'표현형 감수성 확인 시 step-down'}],t:[],
       av:[{n:'Piperacillin-tazobactam',nt:'비뇨기외 ESBL-E 비권장 (IDSA 2024)'},{n:'Cefepime',nt:'비뇨기외 ESBL-E 비권장 (IDSA 2024)'}],
-      ns:['FQ/TMP-SMX step-down: 표현형 필수']};
+      ns:['FQ/TMP-SMX step-down: 표현형 필수',
+          'CTX-M PCR: ESBL 외 carbapenemase(KPC/NDM/OXA/IMP) 모두 음성이므로 Carbapenem 감수성 예측 신뢰도 높음',
+          'PCR 패널에 없는 CTX-M 변이체로 인한 위음성 가능성은 낮으나 배제 불가 — 표현형 확인 권장']};
     if(hKPC&&hNDM)return{pl:'low',pcr:'KPC+NDM 복합: 치료 옵션 극히 제한.',
       f:[{n:'Aztreonam + Ceftazidime-avibactam',b:'ATM + Zavicefta',nt:'KPC+MBL 복합 최선',dose:'CAZ-AVI + ATM 용법'}],
       s:[{n:'Aztreonam-avibactam',b:'Emblaveo',nt:'FDA 2023'},{n:'Cefiderocol',b:'Fetroja',nt:'MIC 확인'}],
@@ -418,7 +426,7 @@ function getRec(org,genes,sev){
       f:[{n:'Aztreonam + Ceftazidime-avibactam',b:'ATM + Zavicefta',nt:'MBL 78~93% 회복',dose:'CAZ-AVI + ATM 용법'}],
       s:[{n:'Cefiderocol',b:'Fetroja'},{n:'Aztreonam-avibactam',b:'Emblaveo',nt:'FDA 2023'}],
       t:[{n:'Colistin',b:'',nt:'최후'}],av:[{n:'IMI-REL/MER-VAB',nt:'MBL 비활성'}],ns:[]};
-    if(hOXA)return{pl:'moderate',pcr:'OXA-48: carbapenem 가수분해 활성 약함.',
+    if(hOXA)return{pl:'moderate',pcr:'OXA-48: 저수준 carbapenem 가수분해 — PCR 양성이어도 carbapenem 감수성 표현형 가능 (특히 OXA-181/232/244/484 변이체). 표현형 MIC가 감수성이어도 CAZ-AVI 선택 고려. 반드시 표현형 확인.',
       f:[{n:'Ceftazidime-avibactam',b:'Zavicefta',nt:'OXA-48 우수',dose:'CAZ-AVI 용법'}],
       s:[{n:'Cefiderocol',b:'Fetroja'}],t:[],av:[{n:'IMI-REL',nt:'OXA-48 제한적'}],
       ns:['ESBL 동반 시 MIC 상승 가능']};}
