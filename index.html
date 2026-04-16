@@ -273,7 +273,12 @@ function getRec(org,genes,sev){
   if(org==='h_influenzae')return{pl:'high',pcr:'H. influenzae — β-lactamase 생산 여부에 따라 선택.',
     f:[{n:'Amoxicillin-clavulanate',b:'',nt:'β-lactamase 포함 커버'},{n:'Ceftriaxone',b:'1–2g IV q24h',nt:'입원 환자 표준'}],
     s:[{n:'Levofloxacin',b:'750mg q24h',nt:'감수성 확인 후'},{n:'Azithromycin',b:'',nt:'비정형균 동반 시'}],t:[],av:[],
-    ns:['ATS/IDSA 2019 CAP: β-lactam + macrolide 또는 FQ 단독']};
+    ns:[
+      'ATS/IDSA 2019 CAP: β-lactam + macrolide 또는 FQ 단독',
+      '⚠ 내성 유전자(CTX-M/KPC/NDM/VIM/IMP 등) 동시 양성인 경우: H. influenzae 고유 유전자가 아님',
+      'H. influenzae의 β-lactam 내성은 blaTEM-1/ROB-1에 의하며, 이는 현재 PCR 패널에 포함되지 않음',
+      '동시 검출된 내성 유전자는 검체 내 다른 그람음성균(Enterobacterales 등)의 유전자일 가능성 높음 → 다중균주 모드로 해당 균주를 추가 선택하여 별도 해석 필요',
+    ]};
 
   if(org==='moraxella')return{pl:'high',pcr:'M. catarrhalis — 거의 모두 β-lactamase 생산.',
     f:[{n:'Amoxicillin-clavulanate',b:'',nt:'경증~중등도 1차'},{n:'Ceftriaxone',b:'',nt:'입원 환자'}],
