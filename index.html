@@ -129,7 +129,7 @@ html,body{min-height:100%;background:#f3f4f6;font-family:-apple-system,BlinkMacS
 <div class="app">
 <div class="topbar">
   <div class="topbar-icon">Rx</div>
-  <div><h1>폐렴 항균제 선택 가이드</h1><div class="topbar-sub">IDSA 2024 AMR Guidance 기반 · v5.8</div></div>
+  <div><h1>폐렴 항균제 선택 가이드</h1><div class="topbar-sub">IDSA 2024 AMR Guidance 기반 · v5.9</div></div>
 </div>
 <div class="warn">⚠ PCR 결과는 보조 지표입니다. 최종 항균제 선택은 반드시 표현형 배양 감수성(MIC)을 확인하십시오.</div>
 <div class="src">근거: IDSA 2024 AMR Guidance · ATS/IDSA 2019 CAP · ATS/IDSA 2016 HAP/VAP · IDSA MRSA Guidelines</div>
@@ -400,7 +400,7 @@ function getRec(org,genes,sev){
          {n:'Piperacillin-sulbactam',b:'',nt:'Pip-tazo 대안 — 감수성 확인 필수 (IDSA 미언급)',dose:'Pip-sulbactam 용법'},
          {n:'Cefepime 고용량 연장주입',b:'2g IV q8h, 4시간',nt:'감수성 확인 후',dose:'Cefepime 고용량 연장주입'},
          {n:'Ceftazidime',b:'2g IV q8h',nt:'감수성 확인 후 (비중증)'}],
-      s:[{n:'Carbapenem',b:sv?'Meropenem 2g q8h 연장주입':'Meropenem 1g q8h',nt:sv?'중증 우선':'',dose:sv?'Meropenem 고용량 연장주입':''},
+      s:[{n:'Carbapenem',b:sv?'Meropenem 2g q8h 연장주입':'Meropenem 1g q8h',nt:sv?'중증 우선':'표현형 감수성 확인 후',dose:sv?'Meropenem 고용량 연장주입':'Imipenem 용법'},
          {n:'Ceftolozane-tazobactam',b:'Zerbaxa',nt:'carbapenemase 음성 MDR 시'}],
       t:[],av:[],ns:['모든 약제 감수성 결과 확인 필수','Piperacillin-sulbactam: IDSA 미언급 — Pip-tazo와 항균 스펙트럼 유사하나 in vitro 일부 우세']};
     return{pl:'low',pcr:'Efflux pump 유전자 정상균에도 존재 → 표현형 필수.',
@@ -422,7 +422,7 @@ function getRec(org,genes,sev){
       av:[{n:'Piperacillin-tazobactam',nt:'AmpC 과발현 위험 — Enterobacter/K.aerogenes/C.freundii에서 치료 중 ceftriaxone 내성 출현율 8–40% (IDSA 2024). 초기 감수성 보고에도 치료 실패 다수. Pip-tazo는 AmpC 과발현 유도 능력 있어 비권장'},{n:'Ceftazidime',nt:'AmpC 과발현 시 Ceftazidime 가수분해 — 3세대 cephalosporin 모두 해당. Pip-tazo와 동일하게 AmpC 고위험균 침습 감염에 비권장'}],
       ns:['치료 중 de-repression 내성 출현 모니터링']};
     if(sv)rc.f=[{n:'Carbapenem',b:'Meropenem 2g q8h 연장주입',nt:'중증',dose:'Meropenem 고용량 연장주입'}];
-    else rc.f=[{n:'Cefepime 고용량 연장주입',b:'2g IV q8h, 4시간',nt:'비중증, MIC ≤2 조건',dose:'Cefepime 고용량 연장주입'},{n:'Carbapenem',b:'',nt:'중증 또는 MIC ≥4'}];
+    else rc.f=[{n:'Cefepime 고용량 연장주입',b:'2g IV q8h, 4시간',nt:'비중증, MIC ≤2 조건',dose:'Cefepime 고용량 연장주입'},{n:'Carbapenem',b:'Meropenem/Imipenem',nt:'중증 또는 MIC ≥4',dose:'Meropenem 고용량 연장주입'}];
     return rc;}
 
   // ── K. pneumoniae / E. coli / K. oxytoca / Proteus ─────────────
@@ -472,7 +472,7 @@ function getRec(org,genes,sev){
       s:[{n:'Cefiderocol',b:'Fetroja'}],t:[],av:[{n:'IMI-REL',nt:'OXA-48 제한적'}],
       ns:['ESBL 동반 시 MIC 상승 가능']};}
 
-  return{pl:'moderate',pcr:'추가 정보 필요.',f:[{n:'Carbapenem',b:'Meropenem/Imipenem'}],s:[],t:[],av:[],ns:['유전자 선택 시 더 정확한 추천 가능']};}
+  return{pl:'moderate',pcr:'추가 정보 필요.',f:[{n:'Carbapenem',b:'Meropenem/Imipenem',dose:'Meropenem 고용량 연장주입'}],s:[],t:[],av:[],ns:['유전자 선택 시 더 정확한 추천 가능']};}
 
 function cross(recs){var av={};recs.forEach(function(r){(r.av||[]).forEach(function(d){av[d.n]=d;});});var do2={};recs.forEach(function(r,i){var all=[].concat(r.f||[],r.s||[],r.t||[]);all.forEach(function(d){var dn=d.n;if(!do2[dn])do2[dn]={orgs:[],mr:3};if(do2[dn].orgs.indexOf(i)<0)do2[dn].orgs.push(i);var rk=(r.f||[]).some(function(x){return x.n===dn;})?1:(r.s||[]).some(function(x){return x.n===dn;})?2:3;if(rk<do2[dn].mr)do2[dn].mr=rk;});});var full=[],part=[];Object.keys(do2).forEach(function(dn){if(av[dn])return;var info=do2[dn];if(info.orgs.length===recs.length)full.push({n:dn,rank:info.mr});else part.push({n:dn,orgs:info.orgs});});full.sort(function(a,b){return a.rank-b.rank;});return{full:full,part:part,av:av};}
 function ps(pl){if(pl==='high')return{bg:'#f0fdf4',bd:'#6ee7b7',tx:'#065f46',lb:'PCR 예측력 높음'};if(pl==='moderate')return{bg:'#fffbeb',bd:'#fcd34d',tx:'#92400e',lb:'PCR 예측력 중간 — 표현형 보완 필요'};return{bg:'#fef2f2',bd:'#fca5a5',tx:'#9b1c1c',lb:'PCR 예측력 낮음 — 표현형 필수'};}
