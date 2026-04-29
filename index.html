@@ -123,13 +123,20 @@ html,body{min-height:100%;background:#f3f4f6;font-family:-apple-system,BlinkMacS
 .sl{font-size:10px;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:.07em;margin:8px 0 5px}
 .dv{border:none;border-top:1px solid #e5e7eb;margin:12px 0}
 .rst{font-size:12px;color:#6b7280;background:none;border:none;cursor:pointer;text-decoration:underline;padding:0;font-family:inherit}
+.gene-info-box{background:#f0fdf4;border:1.5px solid #6ee7b7;border-radius:8px;padding:9px 12px;margin-top:8px}
+.gene-info-title{font-size:11px;font-weight:700;color:#065f46;margin-bottom:5px}
+.gene-info-row{font-size:11px;color:#064e3b;line-height:1.6;margin-bottom:3px}
+.gene-info-row:last-child{margin-bottom:0}
+.gene-info-label{font-weight:700;color:#047857;margin-right:4px}
+.gene-info-warn{color:#92400e;background:#fffbeb;border-radius:4px;padding:1px 5px}
+.gene-info-epi{color:#6b7280;font-size:10px}
 </style>
 </head>
 <body>
 <div class="app">
 <div class="topbar">
   <div class="topbar-icon">Rx</div>
-  <div><h1>폐렴 항균제 선택 가이드</h1><div class="topbar-sub">IDSA 2024 AMR Guidance 기반 · v6.0</div></div>
+  <div><h1>폐렴 항균제 선택 가이드</h1><div class="topbar-sub">IDSA 2024 AMR Guidance 기반 · v6.1</div></div>
 </div>
 <div class="warn">⚠ PCR 결과는 보조 지표입니다. 최종 항균제 선택은 반드시 표현형 배양 감수성(MIC)을 확인하십시오.</div>
 <div class="src">근거: IDSA 2024 AMR Guidance · ATS/IDSA 2019 CAP · ATS/IDSA 2016 HAP/VAP · IDSA MRSA Guidelines</div>
@@ -196,7 +203,51 @@ var OR={
   legionella:{l:'Legionella pneumophila',h:'세포내 기생균, FQ/macrolide',g:[],grp:'ATY'},
   mycoplasma:{l:'Mycoplasma pneumoniae',h:'세포벽 없음, macrolide/FQ/doxy',g:[],grp:'ATY'},
 };
-var GM={KPC:{n:'KPC',d:'KPC-2/3 (Serine carbapenemase)'},NDM:{n:'NDM',d:'NDM-1/5 (MBL Class B)'},OXA48:{n:'OXA-48-like',d:'Serine carbapenemase, Class D'},CTXM:{n:'CTX-M',d:'CTX-M group (ESBL)'},IMP:{n:'IMP',d:'IMP-type (MBL, integron 매개)'},VIM:{n:'VIM',d:'VIM-2 등 (MBL, integron 매개)'},mecA:{n:'mecA/C (MRSA)',d:'MRSA 내성 유전자'}};
+var GM={
+  KPC:{n:'KPC',
+    d:'Klebsiella pneumoniae Carbapenemase (Class A, Serine carbapenemase)',
+    meaning:'양성 의미: KPC 효소가 carbapenem을 포함한 거의 모든 β-lactam을 가수분해. 구성적 발현 — PCR 양성 = 내성 표현형 예측력 높음',
+    tx:'치료: Ceftazidime-avibactam(Avibactam이 KPC 억제) 또는 Meropenem-vaborbactam 또는 Imipenem-relebactam',
+    warn:'주의: KPC-3 변이체(D179Y/T243M)는 CAZ-AVI에도 내성 가능 — 반드시 표현형 MIC 확인',
+    epi:'역학: 국내 Enterobacterales 주요 carbapenemase. K. pneumoniae ST258이 대표 클론'},
+  NDM:{n:'NDM',
+    d:'New Delhi Metallo-β-lactamase (Class B, MBL)',
+    meaning:'양성 의미: Zn²⁺ 의존성 MBL — carbapenem 포함 거의 모든 β-lactam 가수분해. Aztreonam은 MBL에 안정적(단 ESBL 동반 시 비활성)',
+    tx:'치료: Aztreonam + CAZ-AVI 병합(CAZ-AVI가 동반 ESBL·KPC 억제, ATM이 MBL 내성균 살균). Cefiderocol(미출시)',
+    warn:'주의: CAZ-AVI 단독 비활성(Avibactam은 MBL 억제 불가). Imipenem-relebactam·Meropenem-vaborbactam 모두 비활성',
+    epi:'역학: 인도·파키스탄 출신 환자, 해외 입원력 있는 경우 고위험. 국내 검출 증가 추세'},
+  OXA48:{n:'OXA-48-like',
+    d:'OXA-48-like (Class D, Serine carbapenemase)',
+    meaning:'양성 의미: 저수준 carbapenem 가수분해 — PCR 양성이어도 carbapenem 감수성 표현형인 경우 많음(특히 OXA-181/232/244 변이체). 표현형 검사와 불일치 빈번',
+    tx:'치료: Ceftazidime-avibactam(Avibactam이 OXA-48 억제) — OXA-48에 대한 CAZ-AVI 활성 우수',
+    warn:'주의: PCR 양성 단독으로 carbapenem 내성 단정 금지 — 반드시 표현형 MIC 확인. ESBL 동반 시 MIC 상승 가능',
+    epi:'역학: 터키·북아프리카·중동 기원. 국내 점차 증가. 수입 균주가 많음'},
+  CTXM:{n:'CTX-M',
+    d:'CTX-M group (Class A ESBL — Extended Spectrum β-lactamase)',
+    meaning:'양성 의미: 3·4세대 cephalosporin(ceftriaxone·cefotaxime) 및 monobactam(aztreonam) 가수분해. Carbapenem은 비가수분해 — carbapenem 감수성 예측력 높음',
+    tx:'치료: Carbapenem 우선(ESBL-E 전신 감염 표준). 표현형 감수성 확인 후 FQ/TMP-SMX de-escalation 가능',
+    warn:'주의: Pip-tazo·Cefepime 비뇨기외 비권장(MERINO trial). PCR 음성이어도 SHV/TEM형 ESBL 가능(패널 미포함)',
+    epi:'역학: CTX-M-15(전 세계), CTX-M-14(아시아) 주요 변이체. 국내 E. coli·K. pneumoniae 주요 내성 기전'},
+  IMP:{n:'IMP',
+    d:'IMP-type Metallo-β-lactamase (Class B, integron 매개)',
+    meaning:'양성 의미: Integron 매개 MBL — carbapenem 가수분해. 발현 수준 가변적(구성적 발현 아님). 균주에 따라 표현형 불일치 가능',
+    tx:'치료: Aztreonam + CAZ-AVI 병합(MBL에 안정적인 ATM 활용). Cefiderocol(미출시)',
+    warn:'주의: Imipenem-relebactam·Meropenem-vaborbactam 비활성. Ceftolozane-tazobactam(P.aeruginosa 대상) 비활성',
+    epi:'역학: 일본·한국·동남아시아에서 P. aeruginosa·Serratia 등에서 검출. 국내 IMP-6 변이체 보고'},
+  VIM:{n:'VIM',
+    d:'VIM (Verona Integron-encoded MBL, Class B, integron 매개)',
+    meaning:'양성 의미: Integron 매개 MBL — carbapenem 가수분해. P. aeruginosa 주요 MBL. Ceftolozane-tazobactam은 MBL에 의해 가수분해되어 비활성',
+    tx:'치료: Aztreonam + CAZ-AVI 병합(MBL에 안정적 ATM 활용, 78~93% 감수성 회복 보고). Cefiderocol(미출시)',
+    warn:'주의: Ceftolozane-tazobactam 비활성(VIM 존재 시 가수분해). CAZ-AVI 단독 비활성(Avibactam은 MBL 억제 불가)',
+    epi:'역학: VIM-2가 국내·유럽 P. aeruginosa 주요 MBL. 중환자실·기관지 확장증 환자 고위험'},
+  mecA:{n:'mecA/C (MRSA)',
+    d:'mecA/C and MREJ — Methicillin-Resistant Staphylococcus aureus',
+    meaning:'양성 의미: mecA 유전자가 PBP2a(Penicillin Binding Protein 2a)를 생성 — PBP2a는 모든 β-lactam에 대해 극히 낮은 친화력 → β-lactam 살균 실패. PCR 예측력 매우 높음',
+    tx:'치료: Linezolid(폐렴 1차 선호 — 폐 조직 침투 우수) 또는 Vancomycin(AUC/MIC 기반 TDM). Daptomycin 폐렴 비적합',
+    warn:'주의: MSSA(mecA 음성)에서 Vancomycin 사용 금지 — β-lactam 대비 임상 성적 열등. mecA 음성 확인 즉시 β-lactam 전환 필수',
+    epi:'역학: 국내 S. aureus의 약 50%가 MRSA. HA-MRSA(SCCmec II/III)·CA-MRSA(SCCmec IV/V) 구분'},
+};
+
 var KO_KW=['Cefiderocol','Fetroja','Meropenem-vaborbactam','Vabomere','Imipenem-relebactam','Recarbrio','Sulbactam-durlobactam','Xacduro','Aztreonam-avibactam','Emblaveo','Oxacillin'];
 function isKO(n){for(var i=0;i<KO_KW.length;i++)if(n.indexOf(KO_KW[i])>=0)return true;return false;}
 // IDSA 미언급 약제
@@ -256,7 +307,7 @@ function setM(m){S.mode=m;S.orgs=[];S.genes={};document.getElementById('ms').cla
 function rendSC(){var sc=document.getElementById('sel-count');if(S.mode==='m'&&S.orgs.length>0){sc.className='sel-count on';sc.innerHTML='✓ '+S.orgs.length+'개 선택됨 — '+S.orgs.map(function(k){return OR[k].l;}).join(', ');}else sc.className='sel-count';}
 function rendOG(){var h='';[{k:'GN',l:'그람음성균'},{k:'GP',l:'그람양성균'},{k:'ATY',l:'비정형균'}].forEach(function(grp){var keys=Object.keys(OR).filter(function(k){return OR[k].grp===grp.k;});if(!keys.length)return;h+='<div class="grp-hdr">'+grp.l+'</div>';keys.forEach(function(k){var o=OR[k];var sel=S.orgs.indexOf(k)>=0;h+='<button class="oc'+(sel?' on':'')+'" onclick="togO(\''+k+'\')">'+'<span class="chk">✓</span><span class="ol">'+o.l+'</span><span class="oh">'+o.h+'</span></button>';});});document.getElementById('og').innerHTML=h;}
 function togO(k){if(S.mode==='s'){S.orgs=[k];S.genes={};S.genes[k]=[];rendOG();rendSC();document.getElementById('bn0').disabled=false;return;}var i=S.orgs.indexOf(k);if(i>=0){S.orgs.splice(i,1);delete S.genes[k];}else{S.orgs.push(k);S.genes[k]=[];}rendOG();rendSC();document.getElementById('bn0').disabled=(S.orgs.length===0);}
-function rendIL(){var h='';S.orgs.forEach(function(k){var o=OR[k];if(!S.genes[k])S.genes[k]=[];var gh='';if(o.g.length===0){gh='<div class="ng">이 균주의 내성 유전자는 현재 PCR 패널에 포함되어 있지 않습니다. 균주 동정 결과만으로 항균제 선택이 이루어집니다.</div>';}else{gh='<div class="gg">';o.g.forEach(function(g){var m=GM[g];var gs=S.genes[k].indexOf(g)>=0;gh+='<button class="gb'+(gs?' on':'')+'" onclick="togG(\''+k+'\',\''+g+'\')">'+'<span class="gck">✓</span><span class="gn">'+m.n+'</span><span class="gd">'+m.d+'</span></button>';});gh+='</div>';var noG=S.genes[k].length===0;if(noG&&(k==='enterobacter'||k==='serratia'||k==='k_aerogenes'))gh+='<div class="neg">내성 유전자 미검출 — AmpC 염색체 내재로 Ceftazidime·Pip-tazo 중증 비권장. Cefepime MIC 확인 권장.</div>';if(noG&&(k==='kp_group'||k==='ecoli'||k==='k_oxytoca'||k==='proteus'))gh+='<div class="neg">내성 유전자 미검출 — Carbapenem 또는 Cefepime 우선. Pip-tazo: ESBL 위음성 가능성으로 폐렴·균혈증 등 전신 감염 비권장 (단순 방광염은 예외).</div>';}h+='<div class="ib"><div class="ih"><span class="in">'+o.l+'</span>'+(S.orgs.length>1?'<button class="rb" onclick="remO(\''+k+'\')">제거</button>':'')+'</div><div class="ibody">'+gh+'</div></div>';});document.getElementById('il').innerHTML=h;}
+function rendIL(){var h='';S.orgs.forEach(function(k){var o=OR[k];if(!S.genes[k])S.genes[k]=[];var gh='';if(o.g.length===0){gh='<div class="ng">이 균주의 내성 유전자는 현재 PCR 패널에 포함되어 있지 않습니다. 균주 동정 결과만으로 항균제 선택이 이루어집니다.</div>';}else{gh='<div class="gg">';o.g.forEach(function(g){var m=GM[g];var gs=S.genes[k].indexOf(g)>=0;var infoId='gi-'+k+'-'+g;gh+='<button class="gb'+(gs?' on':'')+'" onclick="togG(\''+k+'\',\''+g+'\')">'+'<span class="gck">✓</span>'+'<span class="gn">'+m.n+'</span>'+'<span class="gd">'+m.d+'</span>'+'</button>';if(gs&&m.meaning){gh+='<div class="gene-info-box" style="grid-column:1/-1">'+'<div class="gene-info-title">'+m.n+' 양성 — 임상적 의미</div>'+'<div class="gene-info-row"><span class="gene-info-label">📋 의미:</span>'+m.meaning+'</div>'+(m.tx?'<div class="gene-info-row"><span class="gene-info-label">💊 치료:</span>'+m.tx+'</div>':'')+(m.warn?'<div class="gene-info-row"><span class="gene-info-label">⚠ 주의:</span><span class="gene-info-warn">'+m.warn+'</span></div>':'')+(m.epi?'<div class="gene-info-row gene-info-epi"><span class="gene-info-label">🌏 역학:</span>'+m.epi+'</div>':'')+'</div>';}});gh+='</div>';var noG=S.genes[k].length===0;if(noG&&(k==='enterobacter'||k==='serratia'||k==='k_aerogenes'))gh+='<div class="neg">내성 유전자 미검출 — AmpC 염색체 내재로 Ceftazidime·Pip-tazo 중증 비권장. Cefepime MIC 확인 권장.</div>';if(noG&&(k==='kp_group'||k==='ecoli'||k==='k_oxytoca'||k==='proteus'))gh+='<div class="neg">내성 유전자 미검출 — Carbapenem 또는 Cefepime 우선. Pip-tazo: ESBL 위음성 가능성으로 폐렴·균혈증 등 전신 감염 비권장 (단순 방광염은 예외).</div>';}h+='<div class="ib"><div class="ih"><span class="in">'+o.l+'</span>'+(S.orgs.length>1?'<button class="rb" onclick="remO(\''+k+'\')">제거</button>':'')+'</div><div class="ibody">'+gh+'</div></div>';});document.getElementById('il').innerHTML=h;}
 function togG(org,g){if(!S.genes[org])S.genes[org]=[];var i=S.genes[org].indexOf(g);if(i>=0)S.genes[org].splice(i,1);else S.genes[org].push(g);rendIL();rendSB();}
 function remO(k){var i=S.orgs.indexOf(k);if(i>=0){S.orgs.splice(i,1);delete S.genes[k];}rendOG();rendSC();rendIL();document.getElementById('bn0').disabled=(S.orgs.length===0);}
 function setSev(s){S.sev=s;var cls={severe:'sv',moderate:'mo',mild:'mi'};var ks=['severe','moderate','mild'];for(var i=0;i<3;i++)document.getElementById('s'+i).className='sb'+(ks[i]===s?' '+cls[ks[i]]:'');var msgs={severe:'중증/ICU — 카바페넴 우선·광범위 커버 로직 적용',moderate:'중등도 — 감수성 결과에 따라 step-down 고려',mild:'경증 — 경구 전환 및 협범위 약제 우선 고려'};var el=document.getElementById('sev-msg');el.textContent=msgs[s];el.className='sev-msg '+cls[s];rendSB();}
