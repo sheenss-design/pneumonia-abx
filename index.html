@@ -129,7 +129,7 @@ html,body{min-height:100%;background:#f3f4f6;font-family:-apple-system,BlinkMacS
 <div class="app">
 <div class="topbar">
   <div class="topbar-icon">Rx</div>
-  <div><h1>폐렴 항균제 선택 가이드</h1><div class="topbar-sub">IDSA 2024 AMR Guidance 기반 · v5.9</div></div>
+  <div><h1>폐렴 항균제 선택 가이드</h1><div class="topbar-sub">IDSA 2024 AMR Guidance 기반 · v6.0</div></div>
 </div>
 <div class="warn">⚠ PCR 결과는 보조 지표입니다. 최종 항균제 선택은 반드시 표현형 배양 감수성(MIC)을 확인하십시오.</div>
 <div class="src">근거: IDSA 2024 AMR Guidance · ATS/IDSA 2019 CAP · ATS/IDSA 2016 HAP/VAP · IDSA MRSA Guidelines</div>
@@ -226,6 +226,17 @@ var DOSE={
   'Polymyxin B 용법':{t:'Polymyxin B — CRAB 병합 구성약제',c:'용량: 1.25–1.5mg/kg q12h (체중 기반) — 신기능 무관하게 동일 용량\n믹스: D5W 250–500mL 희석\n투여: 1–2시간 IV 주입\nColistin과 차이: 신장 배설 거의 없음 → 요로감염 부적합\n폐렴 선호: IDSA 2024 — 폐렴에서 Colistin보다 Polymyxin B 선호 (PK 안정성)\n⚠ 신독성: 다른 신독성 약제 병용 최소화\n⚠ 신경독성: 감각이상·현기증 드물게 보고'},
   'Doxycycline 용법':{t:'Doxycycline — 비정형균 대안',c:'용량: 100mg IV/PO q12h\n믹스: IV 100mg을 NS 또는 D5W 100–1000mL 희석\n투여: 1–4시간 IV 주입 (정맥염 예방을 위해 충분히 희석)\n경구 생체이용률: ~93% — 경구 전환 가능\n⚠ 유제품·제산제·철분제: 흡수 감소 — 공복 투여 권장\n⚠ 광과민성: 일광 노출 주의\n신기능: 용량 조정 불필요'},
   'TMP-SMX + Minocycline 병합용법':{t:'TMP-SMX + Minocycline 병합 (S. maltophilia 중증 — IDSA 2024)',c:'TMP-SMX: 15–20mg/kg/day (TMP 성분) IV/PO q6–8h 분할\nMinocycline: 100mg IV/PO q12h\n두 약제 동시 투여 (병합 요법)\n근거: 단독 요법 시 efflux pump 매개 내성 출현 빠름 — 병합으로 억제\n⚠ TMP-SMX: D5W로 희석 (NS 침전 위험), 고칼륨혈증 주의\n⚠ Minocycline: 광과민성 주의, 공복 투여 권장'},
+  'Ceftazidime 용법':{t:'Ceftazidime (3세대 Cephalosporin)',c:'용량: 2g IV q8h (P. aeruginosa 감수성 균주)\n믹스: NS 또는 D5W 50–100mL 희석\n투여: 15–30분 IV 주입 (또는 연장주입 고려)\n신기능: CrCl 31–50: 1g q12h / CrCl 16–30: 1g q24h / CrCl ≤15: 500mg q24h\n⚠ P. aeruginosa 단독 치료: 치료 중 내성 출현 위험 — 표현형 MIC 추적 권장\n⚠ AmpC 고위험균(Enterobacter/K.aerogenes): 과발현 시 가수분해 — 비권장'},
+  'Ceftolozane-tazobactam 용법':{t:'Ceftolozane-tazobactam (Zerbaxa)',c:'용량: Ceftolozane 1g + Tazobactam 0.5g = 1.5g IV q8h\n폐렴 고용량: Ceftolozane 3g + Tazobactam 1.5g = 4.5g IV q8h (HAP/VAP)\n믹스: NS 또는 D5W 100mL 희석\n투여: 1시간 IV 주입\n신기능: CrCl 30–50: 750mg q8h / CrCl 15–29: 375mg q8h / CrCl <15: 150mg q8h\n⚠ 적응증: Carbapenem 내성, carbapenemase 음성 MDR P. aeruginosa\n⚠ MBL(VIM/IMP) 보유균: Tazobactam이 MBL 억제 불가 — 비활성'},
+  'Amoxicillin-clavulanate 용법':{t:'Amoxicillin-clavulanate (β-lactam/β-lactamase 억제제)',c:'용량(경구): 875/125mg PO q12h 또는 2g/125mg q12h (확장형)\n용량(IV, Ampicillin-sulbactam 대체): Ampicillin-sulbactam 1.5–3g IV q6h 참고\n투여: 식사와 함께 복용 — 위장장애 감소\n신기능: CrCl 10–30: 500/125mg q12h / CrCl <10: 500/125mg q24h\n⚠ 간독성: Amoxicillin-clavulanate 관련 간독성 보고 — LFT 모니터링\n⚠ 설사: Clavulanate로 인한 위장장애 빈번 — probiotics 병행 고려'},
+  'Ampicillin-sulbactam 표준용법':{t:'Ampicillin-sulbactam 표준 용량',c:'용량: 1.5–3g (Ampicillin 1–2g + Sulbactam 0.5–1g) IV q6h\n믹스: NS 또는 D5W 50–100mL 희석\n투여: 15–30분 IV 주입\n신기능: CrCl 15–29: q12h / CrCl 5–14: q24h\n⚠ 고용량(CRAB)과 구분: CRAB 치료 시 Sulbactam 9g/day 고용량 필요 — 표준 용량으로 불충분'},
+  'Clindamycin 용법':{t:'Clindamycin — 독소 억제 목적',c:'용량: 600–900mg IV q8h 또는 300–450mg PO q6–8h\n믹스: NS 또는 D5W 50–100mL 희석 (최대 농도 18mg/mL)\n투여: 600mg는 20분 이상, 900mg는 30분 이상 IV 주입 (급속 주입 금지 — 심정지 위험)\n적응증: GAS(S. pyogenes) 독소 생성 억제 목적 병합 — 살균 목적 단독 사용 비권장\n⚠ 위막성 대장염(C. difficile): 주요 위험 약제 — 설사 발생 시 즉시 중단\n⚠ 급속 정맥주입 금지: 심정지·저혈압 위험'},
+  'Cefiderocol 용법':{t:'Cefiderocol (Fetroja) ★국내 미출시',c:'용량: 2g IV q8h\n투여: 3시간 연장주입 (PK/PD 최적화)\n믹스: NS 또는 D5W 100mL 희석\n신기능: CrCl 30–59: 1.5g q8h / CrCl 15–29: 1g q8h / CrCl <15: 750mg q12h\n★ 국내 미출시 — 긴급사용 또는 임상시험 통해 도입 검토 필요\n⚠ 반드시 병합: 단독 요법 시 내성 출현 위험 — 다른 활성 약제와 병합'},
+  'Oxacillin 용법':{t:'Oxacillin (Antistaphylococcal Penicillin) ★국내 미출시',c:'용량: 1–2g IV q4–6h (폐렴: 2g q4h)\n믹스: NS 또는 D5W 100mL 희석\n투여: 30–60분 IV 주입\n★ 국내 미출시 — Nafcillin 또는 Cefazolin으로 대체\n⚠ 간독성: ALT/AST 상승 — 정기 모니터링\n⚠ 정맥염: PICC 또는 중심정맥 투여 권장'},
+  'Imipenem-relebactam 용법':{t:'Imipenem-relebactam (Recarbrio) ★국내 미출시',c:'용량: Imipenem 500mg + Cilastatin 500mg + Relebactam 250mg IV q6h\n투여: 30분 IV 주입\n믹스: NS 100mL 희석\n적응증: KPC 생산 Enterobacterales, 일부 P. aeruginosa\n★ 국내 미출시 — 긴급사용 검토 필요\n⚠ MBL(NDM/VIM/IMP) 비활성 — Relebactam은 Class B MBL 억제 불가\n신기능: CrCl에 따라 감량 (첨부문서 참고)'},
+  'Meropenem-vaborbactam 용법':{t:'Meropenem-vaborbactam (Vabomere) ★국내 미출시',c:'용량: Meropenem 2g + Vaborbactam 2g IV q8h\n투여: 3시간 연장주입 (PK/PD 최적화)\n믹스: NS 250mL 희석 (D5W 비권장 — 안정성)\n적응증: KPC 생산 Enterobacterales\n★ 국내 미출시 — 긴급사용 검토 필요\n⚠ MBL(NDM/VIM/IMP) 비활성 — Vaborbactam은 Class B MBL 억제 불가\n신기능: CrCl 30–49: Meropenem 1g + Vaborbactam 1g q8h / CrCl <30: 추가 감량'},
+  'Aztreonam-avibactam 용법':{t:'Aztreonam-avibactam (Emblaveo) ★국내 미출시',c:'용량: Aztreonam 6g + Avibactam 2g = 8g/day → 지속주입 또는 분할\n또는: Aztreonam 1.5g + Avibactam 0.5g IV q6h, 3시간 연장주입\n적응증: MBL(NDM) + Serine carbapenemase 복합 또는 CAZ-AVI 내성 균주\n★ 국내 미출시 (FDA 2023 승인) — 긴급사용 검토 필요\n⚠ Aztreonam 성분 포함 — Penicillin 알레르기와 교차반응 적음'},
+  'Colistin + Carbapenem 병합용법':{t:'Colistin + Carbapenem 병합 (최후 수단)',c:'Colistin(CMS): 9MIU 부하 후 4.5MIU q12h IV\nCarbapenem: Meropenem 2g IV q8h 연장주입 (3시간)\n두 약제 동시 투여 — 상승 시너지 목적\n⚠ 이 병합의 근거: Carbapenem 단독 내성이어도 고농도 Carbapenem + Colistin 상승효과 일부 보고\n⚠ 신독성 극히 높음 — SCr 매일 모니터링, 다른 신독성 약제 최소화\n⚠ 반드시 다른 모든 옵션 소진 후 최후 수단으로만 사용'},
 };
 var CRAB_COMBO=[
   {name:'Polymyxin B',note:'신독성 주의; 요로감염은 Colistin 선호 (Polymyxin B 요로 배설 적음)',ko:false},
@@ -266,7 +277,7 @@ function getRec(org,genes,sev){
       {n:'Minocycline',b:'100mg IV/PO q12h',nt:'단독 또는 병합 — TMP-SMX 불내성/내성 시',dose:'Minocycline 용법'},
       {n:'TMP-SMX',b:'15mg/kg/day (TMP성분) 분할투여',dose:'TMP-SMX 용법',nt:'단독 또는 병합 — 감수성 확인 필수'},
       {n:'Levofloxacin',b:'750mg IV/PO q24h',dose:'Levofloxacin 용법',nt:'병합 파트너로 사용 — 단독 내성 출현 위험'},
-      {n:'Cefiderocol',b:'Fetroja',nt:'병합 파트너로 사용 — 중증 시 다른 옵션 없을 때 한정'},
+      {n:'Cefiderocol',b:'Fetroja',nt:'병합 파트너로 사용 — 중증 시 다른 옵션 없을 때 한정',dose:'Cefiderocol 용법'},
     ],
     t:[],
     av:[
@@ -289,7 +300,7 @@ function getRec(org,genes,sev){
       {n:'Ceftriaxone + Azithromycin 병합',b:'Ceftriaxone 2g IV q24h  |  Azithromycin 500mg IV/PO q24h',nt:'두 약제 동시 투여 — 입원 CAP 1차 (ATS/IDSA 2019 strong rec). β-lactam으로 H.influenzae 커버 + macrolide로 비정형균 커버',dose:'Ceftriaxone 용법',dose2:'Azithromycin 용법'},
       {n:'Ampicillin-sulbactam + Azithromycin 병합',b:'Amp-sulbactam 1.5–3g IV q6h  |  Azithromycin 500mg IV/PO q24h',nt:'두 약제 동시 투여 — 입원 CAP 대안 (ATS/IDSA 2019)',dose:'Azithromycin 용법'},
       {n:'Piperacillin-tazobactam + Azithromycin 병합',b:'Pip-tazo 4.5g IV q6h 연장주입  |  Azithromycin 500mg IV/PO q24h',nt:'두 약제 동시 투여 — 입원 중등도~중증 CAP 대안. β-lactamase 생산 H. influenzae 및 그람음성균 광범위 커버',dose:'Pip-tazo 연장주입',dose2:'Azithromycin 용법'},
-      {n:'Amoxicillin-clavulanate',b:'875/125mg PO q12h 또는 2g/125mg q12h',nt:'외래 CAP (comorbidity 있는 경우)'},
+      {n:'Amoxicillin-clavulanate',b:'875/125mg PO q12h 또는 2g/125mg q12h',nt:'외래 CAP (comorbidity 있는 경우)',dose:'Amoxicillin-clavulanate 용법'},
     ],
     s:[
       {n:'Levofloxacin',b:'750mg IV/PO q24h',dose:'Levofloxacin 용법',nt:'Respiratory FQ 단독 — macrolide·β-lactam 금기 시 (ATS/IDSA 2019 strong rec)'},
@@ -309,7 +320,7 @@ function getRec(org,genes,sev){
 
   if(org==='moraxella')return{pl:'high',pcr:'M. catarrhalis — 거의 모두 β-lactamase 생산 (blaBRO-1/BRO-2). PCR 패널에 M. catarrhalis β-lactamase 유전자 미포함이나 임상적으로 β-lactamase 생산 가정하고 치료.',
     f:[
-      {n:'Amoxicillin-clavulanate',b:'875/125mg PO q12h 또는 2g/125mg q12h',nt:'경증~중등도 외래 CAP 1차 — β-lactamase 생산균 커버'},
+      {n:'Amoxicillin-clavulanate',b:'875/125mg PO q12h 또는 2g/125mg q12h',nt:'경증~중등도 외래 CAP 1차 — β-lactamase 생산균 커버',dose:'Amoxicillin-clavulanate 용법'},
       {n:'Ceftriaxone + Azithromycin 병합',b:'Ceftriaxone 2g IV q24h  |  Azithromycin 500mg IV/PO q24h',nt:'두 약제 동시 투여 — 입원 CAP 1차 (β-lactam + macrolide 병합)',dose:'Ceftriaxone 용법',dose2:'Azithromycin 용법'},
       {n:'Piperacillin-tazobactam + Azithromycin 병합',b:'Pip-tazo 4.5g IV q6h 연장주입  |  Azithromycin 500mg IV/PO q24h',nt:'두 약제 동시 투여 — 입원 CAP 대안. M. catarrhalis β-lactamase 및 다른 그람음성균 동반 커버',dose:'Pip-tazo 연장주입',dose2:'Azithromycin 용법'},
     ],
@@ -343,8 +354,8 @@ function getRec(org,genes,sev){
     ns:['중증 Legionella: FQ + Azithromycin 병합 고려']};
 
   if(org==='s_agalac'||org==='s_pyogenes')return{pl:'high',pcr:'Streptococcus spp. — β-lactam 감수성 일관적.',
-    f:[{n:'Penicillin G',b:'2–4 MU IV q4–6h',dose:'Penicillin G 용법',nt:'1차 표준'},{n:'Ceftriaxone',b:'',nt:'입원 CAP 병합 시'}],
-    s:[{n:'Clindamycin',b:'',nt:'독소 생성 억제 목적 병합 (GAS toxic shock 시)'}],t:[],
+    f:[{n:'Penicillin G',b:'2–4 MU IV q4–6h',dose:'Penicillin G 용법',nt:'1차 표준'},{n:'Ceftriaxone',b:'2g IV q24h',nt:'입원 CAP 병합 시',dose:'Ceftriaxone 용법'}],
+    s:[{n:'Clindamycin',b:'600–900mg IV q8h',nt:'독소 생성 억제 목적 병합 (GAS toxic shock 시)',dose:'Clindamycin 용법'}],t:[],
     av:[{n:'Vancomycin',nt:'β-lactam 감수성 완전 보존 — Streptococcus spp.는 penicillin 내성이 보고된 바 없음. Vancomycin 사용은 불필요한 광범위 노출로 내성 선택압 증가 위험'}],
     ns:['GAS: 괴사성 근막염·TSS 시 clindamycin 병합 권장','GBS: Penicillin 또는 ampicillin 충분']};
 
@@ -354,8 +365,8 @@ function getRec(org,genes,sev){
       s:[],t:[],av:[{n:'β-lactam 전반',nt:'mecA 양성 = MRSA — mecA 유전자가 PBP2a를 생성하며, 이는 모든 β-lactam에 대해 극히 낮은 친화력(KD). β-lactam 결합 불가 → 세포벽 합성 계속 → 살균 실패. Ceftaroline만 PBP2a 부분 친화력 있으나 MRSA 폐렴 치료 근거 불충분'},{n:'Daptomycin',nt:'폐렴 비권장 — 폐 surfactant (phosphatidylglycerol)에 의해 daptomycin 불활성화. 폐 조직 내 약물 결합으로 항균 활성 소실. MRSA 폐렴 RCT에서 vancomycin 대비 열등한 성적'}],
       ns:['Vancomycin: ASHP/IDSA 2020 AUC/MIC 기반 TDM — trough 단독 모니터링 비권장']};
     return{pl:'high',pcr:'mecA/C 음성 = MSSA. β-lactam으로 충분.',
-      f:[{n:'Nafcillin',b:'2g IV q4h',dose:'Nafcillin 용법',nt:'MSSA 폐렴 1차 — antistaphylococcal penicillin (ATS/IDSA 2016)'},{n:'Oxacillin',b:'2g IV q4h',nt:'Nafcillin 동급 1차'},{n:'Cefazolin',b:'2g IV q8h',dose:'Cefazolin 용법',nt:'동등한 1차 — 투여 빈도 적고(q8h) 부작용 프로파일 우수 (신독성·간독성 낮음)'}],
-      s:[{n:'Ampicillin-sulbactam',b:'3g IV q6h',nt:'경증 대안'}],t:[],
+      f:[{n:'Nafcillin',b:'2g IV q4h',dose:'Nafcillin 용법',nt:'MSSA 폐렴 1차 — antistaphylococcal penicillin (ATS/IDSA 2016)'},{n:'Oxacillin',b:'2g IV q4h',nt:'Nafcillin 동급 1차',dose:'Oxacillin 용법'},{n:'Cefazolin',b:'2g IV q8h',dose:'Cefazolin 용법',nt:'동등한 1차 — 투여 빈도 적고(q8h) 부작용 프로파일 우수 (신독성·간독성 낮음)'}],
+      s:[{n:'Ampicillin-sulbactam',b:'3g IV q6h',dose:'Ampicillin-sulbactam 표준용법',nt:'경증 대안'}],t:[],
       av:[{n:'Vancomycin',nt:'MSSA에서 β-lactam 대비 열등 — 임상 실패율 및 사망률 높음 (여러 RCT/메타분석). Vancomycin은 S.aureus 세포벽 깊이 침투 부족, 살균 속도 느림. β-lactam 감수성 확인 즉시 전환 필수'}],
       ns:['MSSA 폐렴: Nafcillin/Oxacillin/Cefazolin 모두 동등한 1차 — vancomycin보다 임상 성적 우수','Cefazolin: meta-analysis에서 사망률(OR 0.69)·신독성(OR 0.36)·간독성(OR 0.12) 모두 antistaphylococcal penicillin 대비 유리','Oxacillin: 국내 미출시 — Nafcillin 또는 Cefazolin으로 대체 사용']};}
 
@@ -365,12 +376,12 @@ function getRec(org,genes,sev){
       f:[{n:'Aztreonam + Ceftazidime-avibactam',b:'ATM + Zavicefta',nt:'MBL 78~93% 감수성 회복',dose:'CAZ-AVI + ATM 용법'}],
       s:[{n:'Sulbactam-durlobactam + Meropenem/Imipenem',b:'Xacduro + Carbapenem',nt:'IDSA 2024 CRAB 1차 선호 (미출시)'},
          {n:'Ampicillin-sulbactam 고용량',b:'Sulbactam 9g/day',nt:'국내 사용 가능 대안',dose:'Ampicillin-sulbactam 고용량',combo:CC},
-         {n:'Cefiderocol',b:'Fetroja',nt:'병합 고려 (미출시)',combo:CC}],
+         {n:'Cefiderocol',b:'Fetroja',nt:'병합 고려 (미출시)',dose:'Cefiderocol 용법',combo:CC}],
       t:[{n:'Colistin',b:'',nt:'최후 수단',dose:'Colistin 용법'}],
       av:[{n:'Imipenem-relebactam (IMI-REL)',nt:'MBL 비활성 — Imipenem-relebactam, Meropenem-vaborbactam의 β-lactamase 억제제(Relebactam/Vaborbactam)는 Class A·C carbapenemase만 억제. Class B MBL(NDM/VIM/IMP) 억제 불가 — 표적 효소 구조(Zn2+ 활성부위) 차이'},{n:'Meropenem-vaborbactam (MER-VAB)',nt:'MBL 비활성 — Imipenem-relebactam, Meropenem-vaborbactam의 β-lactamase 억제제(Relebactam/Vaborbactam)는 Class A·C carbapenemase만 억제. Class B MBL(NDM/VIM/IMP) 억제 불가 — 표적 효소 구조(Zn2+ 활성부위) 차이'}],
       ns:['IMP + Acb: 드문 조합 — 반드시 표현형 MIC 확인 후 치료 결정','감염내과 협진 강력 권고']};
     if(hNDM)return{pl:'low',pcr:'NDM+OXA 복합: CAZ-AVI·IMI-REL·MER-VAB 모두 비활성.',
-      f:[{n:'Cefiderocol',b:'Fetroja',nt:'복합 carbapenemase에도 활성 — 병합 필수',combo:CC}],
+      f:[{n:'Cefiderocol',b:'Fetroja',nt:'복합 carbapenemase에도 활성 — 병합 필수',dose:'Cefiderocol 용법',combo:CC}],
       s:[{n:'Sulbactam-durlobactam + Meropenem/Imipenem',b:'Xacduro + Carbapenem',nt:'NDM 단독 시 일부 활성 (미출시)'},
          {n:'Piperacillin-sulbactam',b:'',nt:'Sulbactam의 Acinetobacter 고유 활성 활용 — 감수성 확인 필수',dose:'Pip-sulbactam 용법'}],
       t:[{n:'Colistin',b:'',nt:'신독성, 최후 수단',dose:'Colistin 용법'}],
@@ -382,7 +393,7 @@ function getRec(org,genes,sev){
          {n:'Ampicillin-sulbactam 고용량',b:'Sulbactam 9g/day (총 27g/day), q4–6h 연장주입',nt:'국내에서 사용 가능한 현실적 핵심 요법',dose:'Ampicillin-sulbactam 고용량',combo:CC}],
       s:[{n:'Carbapenem',b:'Meropenem/Imipenem',dose:'Meropenem 고용량 연장주입',nt:'감수성 확인 후'},
          {n:'Piperacillin-sulbactam',b:'',nt:'Sulbactam 성분의 Acinetobacter 고유 활성 — 감수성 확인 필수',dose:'Pip-sulbactam 용법'},
-         {n:'Cefiderocol',b:'Fetroja',nt:'병합 구성 약제 (미출시)',combo:CC}],
+         {n:'Cefiderocol',b:'Fetroja',nt:'병합 구성 약제 (미출시)',dose:'Cefiderocol 용법',combo:CC}],
       t:[{n:'Colistin',b:'',nt:'신독성, 최후 수단',dose:'Colistin 용법'}],
       av:[{n:'Piperacillin-tazobactam',nt:'Acinetobacter intrinsic resistance — Piperacillin은 Acinetobacter PBP 친화력 낮고, Tazobactam은 OXA-type carbapenemase 억제 불가. Sulbactam 없는 pip-tazo는 Acinetobacter에 무효'},{n:'Ceftazidime',nt:'Acinetobacter intrinsic resistance — Ceftazidime은 OXA-51 등 내재성 carbapenemase에 의해 가수분해. Acinetobacter에 대한 항균 활성 없음'}],
       ns:['★ Sulbactam-durlobactam · Cefiderocol 국내 미출시 — 감염내과 협진 통해 긴급 도입 검토','OXA-23 추가 검사 권장',
@@ -392,8 +403,8 @@ function getRec(org,genes,sev){
       f:[{n:'Sulbactam-durlobactam + Meropenem/Imipenem',b:'Xacduro + Carbapenem',nt:'IDSA 2024 CRAB 1차 선호 (한국 미출시)'}],
       s:[{n:'Ampicillin-sulbactam 고용량',b:'Sulbactam 9g/day, q4h 연장주입',nt:'국내에서 사용 가능한 현실적 핵심 요법',dose:'Ampicillin-sulbactam 고용량',combo:CC},
          {n:'Piperacillin-sulbactam',b:'',nt:'Sulbactam 성분의 Acinetobacter 고유 활성 — 감수성 확인 필수',dose:'Pip-sulbactam 용법'},
-         {n:'Cefiderocol',b:'Fetroja',nt:'병합 구성 약제 — 다른 옵션 없을 때 한정 (미출시)',combo:CC}],
-      t:[{n:'Colistin + Carbapenem 병합',b:'',nt:'Colistin 단독 비권장 — 단독 요법 시 내성 출현 빠름. 심각한 신독성. 폐 조직 침투 불량 (단백 결합률 높음). 반드시 Carbapenem 또는 Sulbactam 계열 병합 사용'}],av:[],
+         {n:'Cefiderocol',b:'Fetroja',nt:'병합 구성 약제 — 다른 옵션 없을 때 한정 (미출시)',dose:'Cefiderocol 용법',combo:CC}],
+      t:[{n:'Colistin + Carbapenem 병합',b:'',nt:'Colistin 단독 비권장 — 단독 요법 시 내성 출현 빠름. 심각한 신독성. 폐 조직 침투 불량 (단백 결합률 높음). 반드시 Carbapenem 또는 Sulbactam 계열 병합 사용',dose:'Colistin + Carbapenem 병합용법'}],av:[],
       ns:['★ Sulbactam-durlobactam · Cefiderocol 국내 미출시 → Amp-sulbactam 고용량이 현실적 핵심 옵션',
           'Amp-sulbactam 총용량: Ampicillin 18g + Sulbactam 9g = 27g/day (IDSA 2024)',
           'Piperacillin-sulbactam: IDSA 미언급 — sulbactam 고유 활성 기반, 표현형 감수성 확인 필수',
@@ -404,7 +415,7 @@ function getRec(org,genes,sev){
   if(org==='pseudomonas'){var mbl=hVIM||hIMP;
     if(mbl)return{pl:'low',pcr:'VIM/IMP: MBL — 내성 표현형 예측력은 높음. 단 치료 옵션이 극히 제한되어 항균제 선택 불확실성이 높음 (PCR 예측력 낮음 = 치료 선택 불확실). Ceftolozane-tazobactam 비활성 예측은 신뢰 가능.',
       f:[{n:'Aztreonam + Ceftazidime-avibactam',b:'ATM + Zavicefta',nt:'MBL 78~93% 감수성 회복',dose:'CAZ-AVI + ATM 용법'}],
-      s:[{n:'Cefiderocol',b:'Fetroja',nt:'MIC 확인 (미출시)'},
+      s:[{n:'Cefiderocol',b:'Fetroja',nt:'MIC 확인 (미출시)',dose:'Cefiderocol 용법'},
          {n:'Piperacillin-sulbactam',b:'',nt:'MBL 보유균에 sulbactam 효과 제한적 — 감수성 확인 필수',dose:'Pip-sulbactam 용법'}],
       t:[{n:'Colistin',b:'',nt:'최후 수단',dose:'Colistin 용법'}],
       av:[{n:'Ceftolozane-tazobactam (Zerbaxa)',nt:'MBL 보유균 비활성 — Ceftolozane은 carbapenemase에 안정적이나 MBL(VIM/IMP)에 의해 가수분해. Tazobactam은 MBL 억제 불가 (Serine β-lactamase만 억제)'},{n:'Imipenem-relebactam (IMI-REL)',nt:'MBL 비활성 — Imipenem-relebactam, Meropenem-vaborbactam의 β-lactamase 억제제(Relebactam/Vaborbactam)는 Class A·C carbapenemase만 억제. Class B MBL(NDM/VIM/IMP) 억제 불가 — 표적 효소 구조(Zn2+ 활성부위) 차이'},{n:'Meropenem-vaborbactam (MER-VAB)',nt:'MBL 비활성 — Imipenem-relebactam, Meropenem-vaborbactam의 β-lactamase 억제제(Relebactam/Vaborbactam)는 Class A·C carbapenemase만 억제. Class B MBL(NDM/VIM/IMP) 억제 불가 — 표적 효소 구조(Zn2+ 활성부위) 차이'}],
@@ -413,24 +424,24 @@ function getRec(org,genes,sev){
       f:[{n:'Piperacillin-tazobactam',b:'4.5g IV q6h 연장주입',nt:'감수성 확인 후',dose:'Pip-tazo 연장주입'},
          {n:'Piperacillin-sulbactam',b:'',nt:'Pip-tazo 대안 — 감수성 확인 필수 (IDSA 미언급)',dose:'Pip-sulbactam 용법'},
          {n:'Cefepime 고용량 연장주입',b:'2g IV q8h, 4시간',nt:'감수성 확인 후',dose:'Cefepime 고용량 연장주입'},
-         {n:'Ceftazidime',b:'2g IV q8h',nt:'감수성 확인 후 (비중증)'}],
+         {n:'Ceftazidime',b:'2g IV q8h',nt:'감수성 확인 후 (비중증)',dose:'Ceftazidime 용법'}],
       s:[{n:'Carbapenem',b:sv?'Meropenem 2g q8h 연장주입':'Meropenem 1g q8h',nt:sv?'중증 우선':'표현형 감수성 확인 후',dose:sv?'Meropenem 고용량 연장주입':'Imipenem 용법'},
-         {n:'Ceftolozane-tazobactam',b:'Zerbaxa',nt:'carbapenemase 음성 MDR 시'}],
+         {n:'Ceftolozane-tazobactam',b:'Zerbaxa',nt:'carbapenemase 음성 MDR 시',dose:'Ceftolozane-tazobactam 용법'}],
       t:[],av:[],ns:['모든 약제 감수성 결과 확인 필수','Piperacillin-sulbactam: IDSA 미언급 — Pip-tazo와 항균 스펙트럼 유사하나 in vitro 일부 우세']};
     return{pl:'low',pcr:'Efflux pump 유전자 정상균에도 존재 → 표현형 필수.',
-      f:[{n:'Ceftolozane-tazobactam',b:'Zerbaxa',nt:'carbapenem 내성, carbapenemase 음성 MDR'}],
-      s:[{n:'Ceftazidime-avibactam',b:'Zavicefta',nt:'MIC 확인',dose:'CAZ-AVI 용법'},{n:'Cefiderocol',b:'Fetroja',nt:'MIC 확인 (미출시)'}],
+      f:[{n:'Ceftolozane-tazobactam',b:'Zerbaxa',nt:'carbapenem 내성, carbapenemase 음성 MDR',dose:'Ceftolozane-tazobactam 용법'}],
+      s:[{n:'Ceftazidime-avibactam',b:'Zavicefta',nt:'MIC 확인',dose:'CAZ-AVI 용법'},{n:'Cefiderocol',b:'Fetroja',nt:'MIC 확인 (미출시)',dose:'Cefiderocol 용법'}],
       t:[{n:'Colistin',b:'',nt:'최후 수단',dose:'Colistin 용법'}],av:[],
       ns:['전통 β-lactam 감수성 있으면 먼저 사용']};}
 
   // ── Enterobacter / Serratia / K. aerogenes ─────────────────────
   if(org==='enterobacter'||org==='serratia'||org==='k_aerogenes'){
     if(hKPC)return{pl:'high',pcr:'KPC: 구성적 발현. PCR 예측력 높음.',
-      f:[{n:'Ceftazidime-avibactam',b:'Zavicefta',dose:'CAZ-AVI 용법'},{n:'Meropenem-vaborbactam',b:'Vabomere'},{n:'Imipenem-relebactam',b:'Recarbrio'}],
-      s:[{n:'Cefiderocol',b:'Fetroja'}],t:[],av:[],ns:['KPC-3 변이체: CAZ-AVI 내성 가능 → MIC 확인']};
+      f:[{n:'Ceftazidime-avibactam',b:'Zavicefta',dose:'CAZ-AVI 용법'},{n:'Meropenem-vaborbactam',b:'Vabomere',dose:'Meropenem-vaborbactam 용법'},{n:'Imipenem-relebactam',b:'Recarbrio',dose:'Imipenem-relebactam 용법'}],
+      s:[{n:'Cefiderocol',b:'Fetroja',dose:'Cefiderocol 용법'}],t:[],av:[],ns:['KPC-3 변이체: CAZ-AVI 내성 가능 → MIC 확인']};
     if(hIMP)return{pl:'high',pcr:'IMP(MBL): 구성적 발현. Serratia에서 내성 표현형 예측력 높음. IMI-REL/MER-VAB 비활성.',
       f:[{n:'Aztreonam + Ceftazidime-avibactam',b:'ATM + Zavicefta',nt:'MBL 78~93% 회복',dose:'CAZ-AVI + ATM 용법'}],
-      s:[{n:'Cefiderocol',b:'Fetroja'}],t:[{n:'Colistin',b:'',nt:'최후',dose:'Colistin 용법'}],
+      s:[{n:'Cefiderocol',b:'Fetroja',dose:'Cefiderocol 용법'}],t:[{n:'Colistin',b:'',nt:'최후',dose:'Colistin 용법'}],
       av:[{n:'Imipenem-relebactam (IMI-REL)',nt:'MBL 비활성 — Imipenem-relebactam, Meropenem-vaborbactam의 β-lactamase 억제제(Relebactam/Vaborbactam)는 Class A·C carbapenemase만 억제. Class B MBL(NDM/VIM/IMP) 억제 불가 — 표적 효소 구조(Zn2+ 활성부위) 차이'},{n:'Meropenem-vaborbactam (MER-VAB)',nt:'MBL 비활성 — Imipenem-relebactam, Meropenem-vaborbactam의 β-lactamase 억제제(Relebactam/Vaborbactam)는 Class A·C carbapenemase만 억제. Class B MBL(NDM/VIM/IMP) 억제 불가 — 표적 효소 구조(Zn2+ 활성부위) 차이'}],ns:[]};
     var rc={pl:'low',pcr:(noG?'획득 내성 유전자 미검출 — ':'')+'AmpC 염색체 내재: 과발현 예측 불가. Cefepime MIC 직접 확인 필수.',s:[],t:[],
       av:[{n:'Piperacillin-tazobactam',nt:'AmpC 과발현 위험 — Enterobacter/K.aerogenes/C.freundii에서 치료 중 ceftriaxone 내성 출현율 8–40% (IDSA 2024). 초기 감수성 보고에도 치료 실패 다수. Pip-tazo는 AmpC 과발현 유도 능력 있어 비권장'},{n:'Ceftazidime',nt:'AmpC 과발현 시 Ceftazidime 가수분해 — 3세대 cephalosporin 모두 해당. Pip-tazo와 동일하게 AmpC 고위험균 침습 감염에 비권장'}],
@@ -443,13 +454,13 @@ function getRec(org,genes,sev){
   if(org==='kp_group'||org==='ecoli'||org==='k_oxytoca'||org==='proteus'){
     if(hIMP)return{pl:'high',pcr:'IMP(MBL): 구성적 발현. Carbapenem 내성 및 IMI-REL/MER-VAB 비활성 예측력 높음. ATM+CAZ-AVI 치료 전 표현형 MIC 확인 필수.',
       f:[{n:'Aztreonam + Ceftazidime-avibactam',b:'ATM + Zavicefta',nt:'MBL 78~93% 감수성 회복',dose:'CAZ-AVI + ATM 용법'}],
-      s:[{n:'Cefiderocol',b:'Fetroja',nt:'MIC 확인'},{n:'Aztreonam-avibactam',b:'Emblaveo',nt:'FDA 2023'}],
+      s:[{n:'Cefiderocol',b:'Fetroja',nt:'MIC 확인',dose:'Cefiderocol 용법'},{n:'Aztreonam-avibactam',b:'Emblaveo',nt:'FDA 2023',dose:'Aztreonam-avibactam 용법'}],
       t:[{n:'Colistin',b:'',nt:'최후 수단',dose:'Colistin 용법'}],
       av:[{n:'Imipenem-relebactam (IMI-REL)',nt:'MBL 비활성 — Imipenem-relebactam, Meropenem-vaborbactam의 β-lactamase 억제제(Relebactam/Vaborbactam)는 Class A·C carbapenemase만 억제. Class B MBL(NDM/VIM/IMP) 억제 불가 — 표적 효소 구조(Zn2+ 활성부위) 차이'},{n:'Meropenem-vaborbactam (MER-VAB)',nt:'MBL 비활성 — Imipenem-relebactam, Meropenem-vaborbactam의 β-lactamase 억제제(Relebactam/Vaborbactam)는 Class A·C carbapenemase만 억제. Class B MBL(NDM/VIM/IMP) 억제 불가 — 표적 효소 구조(Zn2+ 활성부위) 차이'},{n:'Carbapenem 단독',nt:'MBL에 의해 가수분해'}],
       ns:['IMP: integron 매개 MBL — 획득성. 표현형 MIC 필수','KPC 동반 여부 반드시 확인']};
     if(noG)return{pl:'moderate',pcr:'내성 유전자 미검출 — Carbapenem 감수성 예측력 높음. 단 PCR 음성이 ESBL 완전 배제를 보장하지 않음 (SHV/TEM형 ESBL은 이 패널에 포함되지 않음).',
       f:[{n:'Carbapenem',b:'Meropenem/Imipenem/Ertapenem',dose:'Imipenem 용법',nt:sv?'중증·폐렴 — 표현형 확인 후 반드시 de-escalation':mil?'경증: 표현형 확인 후 FQ/TMP-SMX step-down 우선':'표현형 확인 후 반드시 de-escalation'}],
-      s:[{n:'Cefepime',b:'',nt:'표현형 배양에서 ESBL 음성 확인 시에만 사용 — 폐렴에서는 ESBL 위음성 시 치료 실패율 31% (RCT)'},
+      s:[{n:'Cefepime',b:'2g IV q8h, 4시간 연장주입',nt:'표현형 배양에서 ESBL 음성 확인 시에만 사용 — 폐렴에서는 ESBL 위음성 시 치료 실패율 31% (RCT)',dose:'Cefepime 고용량 연장주입'},
          {n:'Levofloxacin',b:'750mg IV/PO q24h',nt:'표현형 감수성 확인 후 de-escalation — Ciprofloxacin도 대안',dose:'Levofloxacin 용법'},{n:'TMP-SMX',b:'15mg/kg/day (TMP성분) IV/PO q6–8h',nt:'표현형 감수성 확인 후 de-escalation',dose:'TMP-SMX 용법'}],
       t:[],
       av:[{n:'Piperacillin-tazobactam',nt:'ESBL 생산 Enterobacterales의 폐렴·균혈증 등 전신 감염 비권장 (IDSA 2024) — ① MERINO trial: Pip-tazo 4.5g q6h가 Meropenem 대비 30일 사망률 열등(12.3% vs 3.7%) ② Eagle effect: 고농도에서 역설적 살균 효과 감소 ③ MIC 재현성 불량. ※ 단순 방광염(cystitis)은 소변 내 약물 고농도 달성 가능하여 예외'}],
@@ -471,19 +482,19 @@ function getRec(org,genes,sev){
       ]};
     if(hKPC&&hNDM)return{pl:'low',pcr:'KPC+NDM 복합: 치료 옵션 극히 제한.',
       f:[{n:'Aztreonam + Ceftazidime-avibactam',b:'ATM + Zavicefta',nt:'KPC+MBL 복합 최선',dose:'CAZ-AVI + ATM 용법'}],
-      s:[{n:'Aztreonam-avibactam',b:'Emblaveo',nt:'FDA 2023'},{n:'Cefiderocol',b:'Fetroja',nt:'MIC 확인'}],
+      s:[{n:'Aztreonam-avibactam',b:'Emblaveo',nt:'FDA 2023',dose:'Aztreonam-avibactam 용법'},{n:'Cefiderocol',b:'Fetroja',nt:'MIC 확인',dose:'Cefiderocol 용법'}],
       t:[{n:'Colistin',b:'',nt:'최후',dose:'Colistin 용법'}],av:[{n:'Imipenem-relebactam (IMI-REL)',nt:'MBL 비활성 — Imipenem-relebactam, Meropenem-vaborbactam의 β-lactamase 억제제(Relebactam/Vaborbactam)는 Class A·C carbapenemase만 억제. Class B MBL(NDM/VIM/IMP) 억제 불가 — 표적 효소 구조(Zn2+ 활성부위) 차이'},{n:'Meropenem-vaborbactam (MER-VAB)',nt:'MBL 비활성 — Imipenem-relebactam, Meropenem-vaborbactam의 β-lactamase 억제제(Relebactam/Vaborbactam)는 Class A·C carbapenemase만 억제. Class B MBL(NDM/VIM/IMP) 억제 불가 — 표적 효소 구조(Zn2+ 활성부위) 차이'}],
       ns:['표현형 없이 치료 선택 매우 위험']};
     if(hKPC)return{pl:'high',pcr:'KPC: 구성적 발현.',
-      f:[{n:'Ceftazidime-avibactam',b:'Zavicefta',dose:'CAZ-AVI 용법'},{n:'Meropenem-vaborbactam',b:'Vabomere'},{n:'Imipenem-relebactam',b:'Recarbrio'}],
-      s:[{n:'Cefiderocol',b:'Fetroja'}],t:[],av:[],ns:['KPC-3 변이체: MIC 확인 필수']};
+      f:[{n:'Ceftazidime-avibactam',b:'Zavicefta',dose:'CAZ-AVI 용법'},{n:'Meropenem-vaborbactam',b:'Vabomere',dose:'Meropenem-vaborbactam 용법'},{n:'Imipenem-relebactam',b:'Recarbrio',dose:'Imipenem-relebactam 용법'}],
+      s:[{n:'Cefiderocol',b:'Fetroja',dose:'Cefiderocol 용법'}],t:[],av:[],ns:['KPC-3 변이체: MIC 확인 필수']};
     if(hNDM)return{pl:'high',pcr:'NDM(MBL): 구성적 발현.',
       f:[{n:'Aztreonam + Ceftazidime-avibactam',b:'ATM + Zavicefta',nt:'MBL 78~93% 회복',dose:'CAZ-AVI + ATM 용법'}],
-      s:[{n:'Cefiderocol',b:'Fetroja'},{n:'Aztreonam-avibactam',b:'Emblaveo',nt:'FDA 2023'}],
+      s:[{n:'Cefiderocol',b:'Fetroja',dose:'Cefiderocol 용법'},{n:'Aztreonam-avibactam',b:'Emblaveo',nt:'FDA 2023',dose:'Aztreonam-avibactam 용법'}],
       t:[{n:'Colistin',b:'',nt:'최후',dose:'Colistin 용법'}],av:[{n:'Imipenem-relebactam (IMI-REL)',nt:'MBL 비활성 — Imipenem-relebactam, Meropenem-vaborbactam의 β-lactamase 억제제(Relebactam/Vaborbactam)는 Class A·C carbapenemase만 억제. Class B MBL(NDM/VIM/IMP) 억제 불가 — 표적 효소 구조(Zn2+ 활성부위) 차이'},{n:'Meropenem-vaborbactam (MER-VAB)',nt:'MBL 비활성 — Imipenem-relebactam, Meropenem-vaborbactam의 β-lactamase 억제제(Relebactam/Vaborbactam)는 Class A·C carbapenemase만 억제. Class B MBL(NDM/VIM/IMP) 억제 불가 — 표적 효소 구조(Zn2+ 활성부위) 차이'}],ns:[]};
     if(hOXA)return{pl:'moderate',pcr:'OXA-48: 저수준 carbapenem 가수분해 — PCR 양성이어도 carbapenem 감수성 표현형 가능 (특히 OXA-181/232/244/484 변이체). 표현형 MIC가 감수성이어도 CAZ-AVI 선택 고려. 반드시 표현형 확인.',
       f:[{n:'Ceftazidime-avibactam',b:'Zavicefta',nt:'OXA-48 우수',dose:'CAZ-AVI 용법'}],
-      s:[{n:'Cefiderocol',b:'Fetroja'}],t:[],av:[{n:'IMI-REL',nt:'OXA-48 제한적'}],
+      s:[{n:'Cefiderocol',b:'Fetroja',dose:'Cefiderocol 용법'}],t:[],av:[{n:'IMI-REL',nt:'OXA-48 제한적'}],
       ns:['ESBL 동반 시 MIC 상승 가능']};}
 
   return{pl:'moderate',pcr:'추가 정보 필요.',f:[{n:'Carbapenem',b:'Meropenem/Imipenem',dose:'Meropenem 고용량 연장주입'}],s:[],t:[],av:[],ns:['유전자 선택 시 더 정확한 추천 가능']};}
