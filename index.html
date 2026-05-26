@@ -136,7 +136,7 @@ html,body{min-height:100%;background:#f3f4f6;font-family:-apple-system,BlinkMacS
 <div class="app">
 <div class="topbar">
   <div class="topbar-icon">Rx</div>
-  <div><h1>폐렴 항균제 선택 가이드</h1><div class="topbar-sub">IDSA 2024 AMR Guidance 기반 · v6.2</div></div>
+  <div><h1>폐렴 항균제 선택 가이드</h1><div class="topbar-sub">IDSA 2024 AMR Guidance 기반 · v6.3</div></div>
 </div>
 <div class="warn">⚠ PCR 결과는 보조 지표입니다. 최종 항균제 선택은 반드시 표현형 배양 감수성(MIC)을 확인하십시오.</div>
 <div class="src">근거: IDSA 2024 AMR Guidance · ATS/IDSA 2019 CAP · ATS/IDSA 2016 HAP/VAP · IDSA MRSA Guidelines</div>
@@ -312,9 +312,10 @@ function togG(org,g){if(!S.genes[org])S.genes[org]=[];var i=S.genes[org].indexOf
 function remO(k){var i=S.orgs.indexOf(k);if(i>=0){S.orgs.splice(i,1);delete S.genes[k];}rendOG();rendSC();rendIL();document.getElementById('bn0').disabled=(S.orgs.length===0);}
 function setSev(s){S.sev=s;var cls={severe:'sv',moderate:'mo',mild:'mi'};var ks=['severe','moderate','mild'];for(var i=0;i<3;i++)document.getElementById('s'+i).className='sb'+(ks[i]===s?' '+cls[ks[i]]:'');var msgs={severe:'중증/ICU — 카바페넴 우선·광범위 커버 로직 적용',moderate:'중등도 — 감수성 결과에 따라 step-down 고려',mild:'경증 — 경구 전환 및 협범위 약제 우선 고려'};var el=document.getElementById('sev-msg');el.textContent=msgs[s];el.className='sev-msg '+cls[s];rendSB();}
 
-function getRec(org,genes,sev){
+function getRec(org,genes,sev,atyNeg){
   var g=genes||[];var noG=g.length===0;
   var hKPC=g.indexOf('KPC')>=0,hNDM=g.indexOf('NDM')>=0,hOXA=g.indexOf('OXA48')>=0,hCTXM=g.indexOf('CTXM')>=0,hIMP=g.indexOf('IMP')>=0,hVIM=g.indexOf('VIM')>=0,hmecA=g.indexOf('mecA')>=0,sv=sev==='severe',mil=sev==='mild';
+  // atyNeg: true = 이 패널에서 비정형균 3종(Chlamydia/Legionella/Mycoplasma) 모두 음성 확인됨
   var CC=comboBox('병합 구성약제 — 아래 중 1제 이상 선택 (IDSA 2024)',CRAB_COMBO);
 
   // ── S. maltophilia ─────────────────────────────────────────────
@@ -346,51 +347,127 @@ function getRec(org,genes,sev){
     ]};
 
   // ── H. influenzae ──────────────────────────────────────────────
-  if(org==='h_influenzae')return{pl:'high',pcr:'H. influenzae — β-lactamase 생산 여부에 따라 선택. PCR 패널에는 H. influenzae 고유 내성 유전자(blaTEM-1/ROB-1) 미포함.',
-    f:[
-      {n:'Ceftriaxone + Azithromycin 병합',b:'Ceftriaxone 2g IV q24h  |  Azithromycin 500mg IV/PO q24h',nt:'두 약제 동시 투여 — 입원 CAP 1차 (ATS/IDSA 2019 strong rec). β-lactam으로 H.influenzae 커버 + macrolide로 비정형균 커버',dose:'Ceftriaxone 용법',dose2:'Azithromycin 용법'},
-      {n:'Ampicillin-sulbactam + Azithromycin 병합',b:'Amp-sulbactam 1.5–3g IV q6h  |  Azithromycin 500mg IV/PO q24h',nt:'두 약제 동시 투여 — 입원 CAP 대안 (ATS/IDSA 2019)',dose:'Azithromycin 용법'},
-      {n:'Piperacillin-tazobactam + Azithromycin 병합',b:'Pip-tazo 4.5g IV q6h 연장주입  |  Azithromycin 500mg IV/PO q24h',nt:'두 약제 동시 투여 — 입원 중등도~중증 CAP 대안. β-lactamase 생산 H. influenzae 및 그람음성균 광범위 커버',dose:'Pip-tazo 연장주입',dose2:'Azithromycin 용법'},
-      {n:'Amoxicillin-clavulanate',b:'875/125mg PO q12h 또는 2g/125mg q12h',nt:'외래 CAP (comorbidity 있는 경우)',dose:'Amoxicillin-clavulanate 용법'},
-    ],
-    s:[
-      {n:'Levofloxacin',b:'750mg IV/PO q24h',dose:'Levofloxacin 용법',nt:'Respiratory FQ 단독 — macrolide·β-lactam 금기 시 (ATS/IDSA 2019 strong rec)'},
-      {n:'Moxifloxacin',b:'400mg IV/PO q24h',dose:'Levofloxacin 용법',nt:'Respiratory FQ 대안'},
-    ],
-    t:[],
-    av:[
-      {n:'Amoxicillin 단독',nt:'β-lactamase 생산 H. influenzae 커버 불가 — blaTEM-1/ROB-1 효소가 amoxicillin을 가수분해. Amoxicillin-clavulanate로 대체 필요'},{n:'Ampicillin 단독',nt:'β-lactamase 생산 H. influenzae 커버 불가 — blaTEM-1/ROB-1 효소가 ampicillin을 가수분해. Ampicillin-sulbactam 또는 3세대 Cephalosporin으로 대체 필요. BLNAR(PBP3 변이) 균주는 clavulanate로도 극복 불가'},
-    ],
-    ns:[
-      'ATS/IDSA 2019 CAP 입원: β-lactam + macrolide 병합 또는 Respiratory FQ 단독 (strong recommendation)',
-      '입원 시 Azithromycin은 ceftriaxone과 반드시 병합 — 단독 사용 시 비정형균 미커버',
-      '⚠ H. influenzae 내성 기전 2가지: ① β-lactamase (blaTEM-1/ROB-1) → Amox-clav·Ceftriaxone으로 커버, ② PBP3 변이 BLNAR → β-lactamase 음성이지만 ampicillin 내성, clavulanate로 극복 불가. 현재 PCR 패널 미포함',
-      'BLNAR 의심 시 (치료 반응 불량): Ceftriaxone·FQ으로 전환 고려 — 표현형 감수성 확인 필수',
-      '⚠ 동시 내성 유전자(CTX-M/KPC/NDM/VIM/IMP) 양성: H. influenzae 고유 유전자 아님 → 검체 내 다른 그람음성균 동반 가능 — 다중균주 모드로 추가 해석 필요',
-    ]};
+  if(org==='h_influenzae'){
+    var hf_f, hf_s, hf_ns;
+    if(atyNeg){
+      // 비정형균 3종 모두 PCR 음성 확인 → β-lactam 단독으로 충분
+      hf_f=[
+        {n:'Ceftriaxone',b:'2g IV q24h',nt:'비정형균 PCR 음성 확인 — β-lactam 단독으로 충분. H. influenzae 및 β-lactamase 생산균 커버',dose:'Ceftriaxone 용법'},
+        {n:'Ampicillin-sulbactam',b:'1.5–3g IV q6h',nt:'Ceftriaxone 대안 — β-lactamase 생산 H. influenzae 커버',dose:'Ampicillin-sulbactam 표준용법'},
+        {n:'Amoxicillin-clavulanate',b:'875/125mg PO q12h 또는 2g/125mg q12h',nt:'외래/경증 — β-lactamase 생산 H. influenzae 커버',dose:'Amoxicillin-clavulanate 용법'},
+      ];
+      hf_s=[
+        {n:'Levofloxacin',b:'750mg IV/PO q24h',dose:'Levofloxacin 용법',nt:'β-lactam 금기 시 — H. influenzae 및 비정형균 모두 커버'},
+        {n:'Ceftriaxone + Azithromycin 병합',b:'Ceftriaxone 2g IV q24h  |  Azithromycin 500mg IV/PO q24h',nt:'비정형균 PCR 음성이나 Legionella 요중항원(UAg) 미검사 시 병합 유지 고려',dose:'Ceftriaxone 용법',dose2:'Azithromycin 용법'},
+      ];
+      hf_ns=[
+        '✅ 비정형균(Chlamydia/Legionella/Mycoplasma) PCR 음성 확인 — β-lactam 단독 치료 근거 있음',
+        '⚠ 단, Legionella 요중항원(UAg)은 PCR과 별도 검사 — UAg 미검사 시 Azithromycin 병합 유지 고려',
+        'H. influenzae 내성 기전: ① β-lactamase(blaTEM-1/ROB-1) → Amox-clav·Ceftriaxone 커버, ② BLNAR(PBP3 변이) → clavulanate 극복 불가, 표현형 확인 필요',
+        'BLNAR 의심(치료 반응 불량): Ceftriaxone·FQ으로 전환 고려',
+        '⚠ 동시 내성 유전자(CTX-M/KPC/NDM/VIM/IMP) 양성: H. influenzae 고유 유전자 아님 → 다중균주 모드로 추가 해석 필요',
+      ];
+    } else {
+      // 비정형균 미선택(검사 안 함) → 경험적 병합 유지
+      hf_f=[
+        {n:'Ceftriaxone + Azithromycin 병합',b:'Ceftriaxone 2g IV q24h  |  Azithromycin 500mg IV/PO q24h',nt:'두 약제 동시 투여 — 입원 CAP 1차 (ATS/IDSA 2019 strong rec). 비정형균 검사 미시행 시 경험적 커버 포함',dose:'Ceftriaxone 용법',dose2:'Azithromycin 용법'},
+        {n:'Ampicillin-sulbactam + Azithromycin 병합',b:'Amp-sulbactam 1.5–3g IV q6h  |  Azithromycin 500mg IV/PO q24h',nt:'두 약제 동시 투여 — 입원 CAP 대안 (ATS/IDSA 2019)',dose:'Azithromycin 용법'},
+        {n:'Piperacillin-tazobactam + Azithromycin 병합',b:'Pip-tazo 4.5g IV q6h 연장주입  |  Azithromycin 500mg IV/PO q24h',nt:'두 약제 동시 투여 — 중등도~중증 CAP 대안. 광범위 커버',dose:'Pip-tazo 연장주입',dose2:'Azithromycin 용법'},
+        {n:'Amoxicillin-clavulanate',b:'875/125mg PO q12h 또는 2g/125mg q12h',nt:'외래 CAP (comorbidity 있는 경우)',dose:'Amoxicillin-clavulanate 용법'},
+      ];
+      hf_s=[
+        {n:'Levofloxacin',b:'750mg IV/PO q24h',dose:'Levofloxacin 용법',nt:'Respiratory FQ 단독 — macrolide·β-lactam 금기 시 (ATS/IDSA 2019 strong rec)'},
+        {n:'Moxifloxacin',b:'400mg IV/PO q24h',dose:'Levofloxacin 용법',nt:'Respiratory FQ 대안'},
+      ];
+      hf_ns=[
+        '⚠ 비정형균(Chlamydia/Legionella/Mycoplasma) PCR 미시행 — 경험적으로 비정형균 커버 포함 권고 (ATS/IDSA 2019)',
+        '비정형균 PCR 음성 확인 시: β-lactam 단독으로 de-escalation 가능 (① 균주 선택 화면에서 비정형균 항목 선택하여 재확인)',
+        'H. influenzae 내성 기전: ① β-lactamase(blaTEM-1/ROB-1) → Amox-clav·Ceftriaxone 커버, ② BLNAR(PBP3 변이) → clavulanate 극복 불가',
+        'BLNAR 의심(치료 반응 불량): Ceftriaxone·FQ으로 전환 고려 — 표현형 감수성 확인 필수',
+        '⚠ 동시 내성 유전자(CTX-M/KPC/NDM/VIM/IMP) 양성: H. influenzae 고유 유전자 아님 → 다중균주 모드로 추가 해석 필요',
+      ];
+    }
+    return{pl:'high',pcr:'H. influenzae — β-lactamase 생산 여부에 따라 선택. PCR 패널에는 H. influenzae 고유 내성 유전자(blaTEM-1/ROB-1) 미포함.',
+      f:hf_f,s:hf_s,t:[],
+      av:[
+        {n:'Amoxicillin 단독',nt:'β-lactamase 생산 H. influenzae 커버 불가 — blaTEM-1/ROB-1 효소가 amoxicillin을 가수분해. Amoxicillin-clavulanate로 대체 필요'},
+        {n:'Ampicillin 단독',nt:'β-lactamase 생산 H. influenzae 커버 불가 — Ampicillin-sulbactam 또는 3세대 Cephalosporin으로 대체 필요. BLNAR(PBP3 변이) 균주는 clavulanate로도 극복 불가'},
+      ],
+      ns:hf_ns};
+  }
 
-  if(org==='moraxella')return{pl:'high',pcr:'M. catarrhalis — 거의 모두 β-lactamase 생산 (blaBRO-1/BRO-2). PCR 패널에 M. catarrhalis β-lactamase 유전자 미포함이나 임상적으로 β-lactamase 생산 가정하고 치료.',
-    f:[
-      {n:'Amoxicillin-clavulanate',b:'875/125mg PO q12h 또는 2g/125mg q12h',nt:'경증~중등도 외래 CAP 1차 — β-lactamase 생산균 커버',dose:'Amoxicillin-clavulanate 용법'},
-      {n:'Ceftriaxone + Azithromycin 병합',b:'Ceftriaxone 2g IV q24h  |  Azithromycin 500mg IV/PO q24h',nt:'두 약제 동시 투여 — 입원 CAP 1차 (β-lactam + macrolide 병합)',dose:'Ceftriaxone 용법',dose2:'Azithromycin 용법'},
-      {n:'Piperacillin-tazobactam + Azithromycin 병합',b:'Pip-tazo 4.5g IV q6h 연장주입  |  Azithromycin 500mg IV/PO q24h',nt:'두 약제 동시 투여 — 입원 CAP 대안. M. catarrhalis β-lactamase 및 다른 그람음성균 동반 커버',dose:'Pip-tazo 연장주입',dose2:'Azithromycin 용법'},
-    ],
-    s:[
-      {n:'Levofloxacin',b:'750mg IV/PO q24h',nt:'Respiratory FQ 단독 — β-lactam·macrolide 금기 시',dose:'Levofloxacin 용법'},
-      {n:'Moxifloxacin',b:'400mg IV/PO q24h',nt:'Respiratory FQ 대안',dose:'Levofloxacin 용법'},
-      {n:'Azithromycin',b:'500mg IV/PO q24h',nt:'Macrolide 단독 — 비정형균 동반 의심 시 (감수성 확인 권장)',dose:'Azithromycin 용법'},
-    ],t:[],
-    av:[{n:'Ampicillin 단독',nt:'β-lactamase(blaBRO-1/BRO-2) 생산으로 비활성 — M. catarrhalis 거의 100% β-lactamase 생산'}],
-    ns:[
-      'M. catarrhalis β-lactamase 생산율: 국내외 거의 100% — Ampicillin·Amoxicillin 단독 비권장',
-      'ATS/IDSA 2019 CAP: β-lactam + macrolide 병합 또는 Respiratory FQ 단독 (strong rec)',
-      'Pip-tazo: β-lactamase 생산 M. catarrhalis 및 동반 그람음성균 광범위 커버 — 중증 또는 혼합 감염 의심 시 고려',
-    ]};
+  if(org==='moraxella'){
+    var mc_f, mc_s, mc_ns;
+    if(atyNeg){
+      mc_f=[
+        {n:'Amoxicillin-clavulanate',b:'875/125mg PO q12h 또는 2g/125mg q12h',nt:'비정형균 PCR 음성 확인 — β-lactam/β-lactamase 억제제 단독으로 충분. M. catarrhalis β-lactamase 커버',dose:'Amoxicillin-clavulanate 용법'},
+        {n:'Ceftriaxone',b:'2g IV q24h',nt:'입원 CAP — β-lactam 단독으로 충분 (비정형균 PCR 음성)',dose:'Ceftriaxone 용법'},
+      ];
+      mc_s=[
+        {n:'Levofloxacin',b:'750mg IV/PO q24h',nt:'β-lactam 금기 시 — M. catarrhalis 및 비정형균 모두 커버',dose:'Levofloxacin 용법'},
+        {n:'Ceftriaxone + Azithromycin 병합',b:'Ceftriaxone 2g IV q24h  |  Azithromycin 500mg IV/PO q24h',nt:'Legionella 요중항원(UAg) 미검사 시 병합 유지 고려',dose:'Ceftriaxone 용법',dose2:'Azithromycin 용법'},
+      ];
+      mc_ns=[
+        '✅ 비정형균(Chlamydia/Legionella/Mycoplasma) PCR 음성 확인 — β-lactam 단독 치료 근거 있음',
+        '⚠ Legionella 요중항원(UAg)은 PCR과 별도 검사 — UAg 미검사 시 Azithromycin 병합 유지 고려',
+        'M. catarrhalis β-lactamase 생산율: 국내외 거의 100% — Ampicillin·Amoxicillin 단독 비권장',
+      ];
+    } else {
+      mc_f=[
+        {n:'Amoxicillin-clavulanate',b:'875/125mg PO q12h 또는 2g/125mg q12h',nt:'경증~중등도 외래 CAP 1차 — β-lactamase 생산균 커버',dose:'Amoxicillin-clavulanate 용법'},
+        {n:'Ceftriaxone + Azithromycin 병합',b:'Ceftriaxone 2g IV q24h  |  Azithromycin 500mg IV/PO q24h',nt:'두 약제 동시 투여 — 입원 CAP 1차. 비정형균 검사 미시행 시 경험적 커버 포함',dose:'Ceftriaxone 용법',dose2:'Azithromycin 용법'},
+        {n:'Piperacillin-tazobactam + Azithromycin 병합',b:'Pip-tazo 4.5g IV q6h 연장주입  |  Azithromycin 500mg IV/PO q24h',nt:'두 약제 동시 투여 — 입원 CAP 대안. 동반 그람음성균 광범위 커버',dose:'Pip-tazo 연장주입',dose2:'Azithromycin 용법'},
+      ];
+      mc_s=[
+        {n:'Levofloxacin',b:'750mg IV/PO q24h',nt:'Respiratory FQ 단독 — β-lactam·macrolide 금기 시',dose:'Levofloxacin 용법'},
+        {n:'Moxifloxacin',b:'400mg IV/PO q24h',nt:'Respiratory FQ 대안',dose:'Levofloxacin 용법'},
+        {n:'Azithromycin',b:'500mg IV/PO q24h',nt:'Macrolide 단독 — 비정형균 동반 의심 시 (감수성 확인 권장)',dose:'Azithromycin 용법'},
+      ];
+      mc_ns=[
+        '⚠ 비정형균(Chlamydia/Legionella/Mycoplasma) PCR 미시행 — 경험적으로 비정형균 커버 포함 권고',
+        '비정형균 PCR 음성 확인 시: β-lactam 단독으로 de-escalation 가능',
+        'M. catarrhalis β-lactamase 생산율: 국내외 거의 100% — Ampicillin·Amoxicillin 단독 비권장',
+        'ATS/IDSA 2019 CAP: β-lactam + macrolide 병합 또는 Respiratory FQ 단독 (strong rec)',
+      ];
+    }
+    return{pl:'high',pcr:'M. catarrhalis — 거의 모두 β-lactamase 생산 (blaBRO-1/BRO-2). PCR 패널에 M. catarrhalis β-lactamase 유전자 미포함이나 임상적으로 β-lactamase 생산 가정하고 치료.',
+      f:mc_f,s:mc_s,t:[],
+      av:[{n:'Ampicillin 단독',nt:'β-lactamase(blaBRO-1/BRO-2) 생산으로 비활성 — M. catarrhalis 거의 100% β-lactamase 생산'}],
+      ns:mc_ns};
+  }
 
-  if(org==='s_pneumo')return{pl:'high',pcr:'S. pneumoniae — 대부분 β-lactam 감수성 유지.',
-    f:[{n:'Ceftriaxone + Azithromycin 병합',b:'Ceftriaxone 2g IV q24h  |  Azithromycin 500mg IV/PO q24h',nt:'두 약제 동시 투여 — 입원 CAP 1차 (ATS/IDSA 2019 strong rec)',dose:'Ceftriaxone 용법',dose2:'Azithromycin 용법'},{n:'Ampicillin-sulbactam + Azithromycin 병합',b:'Amp-sulbactam 1.5–3g IV q6h  |  Azithromycin 500mg IV/PO q24h',nt:'두 약제 동시 투여 — 입원 CAP 대안',dose:'Azithromycin 용법'}],
-    s:[{n:'Levofloxacin',b:'750mg IV/PO q24h',dose:'Levofloxacin 용법',nt:'Respiratory FQ 단독 — β-lactam·macrolide 금기 시 (ATS/IDSA 2019 strong rec)'}],t:[],av:[],
-    ns:['ATS/IDSA 2019 CAP 입원: β-lactam + macrolide 또는 FQ 단독 (strong evidence)',sv?'중증 CAP: β-lactam + macrolide 또는 β-lactam + FQ 병합':''].filter(Boolean)};
+  if(org==='s_pneumo'){
+    var sp_f, sp_s, sp_ns;
+    if(atyNeg){
+      sp_f=[
+        {n:'Ceftriaxone',b:'2g IV q24h',nt:'비정형균 PCR 음성 확인 — β-lactam 단독으로 충분. S. pneumoniae 대부분 β-lactam 감수성',dose:'Ceftriaxone 용법'},
+        {n:'Ampicillin-sulbactam',b:'1.5–3g IV q6h',nt:'Ceftriaxone 대안',dose:'Ampicillin-sulbactam 표준용법'},
+      ];
+      sp_s=[
+        {n:'Levofloxacin',b:'750mg IV/PO q24h',dose:'Levofloxacin 용법',nt:'β-lactam 금기 시 또는 Legionella UAg 미검사 시 — 비정형균 포함 광범위 커버'},
+        {n:'Ceftriaxone + Azithromycin 병합',b:'Ceftriaxone 2g IV q24h  |  Azithromycin 500mg IV/PO q24h',nt:'Legionella 요중항원(UAg) 미검사 시 병합 유지 고려',dose:'Ceftriaxone 용법',dose2:'Azithromycin 용법'},
+      ];
+      sp_ns=[
+        '✅ 비정형균(Chlamydia/Legionella/Mycoplasma) PCR 음성 확인 — β-lactam 단독 치료 근거 있음',
+        '⚠ Legionella 요중항원(UAg)은 PCR과 별도 검사 — UAg 미검사 시 Azithromycin 병합 유지 고려',
+        sv?'중증 CAP: β-lactam + macrolide 또는 β-lactam + FQ 병합 고려 (중증에서는 비정형균 PCR 음성이어도 병합 선호)':'',
+      ].filter(Boolean);
+    } else {
+      sp_f=[
+        {n:'Ceftriaxone + Azithromycin 병합',b:'Ceftriaxone 2g IV q24h  |  Azithromycin 500mg IV/PO q24h',nt:'두 약제 동시 투여 — 입원 CAP 1차 (ATS/IDSA 2019 strong rec). 비정형균 검사 미시행 시 경험적 커버 포함',dose:'Ceftriaxone 용법',dose2:'Azithromycin 용법'},
+        {n:'Ampicillin-sulbactam + Azithromycin 병합',b:'Amp-sulbactam 1.5–3g IV q6h  |  Azithromycin 500mg IV/PO q24h',nt:'두 약제 동시 투여 — 입원 CAP 대안',dose:'Azithromycin 용법'},
+      ];
+      sp_s=[{n:'Levofloxacin',b:'750mg IV/PO q24h',dose:'Levofloxacin 용법',nt:'Respiratory FQ 단독 — β-lactam·macrolide 금기 시 (ATS/IDSA 2019 strong rec)'}];
+      sp_ns=[
+        '⚠ 비정형균(Chlamydia/Legionella/Mycoplasma) PCR 미시행 — 경험적으로 비정형균 커버 포함 권고 (ATS/IDSA 2019)',
+        '비정형균 PCR 음성 확인 시: β-lactam 단독으로 de-escalation 가능',
+        'ATS/IDSA 2019 CAP 입원: β-lactam + macrolide 또는 FQ 단독 (strong evidence)',
+        sv?'중증 CAP: β-lactam + macrolide 또는 β-lactam + FQ 병합':'',
+      ].filter(Boolean);
+    }
+    return{pl:'high',pcr:'S. pneumoniae — 대부분 β-lactam 감수성 유지.',
+      f:sp_f,s:sp_s,t:[],av:[],ns:sp_ns};
+  }
 
   if(org==='chlamydia'||org==='mycoplasma')return{pl:'high',pcr:'세포내 기생균 — β-lactam 단독 치료 불충분.',
     f:[{n:'Azithromycin',b:'500mg IV/PO q24h',dose:'Azithromycin 용법',nt:'1차 macrolide'},{n:'Doxycycline',b:'100mg IV/PO q12h',dose:'Doxycycline 용법',nt:'macrolide 대안'}],
@@ -588,7 +665,12 @@ function dch(d,cl,badge,bcl){
     +(d.combo||'')+'</div>';}
 
 function buildR(){
-  go(2);var recs=S.orgs.map(function(k){return getRec(k,S.genes[k]||[],S.sev);});var h='';
+  go(2);
+  // 비정형균 3종 미선택 = PCR 음성으로 간주 → β-lactam 단독 1차 적용
+  var ATY_ORGS=['chlamydia','legionella','mycoplasma'];
+  var atyNeg=!ATY_ORGS.some(function(k){return S.orgs.indexOf(k)>=0;});
+  var recs=S.orgs.map(function(k){return getRec(k,S.genes[k]||[],S.sev,atyNeg);});
+  var h='';
   if(S.orgs.length>=2){var ca=cross(recs);var anyL=recs.some(function(r){return r.pl==='low';});
     h+='<div class="dbox"><div class="dt">다중균주 동시 검출 — 통합 분석</div><div class="dn3">검출 균주: '+S.orgs.map(function(k){return OR[k].l;}).join(', ')+'<br>'+(anyL?'PCR 예측력 낮은 균주 포함 — 모든 균주 표현형 MIC 확인 필수.':'항균 범위와 독성을 함께 고려하십시오.')+'</div></div>';
     if(ca.full.length>0){h+='<div class="cbox"><div class="ct">전 균주 커버 약제 (교집합)</div><div class="cn">';ca.full.forEach(function(d){h+='▪ '+d.n+(isKO(d.n)?'<span class="ko-badge">★미출시</span>':'')+(isIDSAnm(d.n)?'<span class="idsa-badge">⚠IDSA미언급</span>':'')+'— '+(d.rank===1?'1차':d.rank===2?'1~2차':'2~3차')+'<br>';});h+='</div></div>';}
