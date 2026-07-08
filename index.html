@@ -136,7 +136,7 @@ html,body{min-height:100%;background:#f3f4f6;font-family:-apple-system,BlinkMacS
 <div class="app">
 <div class="topbar">
   <div class="topbar-icon">Rx</div>
-  <div><h1>폐렴 항균제 선택 가이드</h1><div class="topbar-sub">IDSA 2024 AMR Guidance 기반 · v6.3</div></div>
+  <div><h1>폐렴 항균제 선택 가이드</h1><div class="topbar-sub">IDSA 2024 AMR Guidance 기반 · v7.0</div></div>
 </div>
 <div class="warn">⚠ PCR 결과는 보조 지표입니다. 최종 항균제 선택은 반드시 표현형 배양 감수성(MIC)을 확인하십시오.</div>
 <div class="src">근거: IDSA 2024 AMR Guidance · ATS/IDSA 2019 CAP · ATS/IDSA 2016 HAP/VAP · IDSA MRSA Guidelines</div>
@@ -489,9 +489,23 @@ function getRec(org,genes,sev,atyNeg){
 
   if(org==='s_aureus'){
     if(hmecA)return{pl:'high',pcr:'mecA/C 검출 = MRSA. β-lactam 전반 비활성.',
-      f:[{n:'Linezolid',b:'600mg IV/PO q12h',dose:'Linezolid 용법',nt:'MRSA 폐렴 1차 선호 (ATS/IDSA 2016 HAP/VAP)'},{n:'Vancomycin',b:'AUC 기반 TDM',nt:'MRSA 표준; AUC/MIC 400–600 mg·h/L 목표',dose:'Vancomycin AUC 기반'}],
-      s:[],t:[],av:[{n:'β-lactam 전반',nt:'mecA 양성 = MRSA — mecA 유전자가 PBP2a를 생성하며, 이는 모든 β-lactam에 대해 극히 낮은 친화력(KD). β-lactam 결합 불가 → 세포벽 합성 계속 → 살균 실패. Ceftaroline만 PBP2a 부분 친화력 있으나 MRSA 폐렴 치료 근거 불충분'},{n:'Daptomycin',nt:'폐렴 비권장 — 폐 surfactant (phosphatidylglycerol)에 의해 daptomycin 불활성화. 폐 조직 내 약물 결합으로 항균 활성 소실. MRSA 폐렴 RCT에서 vancomycin 대비 열등한 성적'}],
-      ns:['Vancomycin: ASHP/IDSA 2020 AUC/MIC 기반 TDM — trough 단독 모니터링 비권장']};
+      f:[
+        {n:'Linezolid',b:'600mg IV/PO q12h',dose:'Linezolid 용법',nt:'MRSA 폐렴 1차 선호 (ATS/IDSA 2016 HAP/VAP) — 폐 조직 ELF 농도가 혈중의 4~5배. Wunderink et al. NEJM 2012 RCT: 임상 치료 성공률 57.6% vs Vancomycin 46.6%(p=0.042). ⚠ 균혈증 동반 시 정균제 한계 — Vancomycin 병용 또는 전환 고려. ⚠ SSRI/SNRI/TCA 복용 중: Serotonin syndrome 위험 — 금기, Vancomycin으로 대체'},
+        {n:'Vancomycin',b:'AUC 기반 TDM',nt:'MRSA 폐렴 1차 동급 (ATS/IDSA 2016) — 살균제. ⚠ 균혈증 동반 시 Vancomycin 우선 또는 Linezolid와 병합 고려. ⚠ 폐 조직 침투 불량(ELF 농도 혈중의 10~30%) — AUC/MIC 400–600 mg·h/L 엄격 목표 준수 필수',dose:'Vancomycin AUC 기반'},
+      ],
+      s:[],t:[],
+      av:[
+        {n:'β-lactam 전반',nt:'mecA 양성 = MRSA — mecA 유전자가 PBP2a를 생성하며, 이는 모든 β-lactam에 대해 극히 낮은 친화력(KD). β-lactam 결합 불가 → 세포벽 합성 계속 → 살균 실패. Ceftaroline만 PBP2a 부분 친화력 있으나 MRSA 폐렴 치료 근거 불충분'},
+        {n:'Daptomycin',nt:'폐렴 비권장 — 폐 surfactant (phosphatidylglycerol)에 의해 daptomycin 불활성화. 폐 조직 내 약물 결합으로 항균 활성 소실. MRSA 폐렴 RCT에서 vancomycin 대비 열등한 성적'},
+      ],
+      ns:[
+        'Linezolid vs Vancomycin 선택 기준:',
+        '  ① 폐렴 단독(균혈증 없음) → Linezolid 우선 (폐 침투 우수, RCT 성적 우월)',
+        '  ② 균혈증 동반 MRSA 폐렴 → Vancomycin 우선 또는 병합 (살균제 필요)',
+        '  ③ SSRI/SNRI/TCA 복용 중 → Linezolid 금기, Vancomycin으로 대체',
+        '  ④ 2주 이상 치료 필요 → Linezolid 혈소판 감소 위험, CBC 주 1회 이상 모니터링',
+        'Vancomycin: ASHP/IDSA 2020 AUC/MIC 기반 TDM — trough 단독 모니터링 비권장',
+      ]};
     return{pl:'high',pcr:'mecA/C 음성 = MSSA. β-lactam으로 충분.',
       f:[{n:'Nafcillin',b:'2g IV q4h',dose:'Nafcillin 용법',nt:'MSSA 폐렴 1차 — antistaphylococcal penicillin (ATS/IDSA 2016)'},{n:'Oxacillin',b:'2g IV q4h',nt:'Nafcillin 동급 1차',dose:'Oxacillin 용법'},{n:'Cefazolin',b:'2g IV q8h',dose:'Cefazolin 용법',nt:'동등한 1차 — 투여 빈도 적고(q8h) 부작용 프로파일 우수 (신독성·간독성 낮음)'}],
       s:[{n:'Ampicillin-sulbactam',b:'3g IV q6h',dose:'Ampicillin-sulbactam 표준용법',nt:'경증 대안'}],t:[],
@@ -648,7 +662,107 @@ function getRec(org,genes,sev,atyNeg){
 
   return{pl:'moderate',pcr:'추가 정보 필요.',f:[{n:'Carbapenem',b:'Meropenem/Imipenem',dose:'Meropenem 고용량 연장주입'}],s:[],t:[],av:[],ns:['유전자 선택 시 더 정확한 추천 가능']};}
 
-function cross(recs){var av={};recs.forEach(function(r){(r.av||[]).forEach(function(d){av[d.n]=d;});});var do2={};recs.forEach(function(r,i){var all=[].concat(r.f||[],r.s||[],r.t||[]);all.forEach(function(d){var dn=d.n;if(!do2[dn])do2[dn]={orgs:[],mr:3};if(do2[dn].orgs.indexOf(i)<0)do2[dn].orgs.push(i);var rk=(r.f||[]).some(function(x){return x.n===dn;})?1:(r.s||[]).some(function(x){return x.n===dn;})?2:3;if(rk<do2[dn].mr)do2[dn].mr=rk;});});var full=[],part=[];Object.keys(do2).forEach(function(dn){if(av[dn])return;var info=do2[dn];if(info.orgs.length===recs.length)full.push({n:dn,rank:info.mr});else part.push({n:dn,orgs:info.orgs});});full.sort(function(a,b){return a.rank-b.rank;});return{full:full,part:part,av:av};}
+function cross(recs){
+  var av={};
+  recs.forEach(function(r){(r.av||[]).forEach(function(d){av[d.n]=d;});});
+  var do2={};
+  recs.forEach(function(r,i){
+    var all=[].concat(r.f||[],r.s||[],r.t||[]);
+    all.forEach(function(d){
+      var dn=d.n;
+      if(!do2[dn])do2[dn]={orgs:[],mr:3};
+      if(do2[dn].orgs.indexOf(i)<0)do2[dn].orgs.push(i);
+      var rk=(r.f||[]).some(function(x){return x.n===dn;})?1:(r.s||[]).some(function(x){return x.n===dn;})?2:3;
+      if(rk<do2[dn].mr)do2[dn].mr=rk;
+    });
+  });
+  var full=[],part=[];
+  Object.keys(do2).forEach(function(dn){
+    if(av[dn])return;
+    var info=do2[dn];
+    if(info.orgs.length===recs.length)full.push({n:dn,rank:info.mr,orgs:info.orgs});
+    else part.push({n:dn,rank:info.mr,orgs:info.orgs});
+  });
+  full.sort(function(a,b){return a.rank-b.rank;});
+  part.sort(function(a,b){return a.rank-b.rank;});
+  return{full:full,part:part,av:av};}
+
+// 다중균주 조합 요법 계산
+// 각 균주를 커버하는 약제 집합의 최소 커버 조합을 구함 (최대 2~3제)
+function calcCombos(recs, ca){
+  var n=recs.length;
+  // 각 약제가 커버하는 균주 인덱스 집합
+  var drugCover={};
+  recs.forEach(function(r,i){
+    var all=[].concat(r.f||[],r.s||[],r.t||[]);
+    all.forEach(function(d){
+      if(!drugCover[d.n])drugCover[d.n]={orgs:[],rank:3,ref:d};
+      if(drugCover[d.n].orgs.indexOf(i)<0)drugCover[d.n].orgs.push(i);
+      var rk=(r.f||[]).some(function(x){return x.n===d.n;})?1:(r.s||[]).some(function(x){return x.n===d.n;})?2:3;
+      if(rk<drugCover[d.n].rank)drugCover[d.n].rank=rk;
+    });
+  });
+  // 금기 약제 제외
+  Object.keys(ca.av).forEach(function(dn){delete drugCover[dn];});
+
+  var drugs=Object.keys(drugCover);
+  var allOrgs=[];for(var i=0;i<n;i++)allOrgs.push(i);
+
+  function covers(combo){
+    var covered=[];
+    combo.forEach(function(dn){
+      (drugCover[dn]&&drugCover[dn].orgs||[]).forEach(function(o){if(covered.indexOf(o)<0)covered.push(o);});
+    });
+    return allOrgs.every(function(o){return covered.indexOf(o)>=0;});
+  }
+  function rank(combo){
+    return combo.reduce(function(s,dn){return s+(drugCover[dn]?drugCover[dn].rank:3);},0);
+  }
+
+  var results=[];
+
+  // 단일 약제로 전체 커버되는 것 (ca.full에서 이미 있음)
+  ca.full.forEach(function(d){
+    results.push({drugs:[d.n],rank:d.rank,type:'single'});
+  });
+
+  // 2제 조합
+  if(ca.full.length===0){
+    for(var a=0;a<drugs.length;a++){
+      for(var b=a+1;b<drugs.length;b++){
+        var combo=[drugs[a],drugs[b]];
+        if(covers(combo))results.push({drugs:combo,rank:rank(combo),type:'combo2'});
+      }
+    }
+  }
+
+  // 3제 조합 (2제 조합도 없을 때)
+  var has2=results.some(function(r){return r.type==='combo2';});
+  if(ca.full.length===0&&!has2){
+    for(var a=0;a<drugs.length;a++){
+      for(var b=a+1;b<drugs.length;b++){
+        for(var c=b+1;c<drugs.length;c++){
+          var combo=[drugs[a],drugs[b],drugs[c]];
+          if(covers(combo))results.push({drugs:combo,rank:rank(combo),type:'combo3'});
+        }
+      }
+    }
+  }
+
+  results.sort(function(a,b){return a.rank-b.rank;});
+
+  // 상위 3개만, 중복 유사 조합 제거
+  var top=[];
+  results.forEach(function(r){
+    if(top.length>=3)return;
+    // 이미 포함된 조합과 약제 집합이 동일하면 스킵
+    var dup=top.some(function(t){
+      return t.drugs.length===r.drugs.length&&r.drugs.every(function(d){return t.drugs.indexOf(d)>=0;});
+    });
+    if(!dup)top.push(r);
+  });
+  return{combos:top,drugCover:drugCover};}
+
 function ps(pl){if(pl==='high')return{bg:'#f0fdf4',bd:'#6ee7b7',tx:'#065f46',lb:'PCR 예측력 높음'};if(pl==='moderate')return{bg:'#fffbeb',bd:'#fcd34d',tx:'#92400e',lb:'PCR 예측력 중간 — 표현형 보완 필요'};return{bg:'#fef2f2',bd:'#fca5a5',tx:'#9b1c1c',lb:'PCR 예측력 낮음 — 표현형 필수'};}
 function koTag(n){return isKO(n)?'<span class="ko-badge">★미출시</span>':'';}
 function idsaNmTag(n){return isIDSAnm(n)?'<span class="idsa-badge">⚠ IDSA 미언급</span>':'';}
@@ -664,29 +778,115 @@ function dch(d,cl,badge,bcl){
     +(d.dose2?doBox(d.dose2):'')
     +(d.combo||'')+'</div>';}
 
+var _detailOpen={};
+function toggleDetail(id){
+  var el=document.getElementById(id);
+  var btn=document.getElementById('btn-'+id);
+  if(!el)return;
+  var open=el.style.display==='block';
+  el.style.display=open?'none':'block';
+  if(btn)btn.textContent=open?'▼ 상세 보기':'▲ 접기';}
+
 function buildR(){
   go(2);
-  // 비정형균 3종 미선택 = PCR 음성으로 간주 → β-lactam 단독 1차 적용
   var ATY_ORGS=['chlamydia','legionella','mycoplasma'];
   var atyNeg=!ATY_ORGS.some(function(k){return S.orgs.indexOf(k)>=0;});
   var recs=S.orgs.map(function(k){return getRec(k,S.genes[k]||[],S.sev,atyNeg);});
   var h='';
-  if(S.orgs.length>=2){var ca=cross(recs);var anyL=recs.some(function(r){return r.pl==='low';});
-    h+='<div class="dbox"><div class="dt">다중균주 동시 검출 — 통합 분석</div><div class="dn3">검출 균주: '+S.orgs.map(function(k){return OR[k].l;}).join(', ')+'<br>'+(anyL?'PCR 예측력 낮은 균주 포함 — 모든 균주 표현형 MIC 확인 필수.':'항균 범위와 독성을 함께 고려하십시오.')+'</div></div>';
-    if(ca.full.length>0){h+='<div class="cbox"><div class="ct">전 균주 커버 약제 (교집합)</div><div class="cn">';ca.full.forEach(function(d){h+='▪ '+d.n+(isKO(d.n)?'<span class="ko-badge">★미출시</span>':'')+(isIDSAnm(d.n)?'<span class="idsa-badge">⚠IDSA미언급</span>':'')+'— '+(d.rank===1?'1차':d.rank===2?'1~2차':'2~3차')+'<br>';});h+='</div></div>';}
-    else h+='<div class="dbox"><div class="dt">전 균주 동시 커버 약제 없음</div><div class="dn3">병합요법 / 감염내과 협진 필요.</div></div>';
-    if(Object.keys(ca.av).length>0){h+='<div style="font-size:10px;font-weight:700;color:#9ca3af;text-transform:uppercase;margin:8px 0 4px">공통 금기 약제</div>';Object.keys(ca.av).forEach(function(dn){h+=dch(ca.av[dn],'da','금기','ba');});}
-    h+='<div class="dv"></div>';}
-  S.orgs.forEach(function(k,idx){var r=recs[idx];var o=OR[k];var p=ps(r.pl);
+
+  if(S.orgs.length>=2){
+    var ca=cross(recs);
+    var anyL=recs.some(function(r){return r.pl==='low';});
+    var cc=calcCombos(recs,ca);
+
+    // ── 통합 권장 요법 박스 ──────────────────────────────
+    h+='<div style="background:#1e3a5f;color:#fff;border-radius:10px;padding:12px 14px;margin-bottom:10px">';
+    h+='<div style="font-size:12px;font-weight:700;margin-bottom:2px;opacity:.8;letter-spacing:.05em">다중균주 통합 권장 요법</div>';
+    h+='<div style="font-size:11px;opacity:.7;margin-bottom:10px">검출 균주: '+S.orgs.map(function(k){return OR[k].l;}).join(' · ')+'</div>';
+
+    if(anyL){
+      h+='<div style="background:rgba(239,68,68,.18);border:1px solid rgba(239,68,68,.4);border-radius:7px;padding:7px 11px;font-size:11px;color:#fca5a5;margin-bottom:8px">⚠ PCR 예측력 낮은 균주 포함 — 표현형 MIC 확인 전 최종 결정 유보</div>';
+    }
+
+    if(cc.combos.length>0){
+      cc.combos.forEach(function(combo,ci){
+        var rankLabel=combo.rank<=cc.combos[0].rank+1?['최우선','대안 1','대안 2'][ci]:['대안 1','대안 2','대안 3'][ci-1];
+        var isBest=ci===0;
+        h+='<div style="background:'+(isBest?'rgba(255,255,255,.13)':'rgba(255,255,255,.06)')+';border:1px solid rgba(255,255,255,'+(isBest?'.3':'.12')+');border-radius:8px;padding:10px 12px;margin-bottom:7px">';
+        h+='<div style="font-size:10px;font-weight:700;color:'+(isBest?'#93c5fd':'#94a3b8')+';margin-bottom:6px;letter-spacing:.06em">'+['최우선 요법','대안 요법 1','대안 요법 2'][ci]+(combo.type==='single'?' — 단일약제 전체 커버':combo.drugs.length===2?' — 2제 병합':' — 3제 병합')+'</div>';
+        combo.drugs.forEach(function(dn,di){
+          var dc=cc.drugCover[dn];
+          var coveredNames=(dc?dc.orgs:[]).map(function(oi){return OR[S.orgs[oi]]?OR[S.orgs[oi]].l.split(' ')[0]:'';}).join(', ');
+          h+='<div style="display:flex;align-items:flex-start;gap:8px;'+(di>0?'margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,.1)':'')+'"">';
+          h+='<span style="font-size:11px;font-weight:700;background:rgba(255,255,255,.15);color:#e2e8f0;border-radius:4px;padding:1px 7px;flex-shrink:0;margin-top:1px">'+(combo.type==='single'?'단일':(di===0?'①':'②③'[di-1]))+'</span>';
+          h+='<div style="flex:1"><span style="font-size:13px;font-weight:700;color:#f1f5f9">'+dn+koTag(dn)+'</span>';
+          if(combo.type!=='single')h+='<span style="font-size:10px;color:#94a3b8;margin-left:6px">→ '+coveredNames+' 커버</span>';
+          h+='</div></div>';
+        });
+        h+='</div>';
+      });
+    } else {
+      h+='<div style="background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.35);border-radius:7px;padding:9px 12px;font-size:12px;color:#fca5a5">';
+      h+='전 균주 동시 커버 조합 없음 — 감염내과 협진 필수</div>';
+    }
+
+    // 공통 금기
+    if(Object.keys(ca.av).length>0){
+      h+='<div style="margin-top:9px;padding-top:9px;border-top:1px solid rgba(255,255,255,.12)">';
+      h+='<div style="font-size:10px;font-weight:700;color:#f87171;letter-spacing:.06em;margin-bottom:5px">공통 금기 약제</div>';
+      Object.keys(ca.av).forEach(function(dn){
+        h+='<div style="font-size:11px;color:#fca5a5;padding:2px 0">✕ '+dn+'</div>';
+      });
+      h+='</div>';
+    }
+    h+='</div>';
+
+    // ── 균주별 상세 (접기/펼치기) ───────────────────────
+    h+='<div style="font-size:11px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.07em;margin:12px 0 6px">균주별 상세 분석</div>';
+  }
+
+  // 균주별 상세
+  S.orgs.forEach(function(k,idx){
+    var r=recs[idx];var o=OR[k];var p=ps(r.pl);
     var gl=(S.genes[k]||[]).length?' — '+(S.genes[k]||[]).map(function(g){return GM[g]?GM[g].n:g;}).join(', '):'';
     var sc=S.sev?(' <span style="font-size:10px;padding:1px 7px;border-radius:10px;font-weight:700;background:'+(S.sev==='severe'?'#ef4444;color:#fff':S.sev==='moderate'?'#f59e0b;color:#fff':'#10b981;color:#fff')+';">'+(S.sev==='severe'?'중증/ICU':S.sev==='moderate'?'중등도':'경증')+'</span>'):'';
-    h+='<div class="roh"><em>'+o.l+'</em>'+gl+sc+'</div>';
-    h+='<div class="pb" style="background:'+p.bg+';border-color:'+p.bd+'"><div class="ph" style="color:'+p.tx+'">'+p.lb+'</div><div class="pp" style="color:'+p.tx+'">'+r.pcr+'</div></div>';
-    if(r.av&&r.av.length){h+='<div style="font-size:10px;font-weight:700;color:#9ca3af;text-transform:uppercase;margin:8px 0 4px">사용 금기</div>';r.av.forEach(function(d){h+=dch(d,'da','금기','ba');});}
-    if(r.f&&r.f.length){h+='<div style="font-size:10px;font-weight:700;color:#9ca3af;text-transform:uppercase;margin:8px 0 4px">우선 항균제</div>';r.f.forEach(function(d){h+=dch(d,'d1','1차','b1');});}
-    if(r.s&&r.s.length)r.s.forEach(function(d){h+=dch(d,'d2','2차','b2');});
-    if(r.t&&r.t.length)r.t.forEach(function(d){h+=dch(d,'d3','3차','b3');});
-    if(r.ns&&r.ns.length)h+='<div class="nbox"><p>'+r.ns.map(function(n){return'▪ '+n;}).join('<br>')+'</p></div>';});
+    var detId='det-'+idx;
+
+    if(S.orgs.length>=2){
+      // 다중균주: 헤더 + 접기 버튼
+      h+='<div style="background:#f9fafb;border:1.5px solid #e5e7eb;border-radius:10px;margin-bottom:8px;overflow:hidden">';
+      h+='<div style="display:flex;align-items:center;justify-content:space-between;padding:9px 12px;cursor:pointer" onclick="toggleDetail(\''+detId+'\')">';
+      h+='<div>';
+      h+='<span style="font-size:13px;font-weight:700;font-style:italic;color:#111827">'+o.l+'</span>'+gl+sc+'<br>';
+      h+='<span style="font-size:10px;padding:1px 7px;border-radius:10px;font-weight:700;background:'+p.bg+';color:'+p.tx+';border:1px solid '+p.bd+'">'+p.lb+'</span>';
+      h+='</div>';
+      h+='<button id="btn-'+detId+'" style="font-size:11px;color:#6b7280;background:#f3f4f6;border:1px solid #e5e7eb;border-radius:6px;padding:4px 10px;cursor:pointer;white-space:nowrap">▼ 상세 보기</button>';
+      h+='</div>';
+      h+='<div id="'+detId+'" style="display:none;padding:10px 12px;border-top:1px solid #e5e7eb">';
+    } else {
+      // 단일균주: 기존 방식
+      h+='<div class="roh"><em>'+o.l+'</em>'+gl+sc+'</div>';
+      h+='<div class="pb" style="background:'+p.bg+';border-color:'+p.bd+'"><div class="ph" style="color:'+p.tx+'">'+p.lb+'</div><div class="pp" style="color:'+p.tx+'">'+r.pcr+'</div></div>';
+    }
+
+    // 상세 내용
+    var detail='';
+    if(S.orgs.length>=2){
+      detail+='<div class="pb" style="background:'+p.bg+';border-color:'+p.bd+';margin-bottom:8px"><div class="ph" style="color:'+p.tx+'">'+p.lb+'</div><div class="pp" style="color:'+p.tx+'">'+r.pcr+'</div></div>';
+    }
+    if(r.av&&r.av.length){detail+='<div style="font-size:10px;font-weight:700;color:#9ca3af;text-transform:uppercase;margin:8px 0 4px">사용 금기</div>';r.av.forEach(function(d){detail+=dch(d,'da','금기','ba');});}
+    if(r.f&&r.f.length){detail+='<div style="font-size:10px;font-weight:700;color:#9ca3af;text-transform:uppercase;margin:8px 0 4px">우선 항균제</div>';r.f.forEach(function(d){detail+=dch(d,'d1','1차','b1');});}
+    if(r.s&&r.s.length)r.s.forEach(function(d){detail+=dch(d,'d2','2차','b2');});
+    if(r.t&&r.t.length)r.t.forEach(function(d){detail+=dch(d,'d3','3차','b3');});
+    if(r.ns&&r.ns.length)detail+='<div class="nbox"><p>'+r.ns.map(function(n){return'▪ '+n;}).join('<br>')+'</p></div>';
+
+    if(S.orgs.length>=2){
+      h+=detail+'</div></div>';
+    } else {
+      h+=detail;
+    }
+  });
+
   document.getElementById('ra').innerHTML=h;}
 function rst(){S={mode:'s',orgs:[],genes:{},sev:null};document.getElementById('ms').className='mbtn on';document.getElementById('mm').className='mbtn';document.getElementById('bn0').disabled=true;for(var i=0;i<3;i++)document.getElementById('s'+i).className='sb';document.getElementById('sev-msg').className='sev-msg';document.getElementById('sb-bar').className='sb-bar';document.getElementById('sel-count').className='sel-count';rendOG();go(0);}
 rendOG();
