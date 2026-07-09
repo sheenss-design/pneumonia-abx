@@ -136,7 +136,7 @@ html,body{min-height:100%;background:#f3f4f6;font-family:-apple-system,BlinkMacS
 <div class="app">
 <div class="topbar">
   <div class="topbar-icon">Rx</div>
-  <div><h1>폐렴 항균제 선택 가이드</h1><div class="topbar-sub">IDSA 2024 AMR Guidance 기반 · v7.0</div></div>
+  <div><h1>폐렴 항균제 선택 가이드</h1><div class="topbar-sub">IDSA 2024 AMR Guidance 기반 · v7.1</div></div>
 </div>
 <div class="warn">⚠ PCR 결과는 보조 지표입니다. 최종 항균제 선택은 반드시 표현형 배양 감수성(MIC)을 확인하십시오.</div>
 <div class="src">근거: IDSA 2024 AMR Guidance · ATS/IDSA 2019 CAP · ATS/IDSA 2016 HAP/VAP · IDSA MRSA Guidelines</div>
@@ -250,6 +250,14 @@ var GM={
 
 var KO_KW=['Cefiderocol','Fetroja','Meropenem-vaborbactam','Vabomere','Imipenem-relebactam','Recarbrio','Sulbactam-durlobactam','Xacduro','Aztreonam-avibactam','Emblaveo','Oxacillin'];
 function isKO(n){for(var i=0;i<KO_KW.length;i++)if(n.indexOf(KO_KW[i])>=0)return true;return false;}
+// 원내 미보유 약제 (병원 재고 없음 — 미출시와 별도)
+var UNAVAIL_KW=['Aztreonam'];
+function isUnavail(n){
+  // 'Aztreonam-avibactam'은 KO로 처리 — 순수 Aztreonam만 해당
+  if(n.indexOf('Aztreonam-avibactam')>=0)return false;
+  for(var i=0;i<UNAVAIL_KW.length;i++)if(n.indexOf(UNAVAIL_KW[i])>=0)return true;
+  return false;}
+function isExcluded(n){return isKO(n)||isUnavail(n);}
 // IDSA 미언급 약제
 var IDSA_NM=['Piperacillin-sulbactam'];
 function isIDSAnm(n){for(var i=0;i<IDSA_NM.length;i++)if(n.indexOf(IDSA_NM[i])>=0)return true;return false;}
@@ -567,12 +575,14 @@ function getRec(org,genes,sev,atyNeg){
   // ── P. aeruginosa ──────────────────────────────────────────────
   if(org==='pseudomonas'){var mbl=hVIM||hIMP;
     if(mbl)return{pl:'low',pcr:'VIM/IMP: MBL — 내성 표현형 예측력은 높음. 단 치료 옵션이 극히 제한되어 항균제 선택 불확실성이 높음 (PCR 예측력 낮음 = 치료 선택 불확실). Ceftolozane-tazobactam 비활성 예측은 신뢰 가능.',
-      f:[{n:'Aztreonam + Ceftazidime-avibactam',b:'ATM + Zavicefta',nt:'MBL 78~93% 감수성 회복',dose:'CAZ-AVI + ATM 용법'}],
-      s:[{n:'Cefiderocol',b:'Fetroja',nt:'MIC 확인 (미출시)',dose:'Cefiderocol 용법'},
-         {n:'Piperacillin-sulbactam',b:'',nt:'MBL 보유균에 sulbactam 효과 제한적 — 감수성 확인 필수',dose:'Pip-sulbactam 용법'}],
-      t:[{n:'Colistin',b:'',nt:'최후 수단',dose:'Colistin 용법'}],
+      f:[{n:'Aztreonam + Ceftazidime-avibactam',b:'ATM + Zavicefta',nt:'MBL 78~93% 감수성 회복 — ATM 원내 미보유 시 사용 불가',dose:'CAZ-AVI + ATM 용법'}],
+      s:[{n:'Cefiderocol',b:'Fetroja',nt:'MIC 확인 (미출시)',dose:'Cefiderocol 용법'}],
+      t:[{n:'Colistin',b:'',nt:'최후 수단',dose:'Colistin 용법'},
+         {n:'Piperacillin-sulbactam',b:'',nt:'MBL 보유균에 sulbactam 활성 불확실 — 표현형 감수성 확인 시에만 최후 수단으로 고려. IDSA 미언급',dose:'Pip-sulbactam 용법'}],
       av:[{n:'Ceftolozane-tazobactam (Zerbaxa)',nt:'MBL 보유균 비활성 — Ceftolozane은 carbapenemase에 안정적이나 MBL(VIM/IMP)에 의해 가수분해. Tazobactam은 MBL 억제 불가 (Serine β-lactamase만 억제)'},{n:'Imipenem-relebactam (IMI-REL)',nt:'MBL 비활성 — Imipenem-relebactam, Meropenem-vaborbactam의 β-lactamase 억제제(Relebactam/Vaborbactam)는 Class A·C carbapenemase만 억제. Class B MBL(NDM/VIM/IMP) 억제 불가 — 표적 효소 구조(Zn2+ 활성부위) 차이'},{n:'Meropenem-vaborbactam (MER-VAB)',nt:'MBL 비활성 — Imipenem-relebactam, Meropenem-vaborbactam의 β-lactamase 억제제(Relebactam/Vaborbactam)는 Class A·C carbapenemase만 억제. Class B MBL(NDM/VIM/IMP) 억제 불가 — 표적 효소 구조(Zn2+ 활성부위) 차이'}],
-      ns:['모든 약제 표현형 MIC 필수','Piperacillin-sulbactam: IDSA 미언급 — MBL 보유균에서 활성 불확실']};
+      ns:['모든 약제 표현형 MIC 필수',
+          '⚠ ATM 원내 미보유 시: ATM+CAZ-AVI 사용 불가 — 출시·보유 약제만으로 VIM/IMP 보유 Pseudomonas 표준 치료 불가. Cefiderocol(미출시) 긴급도입 또는 감염내과 협진 필수',
+          'Piperacillin-sulbactam: MBL 보유균에서 활성 불확실 — 최후 수단, 표현형 감수성 확인 후 사용']};
     if(noG)return{pl:'moderate',pcr:'획득 내성 유전자 미검출 — 표현형 감수성 확인 후 선택.',
       f:[{n:'Piperacillin-tazobactam',b:'4.5g IV q6h 연장주입',nt:'감수성 확인 후',dose:'Pip-tazo 연장주입'},
          {n:'Piperacillin-sulbactam',b:'',nt:'Pip-tazo 대안 — 감수성 확인 필수 (IDSA 미언급)',dose:'Pip-sulbactam 용법'},
@@ -662,6 +672,115 @@ function getRec(org,genes,sev,atyNeg){
 
   return{pl:'moderate',pcr:'추가 정보 필요.',f:[{n:'Carbapenem',b:'Meropenem/Imipenem',dose:'Meropenem 고용량 연장주입'}],s:[],t:[],av:[],ns:['유전자 선택 시 더 정확한 추천 가능']};}
 
+// ATM 복합 약제 분해: 'Aztreonam + Ceftazidime-avibactam' → ['Aztreonam','Ceftazidime-avibactam']
+// 단일 약제명이면 그대로 [name] 반환
+function decompDrug(d){
+  if(d.n==='Aztreonam + Ceftazidime-avibactam'||d.n==='Ceftazidime-avibactam + Aztreonam'){
+    return['Aztreonam','Ceftazidime-avibactam'];
+  }
+  return[d.n];
+}
+
+// drugCover 빌드 공통 함수
+// excludeFn: 제외할 약제 판별 함수 (isExcluded 또는 isKO 등)
+function buildDrugCover(recs,ca,excludeFn){
+  var drugCover={};
+  recs.forEach(function(r,i){
+    var all=[].concat(r.f||[],r.s||[],r.t||[]);
+    all.forEach(function(d){
+      var components=decompDrug(d);
+      // 복합 약제의 경우: 구성 성분 중 하나라도 제외 대상이면 전체 제외
+      if(components.some(function(c){return excludeFn(c);}))return;
+      var rk=(r.f||[]).some(function(x){return x.n===d.n;})?1:(r.s||[]).some(function(x){return x.n===d.n;})?2:3;
+      components.forEach(function(dn){
+        if(!drugCover[dn])drugCover[dn]={orgs:[],rank:3,fromCombo:components.length>1};
+        if(drugCover[dn].orgs.indexOf(i)<0)drugCover[dn].orgs.push(i);
+        if(rk<drugCover[dn].rank)drugCover[dn].rank=rk;
+        // 복합 약제 출처 기록 (CAZ-AVI가 ATM 없이는 MBL 커버 불가임을 추적)
+        if(components.length>1){
+          if(!drugCover[dn].partners)drugCover[dn].partners=[];
+          components.forEach(function(p){if(p!==dn&&drugCover[dn].partners.indexOf(p)<0)drugCover[dn].partners.push(p);});
+        }
+      });
+    });
+  });
+  Object.keys(ca.av).forEach(function(dn){delete drugCover[dn];});
+  return drugCover;
+}
+
+// 복합 약제에서 분해된 성분은 파트너 없이 단독 사용 불가한 경우 제거
+// 예: Aztreonam은 CAZ-AVI 없이 MBL 커버 불가 → 단독으로 선택되면 제거
+// 반대로 CAZ-AVI는 단독으로도 KPC 커버 가능 → 유지
+function removeDependentDrugs(drugCover){
+  // Aztreonam: CAZ-AVI 파트너 없이는 MBL에 의미 없음 (ESBL 동반 시 비활성)
+  // → drugCover에 CAZ-AVI가 있으면 유지, 없으면 Aztreonam 제거
+  if(drugCover['Aztreonam']&&!drugCover['Ceftazidime-avibactam']){
+    delete drugCover['Aztreonam'];
+  }
+}
+
+// 미출시(KO) 약제 제외 후 국내 출시 약제만으로 커버 조합 탐색
+function calcFallbackCombos(recs,ca){
+  var drugCover=buildDrugCover(recs,ca,isExcluded);
+  removeDependentDrugs(drugCover);
+
+  var n=recs.length;
+  var drugs=Object.keys(drugCover);
+  var allOrgs=[];for(var i=0;i<n;i++)allOrgs.push(i);
+
+  function covers(combo){
+    var covered=[];
+    combo.forEach(function(dn){
+      (drugCover[dn]&&drugCover[dn].orgs||[]).forEach(function(o){if(covered.indexOf(o)<0)covered.push(o);});
+    });
+    return allOrgs.every(function(o){return covered.indexOf(o)>=0;});
+  }
+  function rankSum(combo){
+    return combo.reduce(function(s,dn){return s+(drugCover[dn]?drugCover[dn].rank:3);},0);
+  }
+  // 파트너 의존성 검사: CAZ-AVI + Aztreonam 조합은 함께 나와야 함
+  function needsPartner(combo){
+    // Aztreonam이 있으면 CAZ-AVI도 반드시 있어야 함
+    if(combo.indexOf('Aztreonam')>=0&&combo.indexOf('Ceftazidime-avibactam')<0)return true;
+    return false;
+  }
+
+  var results=[];
+  drugs.forEach(function(dn){
+    if(drugCover[dn].orgs.length===n)results.push({drugs:[dn],rank:drugCover[dn].rank,type:'single'});
+  });
+
+  if(results.length===0){
+    for(var a=0;a<drugs.length;a++)
+      for(var b=a+1;b<drugs.length;b++){
+        var c=[drugs[a],drugs[b]];
+        if(!needsPartner(c)&&covers(c))results.push({drugs:c,rank:rankSum(c),type:'combo2'});
+      }
+  }
+
+  var has2=results.some(function(r){return r.type==='combo2';});
+  if(results.length===0){
+    for(var a=0;a<drugs.length;a++)
+      for(var b=a+1;b<drugs.length;b++)
+        for(var c=b+1;c<drugs.length;c++){
+          var cb=[drugs[a],drugs[b],drugs[c]];
+          if(!needsPartner(cb)&&covers(cb))results.push({drugs:cb,rank:rankSum(cb),type:'combo3'});
+        }
+  }
+
+  results.sort(function(a,b){return a.rank-b.rank;});
+
+  var top=[];
+  results.forEach(function(r){
+    if(top.length>=2)return;
+    var dup=top.some(function(t){
+      return t.drugs.length===r.drugs.length&&r.drugs.every(function(d){return t.drugs.indexOf(d)>=0;});
+    });
+    if(!dup)top.push(r);
+  });
+  return{combos:top,drugCover:drugCover};
+}
+
 function cross(recs){
   var av={};
   recs.forEach(function(r){(r.av||[]).forEach(function(d){av[d.n]=d;});});
@@ -687,24 +806,12 @@ function cross(recs){
   part.sort(function(a,b){return a.rank-b.rank;});
   return{full:full,part:part,av:av};}
 
-// 다중균주 조합 요법 계산
-// 각 균주를 커버하는 약제 집합의 최소 커버 조합을 구함 (최대 2~3제)
-function calcCombos(recs, ca){
-  var n=recs.length;
-  // 각 약제가 커버하는 균주 인덱스 집합
-  var drugCover={};
-  recs.forEach(function(r,i){
-    var all=[].concat(r.f||[],r.s||[],r.t||[]);
-    all.forEach(function(d){
-      if(!drugCover[d.n])drugCover[d.n]={orgs:[],rank:3,ref:d};
-      if(drugCover[d.n].orgs.indexOf(i)<0)drugCover[d.n].orgs.push(i);
-      var rk=(r.f||[]).some(function(x){return x.n===d.n;})?1:(r.s||[]).some(function(x){return x.n===d.n;})?2:3;
-      if(rk<drugCover[d.n].rank)drugCover[d.n].rank=rk;
-    });
-  });
-  // 금기 약제 제외
-  Object.keys(ca.av).forEach(function(dn){delete drugCover[dn];});
+function calcCombos(recs,ca){
+  // 메인 조합: ATM(원내 미보유)도 제외하고 계산
+  var drugCover=buildDrugCover(recs,ca,isExcluded);
+  removeDependentDrugs(drugCover);
 
+  var n=recs.length;
   var drugs=Object.keys(drugCover);
   var allOrgs=[];for(var i=0;i<n;i++)allOrgs.push(i);
 
@@ -715,62 +822,58 @@ function calcCombos(recs, ca){
     });
     return allOrgs.every(function(o){return covered.indexOf(o)>=0;});
   }
-  function rank(combo){
+  function rankSum(combo){
     return combo.reduce(function(s,dn){return s+(drugCover[dn]?drugCover[dn].rank:3);},0);
+  }
+  function needsPartner(combo){
+    if(combo.indexOf('Aztreonam')>=0&&combo.indexOf('Ceftazidime-avibactam')<0)return true;
+    return false;
   }
 
   var results=[];
-
-  // 단일 약제로 전체 커버되는 것 (ca.full에서 이미 있음)
-  ca.full.forEach(function(d){
-    results.push({drugs:[d.n],rank:d.rank,type:'single'});
+  drugs.forEach(function(dn){
+    if(drugCover[dn].orgs.length===n)results.push({drugs:[dn],rank:drugCover[dn].rank,type:'single'});
   });
 
-  // 2제 조합
-  if(ca.full.length===0){
-    for(var a=0;a<drugs.length;a++){
+  if(results.length===0){
+    for(var a=0;a<drugs.length;a++)
       for(var b=a+1;b<drugs.length;b++){
         var combo=[drugs[a],drugs[b]];
-        if(covers(combo))results.push({drugs:combo,rank:rank(combo),type:'combo2'});
+        if(!needsPartner(combo)&&covers(combo))results.push({drugs:combo,rank:rankSum(combo),type:'combo2'});
       }
-    }
   }
-
-  // 3제 조합 (2제 조합도 없을 때)
   var has2=results.some(function(r){return r.type==='combo2';});
-  if(ca.full.length===0&&!has2){
-    for(var a=0;a<drugs.length;a++){
-      for(var b=a+1;b<drugs.length;b++){
+  if(results.length===0){
+    for(var a=0;a<drugs.length;a++)
+      for(var b=a+1;b<drugs.length;b++)
         for(var c=b+1;c<drugs.length;c++){
           var combo=[drugs[a],drugs[b],drugs[c]];
-          if(covers(combo))results.push({drugs:combo,rank:rank(combo),type:'combo3'});
+          if(!needsPartner(combo)&&covers(combo))results.push({drugs:combo,rank:rankSum(combo),type:'combo3'});
         }
-      }
-    }
   }
-
   results.sort(function(a,b){return a.rank-b.rank;});
 
-  // 상위 3개만, 중복 유사 조합 제거
   var top=[];
   results.forEach(function(r){
     if(top.length>=3)return;
-    // 이미 포함된 조합과 약제 집합이 동일하면 스킵
     var dup=top.some(function(t){
       return t.drugs.length===r.drugs.length&&r.drugs.every(function(d){return t.drugs.indexOf(d)>=0;});
     });
     if(!dup)top.push(r);
   });
+
   return{combos:top,drugCover:drugCover};}
 
 function ps(pl){if(pl==='high')return{bg:'#f0fdf4',bd:'#6ee7b7',tx:'#065f46',lb:'PCR 예측력 높음'};if(pl==='moderate')return{bg:'#fffbeb',bd:'#fcd34d',tx:'#92400e',lb:'PCR 예측력 중간 — 표현형 보완 필요'};return{bg:'#fef2f2',bd:'#fca5a5',tx:'#9b1c1c',lb:'PCR 예측력 낮음 — 표현형 필수'};}
 function koTag(n){return isKO(n)?'<span class="ko-badge">★미출시</span>':'';}
+function unavailTag(n){return isUnavail(n)?'<span style="display:inline-block;font-size:10px;padding:1px 5px;background:#fef3c7;color:#92400e;border:1px solid #fcd34d;border-radius:10px;font-weight:700;margin-left:4px;vertical-align:middle;white-space:nowrap">⚠ 원내 미보유</span>':'';}
 function idsaNmTag(n){return isIDSAnm(n)?'<span class="idsa-badge">⚠ IDSA 미언급</span>':'';}
 function doBox(key){if(!key||!DOSE[key])return'';var d=DOSE[key];var isSpecial=/연장주입|고용량|지속주입|병합용법|AUC 기반|TDM/.test(d.t);return'<div class="dosing-box"><div class="dosing-title">'+(isSpecial?'특수용법':'약제 정보')+' — '+d.t+'</div><div class="dosing-content">'+d.c.replace(/\n/g,'<br>')+'</div></div>';}
 function dch(d,cl,badge,bcl){
   var ko=koTag(d.n)||(d.b?koTag(d.b):'');
+  var ua=unavailTag(d.n)||(d.b?unavailTag(d.b):'');
   var idnm=idsaNmTag(d.n);
-  return'<div class="dc '+cl+'"><div class="dh"><span class="dn">'+d.n+ko+idnm+'</span>'
+  return'<div class="dc '+cl+'"><div class="dh"><span class="dn">'+d.n+ko+ua+idnm+'</span>'
     +'<span class="bdg '+bcl+'">'+badge+'</span></div>'
     +(d.b?'<div class="db2">'+d.b+'</div>':'')
     +(d.nt?'<div class="dn2">'+d.nt+'</div>':'')
@@ -787,6 +890,34 @@ function toggleDetail(id){
   el.style.display=open?'none':'block';
   if(btn)btn.textContent=open?'▼ 상세 보기':'▲ 접기';}
 
+// 조합 하나를 렌더링 (원본 또는 차선)
+function renderComboBlock(combo,ci,drugCover,isFallback){
+  var isBest=ci===0&&!isFallback;
+  var bgAlpha=isFallback?'rgba(255,255,255,.04)':isBest?'rgba(255,255,255,.13)':'rgba(255,255,255,.06)';
+  var bdAlpha=isFallback?'rgba(251,191,36,.25)':isBest?'.3':'.12';
+  var labelColor=isFallback?'#fbbf24':isBest?'#93c5fd':'#94a3b8';
+  var labelText=isFallback
+    ?'★ 국내 출시 약제 차선 조합'
+    :['최우선 요법','대안 요법 1','대안 요법 2'][ci]+(combo.type==='single'?' — 단일약제':combo.drugs.length===2?' — 2제 병합':' — 3제 병합');
+  // 3차 약제 포함 여부 확인
+  var hasT3=combo.drugs.some(function(dn){return drugCover[dn]&&drugCover[dn].rank===3;});
+  var h='<div style="background:'+bgAlpha+';border:1px solid rgba(255,255,255,'+bdAlpha+');border-radius:8px;padding:10px 12px;margin-bottom:7px">';
+  h+='<div style="font-size:10px;font-weight:700;color:'+labelColor+';margin-bottom:6px;letter-spacing:.06em">'+labelText+'</div>';
+  if(hasT3)h+='<div style="font-size:10px;color:#fbbf24;background:rgba(251,191,36,.1);border-radius:5px;padding:4px 8px;margin-bottom:6px">⚠ 3차 약제 포함 — 활성 불확실, 반드시 표현형 감수성 확인 및 감염내과 협진 필요</div>';
+  combo.drugs.forEach(function(dn,di){
+    var dc=drugCover[dn];
+    var coveredNames=dc?dc.orgs.map(function(oi){return OR[S.orgs[oi]]?OR[S.orgs[oi]].l.split(' ')[0]:'';}).join(', '):'';
+    var rankBadge=dc?(dc.rank===1?'':dc.rank===2?'':dc.rank===3?' <span style="font-size:9px;color:#fbbf24">[3차]</span>':''):'';
+    h+='<div style="display:flex;align-items:flex-start;gap:8px;'+(di>0?'margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,.1)':'')+'"">';
+    h+='<span style="font-size:11px;font-weight:700;background:rgba(255,255,255,.15);color:#e2e8f0;border-radius:4px;padding:1px 7px;flex-shrink:0;margin-top:1px">'+(combo.type==='single'?'단일':['①','②','③'][di])+'</span>';
+    h+='<div style="flex:1"><span style="font-size:13px;font-weight:700;color:#f1f5f9">'+dn+koTag(dn)+unavailTag(dn)+rankBadge+'</span>';
+    if(combo.type!=='single'&&coveredNames)h+='<span style="font-size:10px;color:#94a3b8;margin-left:6px">→ '+coveredNames+' 커버</span>';
+    h+='</div></div>';
+  });
+  h+='</div>';
+  return h;
+}
+
 function buildR(){
   go(2);
   var ATY_ORGS=['chlamydia','legionella','mycoplasma'];
@@ -799,6 +930,14 @@ function buildR(){
     var anyL=recs.some(function(r){return r.pl==='low';});
     var cc=calcCombos(recs,ca);
 
+    // 미출시+원내미보유 포함 조합이 있으면 차선 조합 계산
+    var hasExcludedInCombos=cc.combos.some(function(c){return c.drugs.some(function(d){return isExcluded(d);});});
+    // ATM 원내 미보유로 인해 MBL 커버 불가 여부
+    var hasMBLOrg=recs.some(function(r){
+      return(r.f||[]).some(function(d){return d.n==='Aztreonam + Ceftazidime-avibactam';});
+    });
+    var fb=hasExcludedInCombos||cc.combos.length===0?calcFallbackCombos(recs,ca):null;
+
     // ── 통합 권장 요법 박스 ──────────────────────────────
     h+='<div style="background:#1e3a5f;color:#fff;border-radius:10px;padding:12px 14px;margin-bottom:10px">';
     h+='<div style="font-size:12px;font-weight:700;margin-bottom:2px;opacity:.8;letter-spacing:.05em">다중균주 통합 권장 요법</div>';
@@ -810,21 +949,20 @@ function buildR(){
 
     if(cc.combos.length>0){
       cc.combos.forEach(function(combo,ci){
-        var rankLabel=combo.rank<=cc.combos[0].rank+1?['최우선','대안 1','대안 2'][ci]:['대안 1','대안 2','대안 3'][ci-1];
-        var isBest=ci===0;
-        h+='<div style="background:'+(isBest?'rgba(255,255,255,.13)':'rgba(255,255,255,.06)')+';border:1px solid rgba(255,255,255,'+(isBest?'.3':'.12')+');border-radius:8px;padding:10px 12px;margin-bottom:7px">';
-        h+='<div style="font-size:10px;font-weight:700;color:'+(isBest?'#93c5fd':'#94a3b8')+';margin-bottom:6px;letter-spacing:.06em">'+['최우선 요법','대안 요법 1','대안 요법 2'][ci]+(combo.type==='single'?' — 단일약제 전체 커버':combo.drugs.length===2?' — 2제 병합':' — 3제 병합')+'</div>';
-        combo.drugs.forEach(function(dn,di){
-          var dc=cc.drugCover[dn];
-          var coveredNames=(dc?dc.orgs:[]).map(function(oi){return OR[S.orgs[oi]]?OR[S.orgs[oi]].l.split(' ')[0]:'';}).join(', ');
-          h+='<div style="display:flex;align-items:flex-start;gap:8px;'+(di>0?'margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,.1)':'')+'"">';
-          h+='<span style="font-size:11px;font-weight:700;background:rgba(255,255,255,.15);color:#e2e8f0;border-radius:4px;padding:1px 7px;flex-shrink:0;margin-top:1px">'+(combo.type==='single'?'단일':(di===0?'①':'②③'[di-1]))+'</span>';
-          h+='<div style="flex:1"><span style="font-size:13px;font-weight:700;color:#f1f5f9">'+dn+koTag(dn)+'</span>';
-          if(combo.type!=='single')h+='<span style="font-size:10px;color:#94a3b8;margin-left:6px">→ '+coveredNames+' 커버</span>';
-          h+='</div></div>';
+        h+=renderComboBlock(combo,ci,cc.drugCover,false);
+      });
+      // 차선(국내 출시) 조합 섹션
+      if(fb&&fb.combos.length>0){
+        h+='<div style="margin-top:4px;padding-top:8px;border-top:1px solid rgba(251,191,36,.25)">';
+        h+='<div style="font-size:10px;font-weight:700;color:#fbbf24;letter-spacing:.06em;margin-bottom:4px">★ 국내 출시·원내 보유 약제만으로 구성한 차선 요법</div>';
+        if(hasMBLOrg)h+='<div style="font-size:10px;color:#fbbf24;opacity:.8;margin-bottom:6px">⚠ ATM 원내 미보유 — MBL 보유균(VIM/IMP/NDM) 최적 치료 제한됨. 아래 조합은 차선이며 표현형 MIC 확인 및 감염내과 협진 필수</div>';
+        fb.combos.forEach(function(combo,ci){
+          h+=renderComboBlock(combo,ci,fb.drugCover,true);
         });
         h+='</div>';
-      });
+      } else if(hasExcludedInCombos||cc.combos.length===0){
+        h+='<div style="margin-top:6px;padding-top:8px;border-top:1px solid rgba(251,191,36,.25);font-size:11px;color:#fbbf24">★ 국내 출시·원내 보유 약제만으로 전 균주 커버 조합 없음 — 감염내과 협진 필수</div>';
+      }
     } else {
       h+='<div style="background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.35);border-radius:7px;padding:9px 12px;font-size:12px;color:#fca5a5">';
       h+='전 균주 동시 커버 조합 없음 — 감염내과 협진 필수</div>';
