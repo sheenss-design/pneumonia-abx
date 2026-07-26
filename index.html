@@ -136,7 +136,7 @@ html,body{min-height:100%;background:#f3f4f6;font-family:-apple-system,BlinkMacS
 <div class="app">
 <div class="topbar">
   <div class="topbar-icon">Rx</div>
-  <div><h1>폐렴 항균제 선택 가이드</h1><div class="topbar-sub">IDSA 2024 AMR Guidance 기반 · v7.3</div></div>
+  <div><h1>폐렴 항균제 선택 가이드</h1><div class="topbar-sub">IDSA 2024 AMR Guidance 기반 · v7.4</div></div>
 </div>
 <div class="warn">⚠ PCR 결과는 보조 지표입니다. 최종 항균제 선택은 반드시 표현형 배양 감수성(MIC)을 확인하십시오.</div>
 <div class="src">근거: IDSA 2024 AMR Guidance · ATS/IDSA 2019 CAP · ATS/IDSA 2016 HAP/VAP · IDSA MRSA Guidelines</div>
@@ -800,8 +800,19 @@ function calcFallbackCombos(recs,ca){
 }
 
 function cross(recs){
+  // 공통 금기: 모든 균주에서 금기인 약제만 표시 (교집합)
+  var avCount={};
+  var avData={};
+  recs.forEach(function(r){
+    (r.av||[]).forEach(function(d){
+      avCount[d.n]=(avCount[d.n]||0)+1;
+      avData[d.n]=d;
+    });
+  });
   var av={};
-  recs.forEach(function(r){(r.av||[]).forEach(function(d){av[d.n]=d;});});
+  Object.keys(avCount).forEach(function(dn){
+    if(avCount[dn]===recs.length)av[dn]=avData[dn];
+  });
   var do2={};
   recs.forEach(function(r,i){
     var all=[].concat(r.f||[],r.s||[],r.t||[]);
