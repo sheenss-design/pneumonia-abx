@@ -1103,17 +1103,32 @@ function getRec(org,genes,sev,atyNeg){
       t:[{n:'Colistin',b:'',nt:'최후 수단',dose:'Colistin 용법'}],
       av:[{n:'Imipenem-relebactam (IMI-REL)',nt:'MBL 비활성 — Imipenem-relebactam, Meropenem-vaborbactam의 β-lactamase 억제제(Relebactam/Vaborbactam)는 Class A·C carbapenemase만 억제. Class B MBL(NDM/VIM/IMP) 억제 불가 — 표적 효소 구조(Zn2+ 활성부위) 차이'},{n:'Meropenem-vaborbactam (MER-VAB)',nt:'MBL 비활성 — Imipenem-relebactam, Meropenem-vaborbactam의 β-lactamase 억제제(Relebactam/Vaborbactam)는 Class A·C carbapenemase만 억제. Class B MBL(NDM/VIM/IMP) 억제 불가 — 표적 효소 구조(Zn2+ 활성부위) 차이'},{n:'Carbapenem 단독',nt:'MBL에 의해 가수분해'}],
       ns:['IMP: integron 매개 MBL — 획득성. 표현형 MIC 필수','KPC 동반 여부 반드시 확인']};
-    if(noG)return{pl:'moderate',pcr:'획득성 내성 유전자(KPC·NDM·OXA-48·CTX-M·IMP) 미검출 — Carbapenem 감수성 예측력 높음. 단, 이 패널은 CTX-M 계열만 검사하며 SHV·TEM형 ESBL은 포함되지 않아 PCR 음성이어도 ESBL 보유 가능성이 있습니다. 표현형 ESBL 검사 결과를 함께 확인하십시오.',
-      f:[{n:'Carbapenem',b:'Meropenem/Imipenem/Ertapenem',dose:'Imipenem 용법',nt:sv?'중증·폐렴 — 표현형 확인 후 반드시 de-escalation':mil?'경증: 표현형 확인 후 FQ/TMP-SMX step-down 우선':'표현형 확인 후 반드시 de-escalation'}],
-      s:[{n:'Cefepime',b:'2g IV q8h, 4시간 연장주입',nt:'표현형 배양에서 ESBL 음성 확인 시에만 사용 — 폐렴에서는 ESBL 위음성 시 치료 실패율 31% (RCT)',dose:'Cefepime 고용량 연장주입'},
-         {n:'Levofloxacin',b:'750mg IV/PO q24h',nt:'표현형 감수성 확인 후 de-escalation — Ciprofloxacin도 대안',dose:'Levofloxacin 용법'},{n:'TMP-SMX',b:'15mg/kg/day (TMP성분) IV/PO q6–8h',nt:'표현형 감수성 확인 후 de-escalation',dose:'TMP-SMX 용법'}],
+    if(noG)return{pl:'moderate',pcr:'획득성 내성 유전자(KPC·NDM·OXA-48·CTX-M·IMP) 미검출 — CTX-M 음성은 ESBL 가능성을 낮추지만 이 패널은 SHV·TEM형 ESBL을 검사하지 않습니다. ESBL 위험인자(해외 의료기관 입원, 이전 ESBL 감염/집락, 광범위 항생제 장기 사용)가 없으면 Ceftriaxone/Cefepime으로 충분하며, Carbapenem은 중증 감염 또는 ESBL 고위험 시 사용합니다.',
+      f:sv?[
+        // 중증/ICU
+        {n:'Carbapenem',b:'Meropenem 2g IV q8h 연장주입 (3h) 또는 Ertapenem 1g IV q24h',dose:'Imipenem 용법',nt:'중증·폐렴 — ESBL 위험 불명확 시 경험적 Carbapenem 우선. 표현형 확인 후 반드시 de-escalation'},
+        {n:'Cefepime',b:'2g IV q8h 연장주입 (4h)',dose:'Cefepime 고용량 연장주입',nt:'중증이나 ESBL 저위험(해외 입원력 없음·이전 ESBL 이력 없음) 확인 시 대안 — 표현형 ESBL 검사 결과와 병행'},
+      ]:[
+        // 경증~중등도
+        {n:'Ceftriaxone',b:'2g IV q24h',dose:'Ceftriaxone 용법',nt:'비중증·CTX-M 음성·ESBL 저위험 시 1차 선택 (IDSA 2024 음성예측도 94%) — 표현형 배양 결과 확인 후 유지 또는 전환'},
+        {n:'Cefepime',b:'2g IV q8h 연장주입 (4h)',dose:'Cefepime 고용량 연장주입',nt:'Ceftriaxone 내성 의심 또는 중등도 감염 — AmpC 안정적. 표현형 ESBL 음성 확인 후 유지'},
+        {n:'Carbapenem',b:'Ertapenem 1g IV q24h 또는 Meropenem',dose:'Imipenem 용법',nt:'ESBL 고위험(해외 입원·이전 ESBL 이력) 또는 중등도 이상 — 표현형 확인 후 반드시 de-escalation'},
+      ],
+      s:[
+        {n:'Levofloxacin',b:'750mg IV/PO q24h',nt:'표현형 감수성 확인 후 de-escalation 또는 경구 전환',dose:'Levofloxacin 용법'},
+        {n:'TMP-SMX',b:'15mg/kg/day (TMP성분) IV/PO q6–8h',nt:'표현형 감수성 확인 후 de-escalation',dose:'TMP-SMX 용법'},
+        {n:'Piperacillin-tazobactam',b:'4.5g IV q6h 연장주입',nt:'ESBL 저위험이고 표현형 감수성 확인 시 대안 — 폐렴·균혈증에서는 MERINO trial 결과로 비선호. 단순 방광염 예외',dose:'Pip-tazo 연장주입'},
+      ],
       t:[],
-      av:[{n:'Piperacillin-tazobactam',nt:'ESBL 생산 Enterobacterales의 폐렴·균혈증 등 전신 감염 비권장 (IDSA 2024) — ① MERINO trial: Pip-tazo 4.5g q6h가 Meropenem 대비 30일 사망률 열등(12.3% vs 3.7%) ② Eagle effect: 고농도에서 역설적 살균 효과 감소 ③ MIC 재현성 불량. ※ 단순 방광염(cystitis)은 소변 내 약물 고농도 달성 가능하여 예외'}],
+      av:[],
       ns:[
-        '🔄 De-escalation 원칙: Carbapenem은 경험적 치료 — 표현형 배양 결과 확인 즉시 협범위 약제로 전환 필수 (Antibiotic stewardship)',
-        'PCR 음성 ≠ ESBL 완전 부재 — SHV/TEM형 ESBL은 현재 패널 미포함. 표현형 ESBL 검사 또는 ceftriaxone MIC 확인 권장',
-        '폐렴에서 Cefepime: ESBL 양성 폐렴에서 치료 실패율 31% (vs Carbapenem 0%) — 표현형 ESBL 완전 배제 전까지 비권장',
-        'De-escalation 후보 약제 (표현형 감수성 확인 시): FQ, TMP-SMX, Ceftriaxone (ESBL 음성 확인 후)',
+        sv
+          ?'⚠ 중증 폐렴: ESBL 위험인자 불명확 시 Carbapenem 경험적 사용 → 표현형 배양 결과 확인 즉시 Ceftriaxone 또는 FQ로 de-escalation 필수 (Antibiotic stewardship)'
+          :'비중증·ESBL 저위험: Ceftriaxone 또는 Cefepime으로 충분 — Carbapenem 불필요. 표현형 배양 확인 후 유지',
+        'ESBL 위험인자: ① 최근 해외 의료기관 입원 ② 이전 ESBL 균주 검출/집락 ③ 면역저하 ④ 광범위 항생제 장기 사용',
+        'PCR 음성 ≠ ESBL 완전 부재 — SHV·TEM형 ESBL은 이 패널 미포함. 표현형 ESBL 검사 또는 Ceftriaxone MIC 확인 권장',
+        '🔄 De-escalation 후보 (표현형 감수성 확인 시): Ceftriaxone → FQ/TMP-SMX 경구 전환',
+        'Piperacillin-tazobactam: ESBL 확인된 폐렴·균혈증 비권장 (MERINO trial: 사망률 Pip-tazo 12.3% vs Meropenem 3.7%). 표현형 ESBL 음성 확인 시에만 고려',
       ]};
     if(hCTXM&&!hKPC&&!hNDM&&!hOXA&&!hIMP)return{pl:'high',pcr:'ESBL(CTX-M): Carbapenem 내성 유전자 없음 — Carbapenem 감수성 예측력 높음. 단 CTX-M 변이체에 따라 위음성 가능성 있어 표현형 확인 권장.',
       f:[{n:'Carbapenem',b:'Meropenem/Imipenem/Ertapenem',dose:'Imipenem 용법',nt:sv?'중증·폐렴 우선':'중증 우선; 경증 step-down 가능'}],
@@ -1167,22 +1182,40 @@ function decompDrug(d){
 // excludeFn: 제외할 약제 판별 함수 (isExcluded 또는 isKO 등)
 function buildDrugCover(recs,ca,excludeFn){
   var drugCover={};
-  var orgKeys=S.orgs; // 현재 선택된 균주 키 목록
+  var orgKeys=S.orgs;
+  var renalTier=getEgfrTier();
+
+  // 현재 신기능 티어에서 연장주입 부적절(ext:'no')한 약제 목록 생성
+  var extNoSet={};
+  if(renalTier!=='unknown'&&renalTier!=='normal'){
+    Object.keys(RENAL_DOSE).forEach(function(key){
+      var entry=RENAL_DOSE[key][renalTier];
+      if(entry&&entry.ext==='no') extNoSet[key]=true;
+    });
+  }
+  // 약제명이 extNoSet에 해당하는지 확인 (부분 매칭)
+  function isExtNo(drugName){
+    for(var key in extNoSet){
+      if(drugName===key||drugName.indexOf(key)>=0||key.indexOf(drugName)>=0)return true;
+    }
+    return false;
+  }
 
   recs.forEach(function(r,i){
     var all=[].concat(r.f||[],r.s||[],r.t||[]);
     all.forEach(function(d){
       var components=decompDrug(d);
       if(components.some(function(c){return excludeFn(c);}))return;
+      // 신기능 티어에서 연장주입 부적절한 약제는 커버리지 조합 계산에서 제외
+      // 단, RENAL_DOSE에 같은 약제의 bolus 버전이 별도 등록된 경우(예: Cefepime)는
+      // 해당 약제명 자체(고용량 연장주입)만 제외하고 일반 버전은 유지
+      if(isExtNo(d.n))return;
       var rk=(r.f||[]).some(function(x){return x.n===d.n;})?1:(r.s||[]).some(function(x){return x.n===d.n;})?2:3;
       components.forEach(function(dn){
         if(!drugCover[dn])drugCover[dn]={orgs:[],rank:3,fromCombo:components.length>1};
-        // BROAD_SPECTRUM 테이블로 실제 커버 균주 확인
         var broadCov=getBroadCoverage(dn);
         if(broadCov){
-          // 현재 선택된 균주 중 실제 커버되는 것 모두 추가
           orgKeys.forEach(function(ok,oi){
-            // mecA 양성 S.aureus에 Carbapenem은 비활성 — 제외
             if((dn==='Carbapenem'||dn==='Meropenem'||dn==='Imipenem')&&ok==='s_aureus'){
               var genes=S.genes[ok]||[];
               if(genes.indexOf('mecA')>=0)return;
@@ -1191,7 +1224,6 @@ function buildDrugCover(recs,ca,excludeFn){
               drugCover[dn].orgs.push(oi);
           });
         } else {
-          // BROAD_SPECTRUM 없으면 기존 방식 (getRec 추천 기반)
           if(drugCover[dn].orgs.indexOf(i)<0)drugCover[dn].orgs.push(i);
         }
         if(rk<drugCover[dn].rank)drugCover[dn].rank=rk;
@@ -1417,144 +1449,165 @@ function dch(d,cl,badge,bcl){
 // 구간: normal(≥50), mild(30-49), moderate(15-29), severe(<15), hd(혈액투석), crrt(CRRT)
 var RENAL_DOSE={
   'Meropenem':{
-    normal:'2g IV q8h 연장주입 (3시간)',
-    mild:'1g IV q12h',
-    moderate:'500mg IV q12h',
-    severe:'500mg IV q24h',
-    hd:'500mg IV q24h (투석 후 추가 투여)',
-    pd:'500mg IV q24h — PD 제거율 낮음. HD와 유사 용량, 추가 투여 불필요',
-    crrt:'1–2g IV q8–12h (CRRT 유량에 따라 조정)'},
+    normal:  {dose:'2g IV q8h 연장주입 (3시간)',ext:'ok'},
+    mild:    {dose:'2g IV q12h 연장주입 (3시간)',ext:'ok'},
+    moderate:{dose:'1g IV q12h (볼루스 또는 연장주입 — TDM 권장)',ext:'caution',note:'용량 감량 우선'},
+    severe:  {dose:'500mg IV q24h (볼루스)',ext:'caution',note:'연장주입 보다 볼루스 우선'},
+    hd:      {dose:'⚠ 연장주입 부적절 — 중증: 1g IV q24h 투석 후 (bolus) / 대안: 2g 주 3회 투석 후. 투석 중 ~50% 제거',ext:'caution',note:'볼루스 투여. 연장주입 부적절'},
+    pd:      {dose:'500mg IV q24h — 표준 bolus 투여. 연장주입 불필요',ext:'caution'},
+    crrt:    {dose:'1–2g IV q8–12h 연장주입 (CRRT 유량 기반) — TDM 필수. 협진 권장',ext:'caution'}},
   'Imipenem':{
-    normal:'500mg IV q6h 또는 1g IV q8h',
-    mild:'500mg IV q8h',
-    moderate:'250–500mg IV q12h',
-    severe:'250mg IV q12h',
-    hd:'250mg IV q12h (투석 후 추가 투여)',
-    pd:'250mg IV q12h — PD 제거율 낮음. 추가 투여 불필요',
-    crrt:'500mg IV q6–8h'},
+    normal:  {dose:'500mg IV q6h 또는 1g IV q8h',ext:'ok'},
+    mild:    {dose:'500mg IV q8h',ext:'ok'},
+    moderate:{dose:'250–500mg IV q12h',ext:'caution'},
+    severe:  {dose:'250mg IV q12h',ext:'caution'},
+    hd:      {dose:'250mg IV q12h 투석 후 (bolus) — 연장주입 부적절',ext:'caution',note:'bolus 투여'},
+    pd:      {dose:'250mg IV q12h — 표준 bolus 투여. 추가 투여 불필요',ext:'caution'},
+    crrt:    {dose:'500mg IV q6–8h — TDM 권장',ext:'caution'}},
   'Ceftazidime-avibactam':{
-    normal:'2.5g IV q8h 연장주입 (3시간)',
-    mild:'1.25g IV q8h',
-    moderate:'0.94g IV q12h',
-    severe:'0.94g IV q24h',
-    hd:'0.94g IV q48h',
-    pd:'PD 약동학 데이터 매우 제한적 — 감염내과·약제부 협진 필수',
-    crrt:'감염내과·약제부 협진 권장'},
+    normal:  {dose:'2.5g IV q8h 연장주입 (3시간)',ext:'ok'},
+    mild:    {dose:'1.25g IV q8h 연장주입 (3시간)',ext:'ok'},
+    moderate:{dose:'0.94g IV q12h',ext:'caution'},
+    severe:  {dose:'0.94g IV q24h',ext:'caution'},
+    hd:      {dose:'0.94g IV q24h 투석 후 (bolus) — 연장주입 부적절. ⚠ 기존 q48h→q24h 수정',ext:'caution',note:'bolus 투여'},
+    pd:      {dose:'PD 약동학 데이터 매우 제한적 — 감염내과·약제부 협진 필수',ext:'caution'},
+    crrt:    {dose:'감염내과·약제부 협진 권장',ext:'caution'}},
   'Cefepime':{
-    normal:'2g IV q8h 연장주입 (4시간)',
-    mild:'2g IV q12h',
-    moderate:'2g IV q24h',
-    severe:'500mg IV q24h',
-    hd:'1g IV q24h (투석 후)',
-    pd:'1g IV q24h — PD 제거율 낮음. HD와 유사, 추가 투여 불필요',
-    crrt:'1–2g IV q8–12h'},
+    normal:  {dose:'2g IV q8h 연장주입 (4시간)',ext:'ok'},
+    mild:    {dose:'부하: 2g bolus(30분) → 1g q8h 연장주입 (3시간)',ext:'ok'},
+    moderate:{dose:'부하: 2g bolus(30분) → 1g q12–24h — 신경독성 주의',ext:'caution',note:'연장주입 시 용량 감량 필수'},
+    severe:  {dose:'부하: 2g bolus(30분) → 1g q24h (bolus) — 신경독성 고위험',ext:'caution',note:'bolus 투여. 신경독성 모니터링'},
+    hd:      {dose:'2g bolus 투석 직후 (주 3회) 또는 1g q24h 투석 후 — HD 중 72% 제거. 연장주입은 별도 표기',ext:'caution',note:'bolus 투여. 연장주입 부적절'},
+    pd:      {dose:'1–2g q48h (bolus) — PD 제거율 낮음',ext:'caution'},
+    crrt:    {dose:'CRRT 20–30mL/kg/h: 2g q24h 연장주입 / 40mL/kg/h: 2g q12h — TDM 필수',ext:'caution'}},
+  // Cefepime 고용량 연장주입: severe/hd/pd에서 ext:no
+  'Cefepime 고용량 연장주입':{
+    normal:  {dose:'2g IV q8h 연장주입 (4시간)',ext:'ok'},
+    mild:    {dose:'부하: 2g bolus(30분) → 1g q8h 연장주입 (3시간)',ext:'ok'},
+    moderate:{dose:'연장주입 부적절 — 용량 감량 후 bolus로 전환',ext:'no',note:'eGFR 15–29에서 고용량 연장주입 부적절'},
+    severe:  {dose:'연장주입 부적절 — bolus로 전환',ext:'no'},
+    hd:      {dose:'⚠ 연장주입 부적절 — bolus 투여로 전환 필요',ext:'no'},
+    pd:      {dose:'연장주입 불필요 — bolus 투여',ext:'no'},
+    crrt:    {dose:'CRRT 기반 연장주입 가능 — TDM 필수',ext:'caution'}},
   'Ceftriaxone':{
-    normal:'2g IV q24h',
-    mild:'2g IV q24h (조정 불필요)',
-    moderate:'2g IV q24h (조정 불필요)',
-    severe:'2g IV q24h (조정 불필요)',
-    hd:'2g IV q24h (조정 불필요 — 간신 이중 배설)',
-    pd:'2g IV q24h (조정 불필요 — 간신 이중 배설, PD 영향 미미)',
-    crrt:'2g IV q24h'},
+    normal:  {dose:'2g IV q24h',ext:'ok'},
+    mild:    {dose:'2g IV q24h (조정 불필요)',ext:'ok'},
+    moderate:{dose:'2g IV q24h (조정 불필요)',ext:'ok'},
+    severe:  {dose:'2g IV q24h (조정 불필요)',ext:'ok'},
+    hd:      {dose:'2g IV q24h (조정 불필요 — 간신 이중 배설)',ext:'ok'},
+    pd:      {dose:'2g IV q24h (조정 불필요)',ext:'ok'},
+    crrt:    {dose:'2g IV q24h (조정 불필요)',ext:'ok'}},
   'Piperacillin-tazobactam':{
-    normal:'4.5g IV q6h 연장주입 (4시간)',
-    mild:'2.25g IV q6h',
-    moderate:'2.25g IV q8h',
-    severe:'2.25g IV q8h',
-    hd:'2.25g IV q8h (투석 후 0.75g 추가)',
-    pd:'2.25g IV q8h — PD 추가 투여 불필요 (HD보다 제거율 낮음)',
-    crrt:'3.375g IV q6–8h'},
+    normal:  {dose:'4.5g IV q6h 연장주입 (4시간)',ext:'ok'},
+    mild:    {dose:'4.5g IV q8h 연장주입 (4시간)',ext:'ok'},
+    moderate:{dose:'CrCl 20–30: 4.5g IV q8h / CrCl <20: 4.5g IV q12h — 감량 후 연장주입 가능',ext:'caution'},
+    severe:  {dose:'4.5g IV q12h (bolus) — 연장주입 불필요',ext:'caution'},
+    hd:      {dose:'⚠ 연장주입 부적절 — 4.5g IV q12h 투석 후 (bolus)',ext:'caution',note:'bolus 투여'},
+    pd:      {dose:'2.25g IV q8h — 표준 bolus. 추가 투여 불필요',ext:'caution'},
+    crrt:    {dose:'3.375g IV q6–8h 연장주입 — TDM 권장',ext:'caution'}},
   'Vancomycin':{
-    normal:'15–20mg/kg q8–12h, AUC/MIC 400–600 목표',
-    mild:'15–20mg/kg q12–24h (TDM 필수)',
-    moderate:'15–20mg/kg q24–48h (TDM 필수)',
-    severe:'15–20mg/kg q48–72h (TDM 필수)',
-    hd:'15–20mg/kg 투석 후 (혈중 농도 모니터링)',
-    pd:'15–20mg/kg 부하 후 q4–5일 재투여 — ⚠ HD와 크게 다름. PD 제거율 낮아 투여 간격 훨씬 김. AUC 기반 TDM 필수. 잔여 신기능 있으면 간격 단축 가능',
-    crrt:'15–20mg/kg q24–48h (TDM 필수)'},
+    normal:  {dose:'15–20mg/kg q8–12h, AUC/MIC 400–600 목표',ext:'ok'},
+    mild:    {dose:'15–20mg/kg q12–24h (TDM 필수)',ext:'ok'},
+    moderate:{dose:'15–20mg/kg q24–48h (TDM 필수)',ext:'ok'},
+    severe:  {dose:'15–20mg/kg q48–72h (TDM 필수)',ext:'ok'},
+    hd:      {dose:'20mg/kg × 1 부하 → 혈중 농도 기반 재투여 (투석 후 농도 확인)',ext:'ok'},
+    pd:      {dose:'15–20mg/kg 부하 후 q4–5일 재투여 — ⚠ HD와 크게 다름. AUC 기반 TDM 필수',ext:'ok'},
+    crrt:    {dose:'15–20mg/kg q24–48h (TDM 필수)',ext:'ok'}},
   'Linezolid':{
-    normal:'600mg IV/PO q12h',
-    mild:'600mg IV/PO q12h (조정 불필요)',
-    moderate:'600mg IV/PO q12h (조정 불필요)',
-    severe:'600mg IV/PO q12h (조정 불필요 — 비신장 배설)',
-    hd:'600mg IV/PO q12h (투석 후 추가 불필요)',
-    pd:'600mg IV/PO q12h (조정 불필요 — 비신장 배설, PD 무관)',
-    crrt:'600mg IV/PO q12h'},
+    normal:  {dose:'600mg IV/PO q12h',ext:'ok'},
+    mild:    {dose:'600mg IV/PO q12h (조정 불필요)',ext:'ok'},
+    moderate:{dose:'600mg IV/PO q12h (조정 불필요)',ext:'ok'},
+    severe:  {dose:'600mg IV/PO q12h (조정 불필요 — 비신장 배설)',ext:'ok'},
+    hd:      {dose:'600mg IV/PO q12h (조정 불필요)',ext:'ok'},
+    pd:      {dose:'600mg IV/PO q12h (조정 불필요 — PD 무관)',ext:'ok'},
+    crrt:    {dose:'600mg IV/PO q12h (조정 불필요)',ext:'ok'}},
   'Colistin':{
-    normal:'9MIU 부하 후 4.5MIU q12h',
-    mild:'9MIU 부하 후 4.5MIU q12–24h',
-    moderate:'9MIU 부하 후 2.25MIU q12–24h',
-    severe:'9MIU 부하 후 1.5MIU q24h',
-    hd:'9MIU 부하 후 1.5MIU q24h (투석 후 추가 고려)',
-    pd:'PD 약동학 데이터 극히 제한적 — 감염내과·약제부 협진 필수',
-    crrt:'감염내과·약제부 협진 권장'},
+    normal:  {dose:'9MIU 부하 후 4.5MIU q12h',ext:'ok'},
+    mild:    {dose:'9MIU 부하 후 4.5MIU q12–24h',ext:'ok'},
+    moderate:{dose:'9MIU 부하 후 2.25MIU q12–24h',ext:'ok'},
+    severe:  {dose:'9MIU 부하 후 1.5MIU q24h',ext:'ok'},
+    hd:      {dose:'9MIU 부하 후 1.5MIU q48h (투석 후) — 투석 중 제거율 높음',ext:'ok'},
+    pd:      {dose:'PD 약동학 데이터 극히 제한적 — 감염내과·약제부 협진 필수',ext:'ok'},
+    crrt:    {dose:'감염내과·약제부 협진 권장',ext:'ok'}},
   'TMP-SMX':{
-    normal:'15–20mg/kg/day (TMP성분) q6–8h 분할',
-    mild:'15–20mg/kg/day q6–8h',
-    moderate:'7.5–10mg/kg/day q12h (50% 감량)',
-    severe:'비권장 (고칼륨혈증·신독성 위험)',
-    hd:'비권장 또는 전문가 상담',
-    pd:'⚠ 비권장 — PD 환자에서 고칼륨혈증 위험 높음. 불가피 시 감량 + 전해질 모니터링',
-    crrt:'감염내과·약제부 협진 권장'},
+    normal:  {dose:'15–20mg/kg/day (TMP성분) q6–8h 분할',ext:'ok'},
+    mild:    {dose:'15–20mg/kg/day q6–8h',ext:'ok'},
+    moderate:{dose:'7.5–10mg/kg/day q12h (50% 감량)',ext:'ok'},
+    severe:  {dose:'비권장 (고칼륨혈증·신독성 위험)',ext:'ok'},
+    hd:      {dose:'비권장 또는 전문가 상담',ext:'ok'},
+    pd:      {dose:'⚠ 비권장 — PD 환자 고칼륨혈증 위험 높음',ext:'ok'},
+    crrt:    {dose:'감염내과·약제부 협진 권장',ext:'ok'}},
   'Levofloxacin':{
-    normal:'750mg IV/PO q24h',
-    mild:'750mg 1회 후 500mg q24h',
-    moderate:'750mg 1회 후 250mg q24h',
-    severe:'750mg 1회 후 250mg q48h',
-    hd:'750mg 1회 후 250mg q48h',
-    pd:'750mg 1회 후 250mg q48h — PD 제거율 낮음. HD와 동일 기준 적용',
-    crrt:'250–500mg IV q24h'},
+    normal:  {dose:'750mg IV/PO q24h',ext:'ok'},
+    mild:    {dose:'750mg x 1 후 500mg q48h',ext:'ok'},
+    moderate:{dose:'750mg x 1 후 250mg q24h',ext:'ok'},
+    severe:  {dose:'750mg x 1 후 250mg q48h',ext:'ok'},
+    hd:      {dose:'750mg x 1 후 500mg q48h 투석 후 — 기존 250mg에서 수정 (NM 2026)',ext:'ok'},
+    pd:      {dose:'750mg x 1 후 250mg q48h — HD 유사 기준',ext:'ok'},
+    crrt:    {dose:'250–500mg IV q24h',ext:'ok'}},
   'Ampicillin-sulbactam 고용량':{
-    normal:'총 27g/day (Sulbactam 9g) q4–6h 연장주입',
-    mild:'총 18g/day (50% 감량)',
-    moderate:'총 9g/day (75% 감량)',
-    severe:'총 6.75g/day',
-    hd:'투석 후 추가 투여 고려 — 전문가 상담',
-    pd:'총 9g/day 이하 — PD 제거율 낮음. 추가 투여 불필요. 감염내과 협진 권장',
-    crrt:'감염내과·약제부 협진 권장'},
+    normal:  {dose:'총 27g/day (Sulbactam 9g) q4–6h 연장주입',ext:'ok'},
+    mild:    {dose:'총 18g/day q6h 연장주입 (50% 감량)',ext:'ok'},
+    moderate:{dose:'총 9g/day q8h (75% 감량) — 연장주입 가능',ext:'caution'},
+    severe:  {dose:'총 6.75g/day — 연장주입 의미 제한적',ext:'no'},
+    hd:      {dose:'⚠ 고용량 연장주입 부적절 — 3g IV q12h 투석 후 (bolus). 감염내과 협진 필수',ext:'no'},
+    pd:      {dose:'총 9g/day 이하 — 표준 bolus. 감염내과 협진 권장',ext:'no'},
+    crrt:    {dose:'감염내과·약제부 협진 권장',ext:'no'}},
   'Aztreonam':{
-    normal:'2g IV q8h 연장주입 (3시간)',
-    mild:'2g IV q12h',
-    moderate:'1g IV q12h',
-    severe:'500mg IV q12h',
-    hd:'500mg IV q12h (투석 후 추가 250mg)',
-    pd:'500mg IV q12h — PD 추가 투여 불필요 (HD보다 제거율 낮음)',
-    crrt:'1–2g IV q8–12h'},
+    normal:  {dose:'2g IV q8h 연장주입 (3시간)',ext:'ok'},
+    mild:    {dose:'2g IV q12h',ext:'ok'},
+    moderate:{dose:'1g IV q12h',ext:'caution'},
+    severe:  {dose:'500mg IV q12h (bolus)',ext:'caution'},
+    hd:      {dose:'2g IV q24h 투석 후 (bolus) — 기존 500mg q12h에서 수정 (NM 2026). 연장주입 부적절',ext:'caution',note:'bolus 투여'},
+    pd:      {dose:'500mg IV q12h — 표준 bolus. 추가 투여 불필요',ext:'caution'},
+    crrt:    {dose:'1–2g IV q8–12h — TDM 권장',ext:'caution'}},
   'Cefazolin':{
-    normal:'2g IV q8h',
-    mild:'2g IV q12h',
-    moderate:'1.5g IV q24h',
-    severe:'500mg IV q24h',
-    hd:'1g IV q24h (투석 후)',
-    pd:'1g IV q24h — PD 제거율 낮음. 추가 투여 불필요',
-    crrt:'1g IV q12h'},
+    normal:  {dose:'2g IV q8h',ext:'ok'},
+    mild:    {dose:'2g IV q12h',ext:'ok'},
+    moderate:{dose:'1.5g IV q24h',ext:'ok'},
+    severe:  {dose:'500mg IV q24h',ext:'ok'},
+    hd:      {dose:'1g IV q24h 투석 후 또는 2g 주 3회 투석 후',ext:'ok'},
+    pd:      {dose:'1g IV q24h — 추가 투여 불필요',ext:'ok'},
+    crrt:    {dose:'1g IV q12h',ext:'ok'}},
   'Minocycline':{
-    normal:'100mg IV/PO q12h',
-    mild:'100mg IV/PO q12h (조정 불필요)',
-    moderate:'100mg IV/PO q12h (조정 불필요)',
-    severe:'100mg IV/PO q12h (조정 불필요 — 비신장 배설)',
-    hd:'100mg IV/PO q12h',
-    pd:'100mg IV/PO q12h (조정 불필요 — 비신장 배설, PD 무관)',
-    crrt:'100mg IV/PO q12h'},
+    normal:  {dose:'100mg IV/PO q12h',ext:'ok'},
+    mild:    {dose:'100mg IV/PO q12h (조정 불필요)',ext:'ok'},
+    moderate:{dose:'100mg IV/PO q12h (조정 불필요)',ext:'ok'},
+    severe:  {dose:'100mg IV/PO q12h (조정 불필요 — 비신장 배설)',ext:'ok'},
+    hd:      {dose:'100mg IV/PO q12h (조정 불필요)',ext:'ok'},
+    pd:      {dose:'100mg IV/PO q12h (조정 불필요 — PD 무관)',ext:'ok'},
+    crrt:    {dose:'100mg IV/PO q12h (조정 불필요)',ext:'ok'}},
   'Nafcillin':{
-    normal:'2g IV q4h',
-    mild:'2g IV q4h (조정 불필요 — 담즙 배설)',
-    moderate:'2g IV q4h (조정 불필요)',
-    severe:'2g IV q4h (조정 불필요)',
-    hd:'2g IV q4h',
-    pd:'2g IV q4h (조정 불필요 — 담즙 배설, PD 무관)',
-    crrt:'2g IV q4h'},
+    normal:  {dose:'2g IV q4h',ext:'ok'},
+    mild:    {dose:'2g IV q4h (조정 불필요 — 담즙 배설)',ext:'ok'},
+    moderate:{dose:'2g IV q4h (조정 불필요)',ext:'ok'},
+    severe:  {dose:'2g IV q4h (조정 불필요)',ext:'ok'},
+    hd:      {dose:'2g IV q4h (조정 불필요 — 담즙 배설)',ext:'ok'},
+    pd:      {dose:'2g IV q4h (조정 불필요 — PD 무관)',ext:'ok'},
+    crrt:    {dose:'2g IV q4h (조정 불필요)',ext:'ok'}},
 };
 
 // eGFR tier에 해당하는 약제 조정 용량 반환
 function getRenalDose(drugName){
   var tier=getEgfrTier();
   if(tier==='unknown')return null;
-  // 약제명 부분 매칭
+  var name=drugName;
+  if(drugName==='Carbapenem'||drugName==='Carbapenem + Ceftazidime-avibactam')name='Meropenem';
   for(var key in RENAL_DOSE){
-    if(drugName.indexOf(key)>=0||key.indexOf(drugName)>=0){
+    if(name===key||name.indexOf(key)>=0||key.indexOf(name)>=0){
       var d=RENAL_DOSE[key];
-      return{drug:key,tier:tier,dose:d[tier]||null,normal:d.normal};
+      var entry=d[tier];
+      if(!entry)return null;
+      var displayKey=(drugName==='Carbapenem')?'Carbapenem (Meropenem 기준)':key;
+      var normalEntry=d['normal'];
+      return{
+        drug:displayKey,
+        tier:tier,
+        dose:entry.dose||null,
+        ext:entry.ext||'ok',
+        note:entry.note||null,
+        normal:normalEntry?normalEntry.dose:null
+      };
     }
   }
   return null;
@@ -1572,25 +1625,30 @@ function renalBox(org){
   var matched=[];
   drugs.forEach(function(dn){
     var rd=getRenalDose(dn);
-    if(rd&&rd.dose&&rd.dose!==rd.normal)matched.push({n:dn,key:rd.drug,dose:rd.dose});
-    else if(rd&&rd.dose===rd.normal)matched.push({n:dn,key:rd.drug,dose:rd.dose+' (조정 불필요)'});
+    if(!rd||!rd.dose)return;
+    matched.push({n:dn,key:rd.drug,dose:rd.dose,ext:rd.ext||'ok',note:rd.note||null});
   });
   if(matched.length===0&&tier==='normal')return'';
   var h='<div style="margin-top:8px;background:'+c[1]+';border:1px solid '+c[2]+';border-radius:8px;padding:9px 12px">';
   h+='<div style="font-size:11px;font-weight:700;color:'+c[0]+';margin-bottom:6px">💊 신기능 용량 조정 — '+tierLabel[tier]+'</div>';
   if(tier==='crrt'){h+='<div style="font-size:11px;color:'+c[0]+'">CRRT 용량 조정은 유량·막종류에 따라 달라 감염내과·약제부 협진을 권장합니다.</div></div>';return h;}
   if(tier==='pd'){h+='<div style="font-size:11px;color:'+c[0]+';margin-bottom:6px">⚠ <strong>Vancomycin은 q4–5일로 HD와 크게 다름</strong> — 반드시 TDM 기반으로 투여 간격 결정</div>';}
-  if(matched.length>0){
-    matched.forEach(function(m){
-      h+='<div style="font-size:11px;color:'+c[0]+';margin-bottom:4px;padding-bottom:4px;border-bottom:1px solid '+c[2]+'">';
-      h+='<span style="font-weight:700">'+m.key+'</span><br>';
-      h+='<span>'+m.dose+'</span></div>';
-    });
-  } else {
-    h+='<div style="font-size:11px;color:'+c[0]+'">해당 권고 약제의 신기능 조정 정보가 없습니다 — 첨부문서 확인</div>';
-  }
+  matched.forEach(function(m){
+    var extBg=m.ext==='no'?'#fee2e2':m.ext==='caution'?'#fef3c7':'';
+    var extBd=m.ext==='no'?'#fca5a5':m.ext==='caution'?'#fcd34d':'';
+    var extTx=m.ext==='no'?'#9b1c1c':m.ext==='caution'?'#92400e':c[0];
+    var extLabel=m.ext==='no'?'🚫 연장주입 부적절':m.ext==='caution'?'⚠ 연장주입 주의':'';
+    h+='<div style="margin-bottom:6px;padding-bottom:6px;border-bottom:1px solid '+c[2]+'">';
+    h+='<div style="font-size:11px;font-weight:700;color:'+c[0]+';margin-bottom:2px">'+m.key+'</div>';
+    if(m.ext!=='ok'){
+      h+='<div style="font-size:10px;padding:3px 8px;border-radius:5px;background:'+extBg+';border:1px solid '+extBd+';color:'+extTx+';margin-bottom:3px">'+extLabel+(m.note?' — '+m.note:'')+'</div>';
+    }
+    h+='<div style="font-size:11px;color:'+c[0]+'">'+m.dose+'</div>';
+    h+='</div>';
+  });
   h+='</div>';return h;
 }
+
 
 var _detailOpen={};
 function toggleDetail(id){
@@ -1654,6 +1712,20 @@ function buildR(){
     h+='<div style="font-size:12px;font-weight:700;margin-bottom:2px;opacity:.8;letter-spacing:.05em">다중균주 커버리지 요약</div>';
     h+='<div style="font-size:11px;opacity:.7;margin-bottom:8px">검출 균주: '+S.orgs.map(function(k){return OR[k].l;}).join(' · ')+'</div>';
     h+='<div style="font-size:10px;background:rgba(255,255,255,.08);border-radius:6px;padding:6px 10px;margin-bottom:10px;color:#94a3b8;line-height:1.6">아래 조합은 PCR 기반 예측 커버리지이며 처방 권고가 아닙니다.<br>최종 항균제 선택은 표현형 감수성(MIC) 및 임상 판단에 근거하십시오.</div>';
+
+    // 신기능 상태 배너
+    var renalTier=getEgfrTier();
+    if(renalTier!=='unknown'&&renalTier!=='normal'){
+      var rtLabel={mild:'eGFR 30–49 (경도 감소)',moderate:'eGFR 15–29 (중등도 감소)',severe:'eGFR <15 (고도 감소)',hd:'혈액투석(HD)',pd:'복막투석(PD)',crrt:'CRRT'};
+      var rtColor={mild:'#92400e|#fffbeb|#fcd34d',moderate:'#9b1c1c|#fef2f2|#fca5a5',severe:'#9b1c1c|#fef2f2|#fca5a5',hd:'#7c3aed|#f5f3ff|#c4b5fd',pd:'#0369a1|#f0f9ff|#7dd3fc',crrt:'#1e40af|#eff6ff|#bfdbfe'};
+      var rc=(rtColor[renalTier]||'#374151|#f9fafb|#e5e7eb').split('|');
+      var extWarn=(renalTier==='hd'||renalTier==='pd'||renalTier==='severe');
+      h+='<div style="background:'+rc[1]+';border:1px solid '+rc[2]+';border-radius:7px;padding:7px 11px;margin-bottom:10px;font-size:11px;color:'+rc[0]+';line-height:1.5">';
+      h+='💊 <strong>신기능 조정 대상 환자 — '+rtLabel[renalTier]+'</strong><br>';
+      if(extWarn) h+='⚠ 고용량 연장주입(Meropenem·Cefepime·Pip-tazo 등)은 이 조건에서 부적절할 수 있습니다. 균주별 상세의 용량 조정 안내를 반드시 확인하십시오.';
+      else h+='권고 약제의 용량 조정이 필요합니다. 균주별 상세의 신기능 용량 조정 안내를 확인하십시오.';
+      h+='</div>';
+    }
 
     if(anyL){
       h+='<div style="background:rgba(239,68,68,.18);border:1px solid rgba(239,68,68,.4);border-radius:7px;padding:7px 11px;font-size:11px;color:#fca5a5;margin-bottom:8px">⚠ PCR 예측력 낮은 균주 포함 — 표현형 MIC 확인 전 최종 결정 유보</div>';
