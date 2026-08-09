@@ -1193,10 +1193,33 @@ function buildDrugCover(recs,ca,excludeFn){
       if(entry&&entry.ext==='no') extNoSet[key]=true;
     });
   }
-  // 약제명이 extNoSet에 해당하는지 확인 (부분 매칭)
   function isExtNo(drugName){
     for(var key in extNoSet){
       if(drugName===key||drugName.indexOf(key)>=0||key.indexOf(drugName)>=0)return true;
+    }
+    return false;
+  }
+
+  // 균주 인덱스별 추천 약제 집합 (getRec 기반) — BROAD_SPECTRUM 적용 시 교차 검증용
+  // 약제명이 해당 균주의 f/s/t 목록에 있어야만 해당 균주를 커버로 인정
+  var recDrugsByOrg=recs.map(function(r){
+    var names={};
+    [].concat(r.f||[],r.s||[],r.t||[]).forEach(function(d){
+      names[d.n]=true;
+      // 복합 약제 분해 (ATM+CAZ-AVI 등)
+      decompDrug(d).forEach(function(c){names[c]=true;});
+    });
+    return names;
+  });
+
+  // drugName이 oi번째 균주의 getRec 추천 목록에 있는지 확인
+  function isRecommendedForOrg(drugName,oi){
+    var rec=recDrugsByOrg[oi];
+    if(!rec)return false;
+    if(rec[drugName])return true;
+    // 부분 매칭: BROAD_SPECTRUM 키가 추천 약제명에 포함되는 경우
+    for(var rn in rec){
+      if(rn.indexOf(drugName)>=0||drugName.indexOf(rn)>=0)return true;
     }
     return false;
   }
@@ -1206,9 +1229,6 @@ function buildDrugCover(recs,ca,excludeFn){
     all.forEach(function(d){
       var components=decompDrug(d);
       if(components.some(function(c){return excludeFn(c);}))return;
-      // 신기능 티어에서 연장주입 부적절한 약제는 커버리지 조합 계산에서 제외
-      // 단, RENAL_DOSE에 같은 약제의 bolus 버전이 별도 등록된 경우(예: Cefepime)는
-      // 해당 약제명 자체(고용량 연장주입)만 제외하고 일반 버전은 유지
       if(isExtNo(d.n))return;
       var rk=(r.f||[]).some(function(x){return x.n===d.n;})?1:(r.s||[]).some(function(x){return x.n===d.n;})?2:3;
       components.forEach(function(dn){
@@ -1216,10 +1236,15 @@ function buildDrugCover(recs,ca,excludeFn){
         var broadCov=getBroadCoverage(dn);
         if(broadCov){
           orgKeys.forEach(function(ok,oi){
+            // mecA 양성 S.aureus에 Carbapenem 비활성 — 제외
             if((dn==='Carbapenem'||dn==='Meropenem'||dn==='Imipenem')&&ok==='s_aureus'){
               var genes=S.genes[ok]||[];
               if(genes.indexOf('mecA')>=0)return;
             }
+            // BROAD_SPECTRUM이 해당 균주를 커버한다고 해도,
+            // getRec()가 이 약제를 해당 균주에 추천하지 않으면 커버로 인정하지 않음
+            // (예: Levofloxacin은 정상 Pseudomonas에는 적용되지만 IMP 보유 Pseudomonas에는 추천 안 됨)
+            if(!isRecommendedForOrg(dn,oi))return;
             if(broadCov.indexOf(ok)>=0&&drugCover[dn].orgs.indexOf(oi)<0)
               drugCover[dn].orgs.push(oi);
           });
