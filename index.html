@@ -138,7 +138,7 @@ html,body{min-height:100%;background:#f3f4f6;font-family:-apple-system,BlinkMacS
 <div class="app">
 <div class="topbar">
   <div class="topbar-icon">Rx</div>
-  <div><h1>폐렴 항균제 선택 가이드</h1><div class="topbar-sub">IDSA 2024 AMR Guidance 기반 · v8.0</div></div>
+  <div><h1>폐렴 항균제 선택 가이드</h1><div class="topbar-sub">IDSA 2024 AMR Guidance 기반 · v8.1</div></div>
 </div>
 <div class="warn">⚠ PCR 결과는 보조 지표입니다. 최종 항균제 선택은 반드시 표현형 배양 감수성(MIC)을 확인하십시오.</div>
 <div class="src">근거: IDSA 2024 AMR Guidance · ATS/IDSA 2019 CAP · ATS/IDSA 2016 HAP/VAP · IDSA MRSA Guidelines</div>
@@ -986,7 +986,7 @@ function getRec(org,genes,sev,atyNeg){
 
   // ── ACB (CRAB) ─────────────────────────────────────────────────
   if(org==='acb'){
-    if(hVIM&&!hNDM)return{pl:'low',pcr:'VIM(MBL) 검출: Acinetobacter에서 VIM 검출은 드문 사례이나 국내 보고 있음 — 내성 표현형과의 일치율 불확실. OXA-type이 주된 내성 기전이므로 VIM 단독으로 치료 결정 위험. 표현형 MIC 필수.',
+    if(hVIM&&!hNDM)return{pl:'low_opt',pcr:'VIM(MBL) 검출: Acinetobacter에서 VIM 검출은 드문 사례이나 국내 보고 있음 — 내성 표현형과의 일치율 불확실. OXA-type이 주된 내성 기전이므로 VIM 단독으로 치료 결정 위험. 표현형 MIC 필수.',
       f:[{n:'Aztreonam + Ceftazidime-avibactam',b:'ATM + Zavicefta',nt:'MBL 78~93% 감수성 회복 — ATM 원내 미보유 시 사용 불가',dose:'CAZ-AVI + ATM 용법'}],
       s:[{n:'Sulbactam-durlobactam + Meropenem/Imipenem',b:'Xacduro + Carbapenem',nt:'IDSA 2024 CRAB 1차 선호 (미출시)'},
          {n:'Ampicillin-sulbactam 고용량',b:'Sulbactam 9g/day',nt:'국내 사용 가능 대안 — 표현형 sulbactam 감수성 확인 필수',dose:'Ampicillin-sulbactam 고용량',combo:CC},
@@ -996,7 +996,7 @@ function getRec(org,genes,sev,atyNeg){
       ns:['VIM + Acb: 드문 조합이나 국내 보고 있음 — 반드시 표현형 MIC 확인 후 치료 결정',
           '⚠ ATM 원내 미보유 시: ATM+CAZ-AVI 사용 불가 — Cefiderocol(미출시) 긴급도입 또는 감염내과 협진 필수',
           'OXA-type 동반 여부 추가 확인 권장 (국내 CRAB 주요 기전)']};
-    if(hIMP&&!hNDM)return{pl:'low',pcr:'IMP(MBL) 검출: Acinetobacter에서 IMP 검출은 드문 사례 — 내성 표현형과의 일치율 불확실. OXA-type이 주된 내성 기전이므로 IMP 단독으로 치료 결정 위험. 표현형 MIC 필수.',
+    if(hIMP&&!hNDM)return{pl:'low_opt',pcr:'IMP(MBL) 검출: Acinetobacter에서 IMP 검출은 드문 사례 — 내성 표현형과의 일치율 불확실. OXA-type이 주된 내성 기전이므로 IMP 단독으로 치료 결정 위험. 표현형 MIC 필수.',
       f:[{n:'Aztreonam + Ceftazidime-avibactam',b:'ATM + Zavicefta',nt:'MBL 78~93% 감수성 회복',dose:'CAZ-AVI + ATM 용법'}],
       s:[{n:'Sulbactam-durlobactam + Meropenem/Imipenem',b:'Xacduro + Carbapenem',nt:'IDSA 2024 CRAB 1차 선호 (미출시)'},
          {n:'Ampicillin-sulbactam 고용량',b:'Sulbactam 9g/day',nt:'국내 사용 가능 대안',dose:'Ampicillin-sulbactam 고용량',combo:CC},
@@ -1004,7 +1004,7 @@ function getRec(org,genes,sev,atyNeg){
       t:[{n:'Colistin',b:'',nt:'최후 수단',dose:'Colistin 용법'}],
       av:[{n:'Imipenem-relebactam (IMI-REL)',nt:'MBL 비활성 — Imipenem-relebactam, Meropenem-vaborbactam의 β-lactamase 억제제(Relebactam/Vaborbactam)는 Class A·C carbapenemase만 억제. Class B MBL(NDM/VIM/IMP) 억제 불가 — 표적 효소 구조(Zn2+ 활성부위) 차이'},{n:'Meropenem-vaborbactam (MER-VAB)',nt:'MBL 비활성 — Imipenem-relebactam, Meropenem-vaborbactam의 β-lactamase 억제제(Relebactam/Vaborbactam)는 Class A·C carbapenemase만 억제. Class B MBL(NDM/VIM/IMP) 억제 불가 — 표적 효소 구조(Zn2+ 활성부위) 차이'}],
       ns:['IMP + Acb: 드문 조합 — 반드시 표현형 MIC 확인 후 치료 결정','감염내과 협진 강력 권고']};
-    if(hNDM)return{pl:'low',pcr:'NDM+OXA 복합: CAZ-AVI·IMI-REL·MER-VAB 모두 비활성.',
+    if(hNDM)return{pl:'low_opt',pcr:'NDM+OXA 복합: CAZ-AVI·IMI-REL·MER-VAB 모두 비활성.',
       f:[{n:'Cefiderocol',b:'Fetroja',nt:'복합 carbapenemase에도 활성 — 병합 필수',dose:'Cefiderocol 용법',combo:CC}],
       s:[{n:'Sulbactam-durlobactam + Meropenem/Imipenem',b:'Xacduro + Carbapenem',nt:'NDM 단독 시 일부 활성 (미출시)'},
          {n:'Piperacillin-sulbactam',b:'',nt:'Sulbactam의 Acinetobacter 고유 활성 활용 — 감수성 확인 필수',dose:'Pip-sulbactam 용법'}],
@@ -1012,7 +1012,7 @@ function getRec(org,genes,sev,atyNeg){
       av:[{n:'Ceftazidime-avibactam (CAZ-AVI)',nt:'MBL+OXA 동시 비활성 — Avibactam은 Class A(KPC)·C(AmpC)·D(OXA) 억제하나 Class B MBL(NDM/VIM/IMP) 억제 불가'},{n:'Imipenem-relebactam (IMI-REL)',nt:'MBL+OXA 동시 비활성 — Relebactam은 Class A·C만 억제, MBL 억제 불가'},{n:'Meropenem-vaborbactam (MER-VAB)',nt:'MBL+OXA 동시 비활성 — Vaborbactam은 Class A·C만 억제, MBL 억제 불가'}],
       ns:['표현형 없이 치료 선택 매우 위험','Piperacillin-sulbactam: IDSA 미언급, in vitro 근거 기반 — 감수성 확인 필수']};
 
-    if(noG)return{pl:'low',pcr:'획득성 carbapenemase(OXA-23/24/NDM 등) 미검출 — 단, A. baumannii는 PCR에 잡히지 않는 OXA-51(염색체 내재 carbapenemase)을 선천적으로 보유합니다. 이 패널은 OXA-51을 검사하지 않으므로 carbapenem 감수성 여부는 반드시 표현형 MIC로 확인해야 합니다.',
+    if(noG)return{pl:'low_gap',pcr:'획득성 carbapenemase(OXA-23/24/NDM 등) 미검출 — 단, A. baumannii는 PCR에 잡히지 않는 OXA-51(염색체 내재 carbapenemase)을 선천적으로 보유합니다. 이 패널은 OXA-51을 검사하지 않으므로 carbapenem 감수성 여부는 반드시 표현형 MIC로 확인해야 합니다.',
       f:[
         {n:'Carbapenem',b:'Meropenem/Imipenem',nt:'표현형 carbapenem 감수성 확인 시 1차 — 내성 유전자 음성이면 감수성 가능성 있으나 반드시 MIC 확인',dose:'Meropenem 고용량 연장주입'},
         {n:'Sulbactam-durlobactam + Meropenem/Imipenem',b:'Xacduro + Carbapenem',nt:'CRAB 확인 시 IDSA 2024 1차 선호 (한국 미출시)'},
@@ -1048,7 +1048,7 @@ function getRec(org,genes,sev,atyNeg){
 
   // ── P. aeruginosa ──────────────────────────────────────────────
   if(org==='pseudomonas'){var mbl=hVIM||hIMP;
-    if(mbl)return{pl:'low',pcr:'VIM/IMP: MBL — 내성 표현형 예측력은 높음. 단 치료 옵션이 극히 제한되어 항균제 선택 불확실성이 높음 (PCR 예측력 낮음 = 치료 선택 불확실). Ceftolozane-tazobactam 비활성 예측은 신뢰 가능.',
+    if(mbl)return{pl:'low_opt',pcr:'VIM/IMP: MBL — 내성 표현형 예측력은 높음. 단 치료 옵션이 극히 제한되어 항균제 선택 불확실성이 높음 (PCR 예측력 낮음 = 치료 선택 불확실). Ceftolozane-tazobactam 비활성 예측은 신뢰 가능.',
       f:[{n:'Aztreonam + Ceftazidime-avibactam',b:'ATM + Zavicefta',nt:'MBL 78~93% 감수성 회복 — ATM 원내 미보유 시 사용 불가',dose:'CAZ-AVI + ATM 용법'}],
       s:[{n:'Cefiderocol',b:'Fetroja',nt:'MIC 확인 (미출시)',dose:'Cefiderocol 용법'}],
       t:[{n:'Colistin',b:'',nt:'최후 수단',dose:'Colistin 용법'},
@@ -1057,7 +1057,7 @@ function getRec(org,genes,sev,atyNeg){
       ns:['모든 약제 표현형 MIC 필수',
           '⚠ ATM 원내 미보유 시: ATM+CAZ-AVI 사용 불가 — 출시·보유 약제만으로 VIM/IMP 보유 Pseudomonas 표준 치료 불가. Cefiderocol(미출시) 긴급도입 또는 감염내과 협진 필수',
           'Piperacillin-sulbactam: MBL 보유균에서 활성 불확실 — 최후 수단, 표현형 감수성 확인 후 사용']};
-    if(noG)return{pl:'moderate',pcr:'획득성 내성 유전자(VIM·IMP) 미검출 — 표현형 감수성 확인 후 선택.',
+    if(noG)return{pl:'low_gap',pcr:'획득성 내성 유전자(VIM·IMP) 미검출 — AmpC 염색체 내재로 표현형 감수성 확인 필수.',
       f:[{n:'Piperacillin-tazobactam',b:'4.5g IV q6h 연장주입',nt:'감수성 확인 후',dose:'Pip-tazo 연장주입'},
          {n:'Piperacillin-sulbactam',b:'',nt:'Pip-tazo 대안 — 감수성 확인 필수 (IDSA 미언급)',dose:'Pip-sulbactam 용법'},
          {n:'Cefepime 고용량 연장주입',b:'2g IV q8h, 4시간',nt:'감수성 확인 후',dose:'Cefepime 고용량 연장주입'},
@@ -1065,7 +1065,7 @@ function getRec(org,genes,sev,atyNeg){
       s:[{n:'Carbapenem',b:sv?'Meropenem 2g q8h 연장주입':'Meropenem 1g q8h',nt:sv?'중증 우선':'표현형 감수성 확인 후',dose:sv?'Meropenem 고용량 연장주입':'Imipenem 용법'},
          {n:'Ceftolozane-tazobactam',b:'Zerbaxa',nt:'carbapenemase 음성 MDR 시',dose:'Ceftolozane-tazobactam 용법'}],
       t:[],av:[],ns:['모든 약제 감수성 결과 확인 필수','Piperacillin-sulbactam: IDSA 미언급 — Pip-tazo와 항균 스펙트럼 유사하나 in vitro 일부 우세']};
-    return{pl:'low',pcr:'Efflux pump 유전자 정상균에도 존재 → 표현형 필수.',
+    return{pl:'low_gap',pcr:'Efflux pump 유전자 정상균에도 존재 → 표현형 필수.',
       f:[{n:'Ceftolozane-tazobactam',b:'Zerbaxa',nt:'carbapenem 내성, carbapenemase 음성 MDR',dose:'Ceftolozane-tazobactam 용법'}],
       s:[{n:'Ceftazidime-avibactam',b:'Zavicefta',nt:'MIC 확인',dose:'CAZ-AVI 용법'},{n:'Cefiderocol',b:'Fetroja',nt:'MIC 확인 (미출시)',dose:'Cefiderocol 용법'}],
       t:[{n:'Colistin',b:'',nt:'최후 수단',dose:'Colistin 용법'}],av:[],
@@ -1080,7 +1080,7 @@ function getRec(org,genes,sev,atyNeg){
       f:[{n:'Aztreonam + Ceftazidime-avibactam',b:'ATM + Zavicefta',nt:'MBL 78~93% 회복',dose:'CAZ-AVI + ATM 용법'}],
       s:[{n:'Cefiderocol',b:'Fetroja',dose:'Cefiderocol 용법'}],t:[{n:'Colistin',b:'',nt:'최후',dose:'Colistin 용법'}],
       av:[{n:'Imipenem-relebactam (IMI-REL)',nt:'MBL 비활성 — Imipenem-relebactam, Meropenem-vaborbactam의 β-lactamase 억제제(Relebactam/Vaborbactam)는 Class A·C carbapenemase만 억제. Class B MBL(NDM/VIM/IMP) 억제 불가 — 표적 효소 구조(Zn2+ 활성부위) 차이'},{n:'Meropenem-vaborbactam (MER-VAB)',nt:'MBL 비활성 — Imipenem-relebactam, Meropenem-vaborbactam의 β-lactamase 억제제(Relebactam/Vaborbactam)는 Class A·C carbapenemase만 억제. Class B MBL(NDM/VIM/IMP) 억제 불가 — 표적 효소 구조(Zn2+ 활성부위) 차이'}],ns:[]};
-    var rc={pl:'low',pcr:(noG?'획득성 내성 유전자(KPC·CTX-M·IMP) 미검출 — 단, 이 균주는 PCR에 잡히지 않는 염색체 내재 AmpC β-lactamase를 선천적으로 보유합니다. 치료 중 과발현 시 Ceftazidime·Pip-tazo가 실패할 수 있어 중증에서는 사용을 피합니다. ':'')+'Cefepime MIC 직접 확인 필수.',s:[],t:[],
+    var rc={pl:'low_gap',pcr:(noG?'획득성 내성 유전자(KPC·CTX-M·IMP) 미검출 — 단, 이 균주는 PCR에 잡히지 않는 염색체 내재 AmpC β-lactamase를 선천적으로 보유합니다. 치료 중 과발현 시 Ceftazidime·Pip-tazo가 실패할 수 있어 중증에서는 사용을 피합니다. ':'')+'Cefepime MIC 직접 확인 필수.',s:[],t:[],
       av:[{n:'Piperacillin-tazobactam',nt:'AmpC 과발현 위험 — Enterobacter/K.aerogenes/C.freundii에서 치료 중 ceftriaxone 내성 출현율 8–40% (IDSA 2024). 초기 감수성 보고에도 치료 실패 다수. Pip-tazo는 AmpC 과발현 유도 능력 있어 비권장'},{n:'Ceftazidime',nt:'AmpC 과발현 시 Ceftazidime 가수분해 — 3세대 cephalosporin 모두 해당. Pip-tazo와 동일하게 AmpC 고위험균 침습 감염에 비권장'}],
       ns:['치료 중 de-repression 내성 출현 모니터링']};
     if(sv)rc.f=[{n:'Carbapenem',b:'Meropenem 2g q8h 연장주입',nt:'중증',dose:'Meropenem 고용량 연장주입'}];
@@ -1140,7 +1140,7 @@ function getRec(org,genes,sev,atyNeg){
         'CTX-M + carbapenemase 모두 음성 → Carbapenem 감수성 예측 신뢰도 높음',
         'PCR 패널 미포함 CTX-M 변이체 위음성 가능성 낮으나 표현형 확인 권장',
       ]};
-    if(hKPC&&hNDM)return{pl:'low',pcr:'KPC+NDM 복합: 치료 옵션 극히 제한.',
+    if(hKPC&&hNDM)return{pl:'low_opt',pcr:'KPC+NDM 복합: 치료 옵션 극히 제한.',
       f:[{n:'Aztreonam + Ceftazidime-avibactam',b:'ATM + Zavicefta',nt:'KPC+MBL 복합 최선',dose:'CAZ-AVI + ATM 용법'}],
       s:[{n:'Aztreonam-avibactam',b:'Emblaveo',nt:'FDA 2023',dose:'Aztreonam-avibactam 용법'},{n:'Cefiderocol',b:'Fetroja',nt:'MIC 확인',dose:'Cefiderocol 용법'}],
       t:[{n:'Colistin',b:'',nt:'최후',dose:'Colistin 용법'}],av:[{n:'Imipenem-relebactam (IMI-REL)',nt:'MBL 비활성 — Imipenem-relebactam, Meropenem-vaborbactam의 β-lactamase 억제제(Relebactam/Vaborbactam)는 Class A·C carbapenemase만 억제. Class B MBL(NDM/VIM/IMP) 억제 불가 — 표적 효소 구조(Zn2+ 활성부위) 차이'},{n:'Meropenem-vaborbactam (MER-VAB)',nt:'MBL 비활성 — Imipenem-relebactam, Meropenem-vaborbactam의 β-lactamase 억제제(Relebactam/Vaborbactam)는 Class A·C carbapenemase만 억제. Class B MBL(NDM/VIM/IMP) 억제 불가 — 표적 효소 구조(Zn2+ 활성부위) 차이'}],
@@ -1430,7 +1430,14 @@ function calcCombos(recs,ca){
 
   return{combos:top,drugCover:drugCover};}
 
-function ps(pl){if(pl==='high')return{bg:'#f0fdf4',bd:'#6ee7b7',tx:'#065f46',lb:'PCR 예측력 높음'};if(pl==='moderate')return{bg:'#fffbeb',bd:'#fcd34d',tx:'#92400e',lb:'PCR 예측력 중간 — 표현형 보완 필요'};return{bg:'#fef2f2',bd:'#fca5a5',tx:'#9b1c1c',lb:'PCR 예측력 낮음 — 표현형 필수'};}
+function ps(pl){
+  if(pl==='high')   return{bg:'#f0fdf4',bd:'#6ee7b7',tx:'#065f46',lb:'✅ PCR 예측력 높음 — 유전자형·표현형 일치 우수'};
+  if(pl==='moderate')return{bg:'#fffbeb',bd:'#fcd34d',tx:'#92400e',lb:'⚠ PCR 예측력 중간 — 표현형 확인으로 보완 필요'};
+  if(pl==='low_gap') return{bg:'#fef2f2',bd:'#fca5a5',tx:'#9b1c1c',lb:'⚠ PCR 미커버 내성 기전 존재 — 표현형 MIC 검사 필수'};
+  if(pl==='low_opt') return{bg:'#fdf4ff',bd:'#e9d5ff',tx:'#6b21a8',lb:'🚫 치료 옵션 극히 제한 — 감염내과 협진 필수'};
+  // 기존 'low' 하위 호환
+  return{bg:'#fef2f2',bd:'#fca5a5',tx:'#9b1c1c',lb:'⚠ PCR 예측력 낮음 — 표현형 MIC 검사 필수'};
+}
 function koTag(n){return isKO(n)?'<span class="ko-badge">★미출시</span>':'';}
 function unavailTag(n){return isUnavail(n)?'<span style="display:inline-block;font-size:10px;padding:1px 5px;background:#fef3c7;color:#92400e;border:1px solid #fcd34d;border-radius:10px;font-weight:700;margin-left:4px;vertical-align:middle;white-space:nowrap">⚠ 원내 미보유</span>':'';}
 function idsaNmTag(n){return isIDSAnm(n)?'<span class="idsa-badge">⚠ IDSA 미언급</span>':'';}
@@ -1721,7 +1728,7 @@ function buildR(){
 
   if(S.orgs.length>=2){
     var ca=cross(recs);
-    var anyL=recs.some(function(r){return r.pl==='low';});
+    var anyL=recs.some(function(r){return r.pl==='low'||r.pl==='low_opt'||r.pl==='low_gap';});
     var cc=calcCombos(recs,ca);
 
     // 미출시+원내미보유 포함 조합이 있으면 차선 조합 계산
