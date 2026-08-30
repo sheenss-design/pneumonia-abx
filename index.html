@@ -138,7 +138,7 @@ html,body{min-height:100%;background:#f3f4f6;font-family:-apple-system,BlinkMacS
 <div class="app">
 <div class="topbar">
   <div class="topbar-icon">Rx</div>
-  <div><h1>폐렴 항균제 선택 가이드</h1><div class="topbar-sub">IDSA 2024 AMR Guidance 기반 · v8.2</div></div>
+  <div><h1>폐렴 항균제 선택 가이드</h1><div class="topbar-sub">IDSA 2024 AMR Guidance 기반 · v8.3</div></div>
 </div>
 <div class="warn">⚠ PCR 결과는 보조 지표입니다. 최종 항균제 선택은 반드시 표현형 배양 감수성(MIC)을 확인하십시오.</div>
 <div class="src">근거: IDSA 2024 AMR Guidance · ATS/IDSA 2019 CAP · ATS/IDSA 2016 HAP/VAP · IDSA MRSA Guidelines</div>
@@ -701,7 +701,23 @@ function rendIL(){var h='';S.orgs.forEach(function(k){var o=OR[k];if(!S.genes[k]
     +gh
     +'</div></div>';
 });document.getElementById('il').innerHTML=h;}
-function togG(org,g){if(!S.genes[org])S.genes[org]=[];var i=S.genes[org].indexOf(g);if(i>=0)S.genes[org].splice(i,1);else S.genes[org].push(g);rendIL();rendSB();}
+function togG(org,g){
+  if(!S.genes[org])S.genes[org]=[];
+  var i=S.genes[org].indexOf(g);
+  var adding=i<0;
+  if(adding) S.genes[org].push(g);
+  else S.genes[org].splice(i,1);
+  // 같은 유전자를 패널에 보유한 다른 균주에도 동기화
+  S.orgs.forEach(function(k){
+    if(k===org)return;
+    if(!OR[k]||OR[k].g.indexOf(g)<0)return; // 해당 균주가 이 유전자를 가지지 않으면 스킵
+    if(!S.genes[k])S.genes[k]=[];
+    var ki=S.genes[k].indexOf(g);
+    if(adding&&ki<0) S.genes[k].push(g);
+    else if(!adding&&ki>=0) S.genes[k].splice(ki,1);
+  });
+  rendIL();rendSB();
+}
 function remO(k){var i=S.orgs.indexOf(k);if(i>=0){S.orgs.splice(i,1);delete S.genes[k];}rendOG();rendSC();rendIL();document.getElementById('bn0').disabled=(S.orgs.length===0);}
 function setAllergy(cls,val){
   if(!S.allergy)S.allergy={};
