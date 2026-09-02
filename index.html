@@ -138,7 +138,7 @@ html,body{min-height:100%;background:#f3f4f6;font-family:-apple-system,BlinkMacS
 <div class="app">
 <div class="topbar">
   <div class="topbar-icon">Rx</div>
-  <div><h1>폐렴 항균제 선택 가이드</h1><div class="topbar-sub">IDSA 2024 AMR Guidance 기반 · v8.7</div></div>
+  <div><h1>폐렴 항균제 선택 가이드</h1><div class="topbar-sub">IDSA 2024 AMR Guidance 기반 · v9.0</div></div>
 </div>
 <div class="warn">⚠ PCR 결과는 보조 지표입니다. 최종 항균제 선택은 반드시 표현형 배양 감수성(MIC)을 확인하십시오.</div>
 <div class="src">근거: IDSA 2024 AMR Guidance · ATS/IDSA 2019 CAP · ATS/IDSA 2016 HAP/VAP · IDSA MRSA Guidelines</div>
@@ -252,7 +252,7 @@ function rendOG(){
       h+='<span class="chk">✓</span>';
       h+='<span class="ol">'+o.l+'</span>';
       h+='<span class="oh">'+o.h+'</span>';
-      if(sel&&o.grp!=='ATY'){
+      if(sel){
         h+='<div style="margin-top:8px" onclick="event.stopPropagation()">';
         h+='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:3px">';
         h+='<span style="font-size:10px;color:#6b7280">카피수 (객담 기준, 선택)</span>';
